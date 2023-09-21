@@ -1,0 +1,6 @@
+Need Node.js installed
+npm install mysql
+npm install express
+
+navigate to directory on cmd line
+node myfirst.js cmd starts the server
