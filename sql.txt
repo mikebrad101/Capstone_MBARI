@@ -1,2 +1,6 @@
-root
-P@ssw0rd
+Property	Value
+Host	    t07cxyau6qg7o5nz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	
+Username	mg6my0cujwumt4lr	
+Password	gnrv7rwzpmvpw19d	
+Port	    3306	
+Database	tq38ylwyfie9f8a6
