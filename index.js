@@ -4,17 +4,9 @@ const mysql = require('mysql');
 const app = express();
 const pool = tempDB();
 
-app.set('trust proxy', 1); // trust first proxy
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));//to parse Form data sent using POST method
-
-
-
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end('Hello World!');
-}).listen(8080);
-
+app.get("/", async function(req, res) {
+  res.send("Howdy World");
+});//dbTest
 
 //executeSQL
 async function executeSQL(sql, params) {
@@ -56,7 +48,6 @@ function tempDB() {
     user: "mg6my0cujwumt4lr",
     password: "gnrv7rwzpmvpw19d",
     database: "tq38ylwyfie9f8a6"
-
   });
 }
 app.get("/dbTest", async function(req, res) {
@@ -65,3 +56,7 @@ app.get("/dbTest", async function(req, res) {
   let rows = await executeSQL(sql);
   res.send(rows);
 });//dbTest
+
+app.listen(8080, () => {
+  console.log("Expresss server running...")
+});
