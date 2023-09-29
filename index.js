@@ -2,7 +2,7 @@ var http = require('http');
 const express = require("express");
 //const mysql = require('mysql');
 const app = express();
-const routes = require('./src/config/routes');
+const routes = require('./src/routes/routes');
 
 app.use('/', routes);
 
