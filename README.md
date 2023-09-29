@@ -10,7 +10,6 @@ server/: This directory contains all the backend code built with Node.js and Exp
 config/: Configuration files, such as database configurations, environment variables, and other global settings.
 controllers/: Controllers handle the application's business logic. You can have separate controllers for different parts of your app.
 routes/: Define the API routes and how they map to your controllers.
-models/: Define your database models using an ORM like Sequelize or Mongoose if you're using MongoDB.
 app.js: The entry point for your Node.js server.
 package.json: Contains project metadata, dependencies, and scripts. You'll have separate package.json files for the client and server if you're using a monorepo setup.
 
