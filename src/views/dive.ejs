@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dive Information Form</title>
+</head>
+<body>
+  <h1>Dive Information</h1>
+  <form>
+    <label for="rovName">Rov Name:</label>
+    <input type="text" id="rovName" name="rovName" required><br><br>
+
+    <label for="diveNumber">Dive Number:</label>
+    <input type="number" id="diveNumber" name="diveNumber" required><br><br>
+
+    <label for="diveStartDatetime">Dive Start Datetime:</label>
+    <input type="datetime-local" id="diveStartDatetime" name="diveStartDatetime" required><br><br>
+
+    <label for="diveEndDatetime">Dive End Datetime:</label>
+    <input type="datetime-local" id="diveEndDatetime" name="diveEndDatetime" required><br><br>
+
+    <label for="diveChiefScientist">Dive Chief Scientist:</label>
+    <select id="diveChiefScientist" name="diveChiefScientist" required>
+      <option value="" disabled selected>Select Chief Scientist</option>
+      <option value="scientist1">Scientist 1</option>
+      <option value="scientist2">Scientist 2</option>
+      <option value="scientist3">Scientist 3</option>
+    </select><br><br>
+
+    <label for="briefAccomplishments">Brief Accomplishments:</label><br>
+    <textarea id="briefAccomplishments" name="briefAccomplishments" rows="5" cols="40" maxlength="2048" required></textarea><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Cruise Process</title>
+</head>
+<body>
+    <h1>Pre-Cruise Process</h1>
+
+    <form>
+        <label for="shipName">Ship Name:</label>
+        <select id="shipName" name="shipName">
+            <!-- Add ship names as options -->
+            <option value="ship1">Ship 1</option>
+            <option value="ship2">Ship 2</option>
+            <!-- Add more options as needed -->
+        </select><br>
+
+        <label for="purpose">Purpose:</label><br>
+        <textarea id="purpose" name="purpose" rows="5" cols="40" maxlength="8000"></textarea><br>
+        <!-- Max length, needed? -->
+
+        <label for="chiefScientist">Chief Scientist:</label>
+        <select id="chiefScientist" name="chiefScientist">
+            <!-- Add chief scientist names as options -->
+            <option value="scientist1">Scientist 1</option>
+            <option value="scientist2">Scientist 2</option>
+            <!-- Add more options as needed -->
+        </select><br>
+
+        <label for="principalInvestigator">Principal Investigator:</label>
+        <select id="principalInvestigator" name="principalInvestigator">
+            <!-- Add principal investigator names as options -->
+            <option value="investigator1">Investigator 1</option>
+            <option value="investigator2">Investigator 2</option>
+            <!-- Add more options as needed -->
+        </select><br>
+
+        <label for="scheduledStartDatetime">Scheduled Start Datetime:</label>
+        <input type="datetime-local" id="scheduledStartDatetime" name="scheduledStartDatetime"><br>
+
+        <label for="scheduledEndDatetime">Scheduled End Datetime:</label>
+        <input type="datetime-local" id="scheduledEndDatetime" name="scheduledEndDatetime"><br>
+
+        <label for="equipmentDescription">Equipment Description:</label><br>
+        <textarea id="equipmentDescription" name="equipmentDescription" rows="5" cols="40" maxlength="8000"></textarea><br>
+
+        <label for="participants">Participants:</label><br>
+        <textarea id="participants" name="participants" rows="5" cols="40" maxlength="8000"></textarea><br>
+        <!-- Dropdown as well? multiple choice? -->
+
+        <label for="regionDescription">Region Description:</label><br>
+        <textarea id="regionDescription" name="regionDescription" rows="5" cols="40" maxlength="2048"></textarea><br>
+
+        <label for="plannedTrackDescription">Planned Track Description:</label><br>
+        <textarea id="plannedTrackDescription" name="plannedTrackDescription" rows="5" cols="40" maxlength="6144"></textarea><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

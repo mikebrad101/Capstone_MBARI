@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Post-cruise Process</title>
+</head>
+<body>
+  <h1>Post-cruise Process</h1>
+  <form>
+    <label for="actualStartDatetime">Actual Start Datetime:</label>
+    <input type="datetime-local" id="actualStartDatetime" name="actualStartDatetime"><br><br>
+
+    <label for="actualEndDatetime">Actual End Datetime:</label>
+    <input type="datetime-local" id="actualEndDatetime" name="actualEndDatetime"><br><br>
+
+    <label for="accomplishments">Accomplishments:</label>
+    <textarea id="accomplishments" name="accomplishments" rows="5" cols="40" maxlength="6144"></textarea><br><br>
+
+    <label for="scientistComments">Scientist Comments:</label>
+    <textarea id="scientistComments" name="scientistComments" rows="5" cols="40" maxlength="6144"></textarea><br><br>
+
+    <label for="sciObjectivesMet">Sci Objectives Met:</label>
+    <input type="checkbox" id="sciObjectivesMet" name="sciObjectivesMet"><br><br>
+
+    <label for="operatorComments">Operator Comments:</label>
+    <textarea id="operatorComments" name="operatorComments" rows="5" cols="40" maxlength="2048"></textarea><br><br>
+
+    <label for="allEquipmentFunctioned">All Equipment Functioned:</label>
+    <input type="checkbox" id="allEquipmentFunctioned" name="allEquipmentFunctioned"><br><br>
+
+    <label for="otherComments">Other Comments:</label>
+    <textarea id="otherComments" name="otherComments" rows="5" cols="40" maxlength="2048"></textarea><br><br>
+
+    <input type="hidden" id="updatedBy" name="updatedBy" value="12345"> 
+    <!-- Replace with the actual ID of the person filling out the form, this is hidden -->
+
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

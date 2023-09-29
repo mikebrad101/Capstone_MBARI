@@ -1,9 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const { executeSQL } = require('../controllers/sql.js');
+const app = express();
+
+
 
 router.get("/", async function(req, res) {
-  res.send("Howdy World");
+  res.render('home');
+});
+
+router.get("/preexp", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('preexp');
+});
+
+router.get("/postexp", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('postexp');
+});
+
+router.get("/dive", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('dive');
 });
 
 router.get("/dbTest", async function(req, res) {
