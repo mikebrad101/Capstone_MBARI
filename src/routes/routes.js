@@ -3,8 +3,6 @@ const router = express.Router();
 const { executeSQL } = require('../controllers/sql.js');
 const app = express();
 
-
-
 router.get("/", async function(req, res) {
   res.render('home');
 });
@@ -13,6 +11,12 @@ router.get("/preexp", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   res.render('preexp');
+});
+
+router.get("/login", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('login');
 });
 
 router.get("/postexp", async function(req, res) {
