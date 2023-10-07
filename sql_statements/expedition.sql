@@ -6,8 +6,7 @@ CREATE TABLE person(
 	user_ID VARCHAR(10),
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
-    email VARCHAR(50),
-    roles VARCHAR(100), 
+    email VARCHAR(50), 
 	PRIMARY KEY (user_ID)
 );
 
