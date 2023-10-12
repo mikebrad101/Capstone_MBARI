@@ -6,7 +6,8 @@ CREATE TABLE person(
 	user_ID VARCHAR(10),
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
-    email VARCHAR(50), 
+    email VARCHAR(50),
+    role VARCHAR (10),
 	PRIMARY KEY (user_ID)
 );
 
@@ -44,10 +45,4 @@ CREATE TABLE dive(
     dive_cheif_scientist VARCHAR(100),
     accomplishments TEXT,
     FOREIGN KEY (expedition_ID) REFERENCES expedition(expedition_ID)
-);
-
-CREATE TABLE roles(
-	role VARCHAR(50),
-    user_ID VARCHAR(10),
-    FOREIGN KEY (user_ID) REFERENCES person(user_ID)
 );
