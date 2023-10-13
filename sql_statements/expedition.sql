@@ -12,7 +12,7 @@ CREATE TABLE person(
 );
 
 CREATE TABLE expedition(
-	expedition_ID VARCHAR(10) NOT NULL AUTO_INCREMENT,
+	expedition_ID int NOT NULL AUTO_INCREMENT,
     ship_name VARCHAR(20),
     purpose TEXT,
     chief_scientist VARCHAR(100),
