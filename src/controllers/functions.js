@@ -24,3 +24,17 @@ function isValidLogin(username, password) {
     // dummy example
     return username === 'admin' && password === 'password123'; // Example login
 }
+
+function authenticateUser(username, password) {
+    // checks authentication of specfic roles for each user logged in
+    if(username == 'adminUser' && password == 'adminPass'){
+        return 'admin';
+    }else if (username === 'captainUser' && password === 'captainPass') {
+        return 'captain';
+    } else if (username === 'diverUser' && password === 'diverPass') {
+        return 'diver';
+    } else {
+        return null;
+    }
+
+}
