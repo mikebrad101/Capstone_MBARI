@@ -63,6 +63,98 @@ router.post('/addPrecruise', async (req, res) => {
   });
 });
 
+router.post('/login', async (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+
+  let sql = 'SELECT userID, first_name, last_name, email, password, role FROM Users WHERE username = ?';
+  await executeSQL(sql, [username], async (err, results) => {
+    if (err) {
+      console.error('Database query error: ' + err.message);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    if (results.length === 0) {
+      // No user found with that username
+      return res.redirect('/login');
+    }
+
+    let dbPassword = results[0].password;
+    let dbRole = results[0].role;
+
+    // Compare provided password with hashed password in database
+    bcrypt.compare(password, dbPassword, (err, match) => {
+      if (err) {
+        console.error('Error verifying password: ' + err.message);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!match) {
+        // Wrong password
+        return res.redirect('/login');
+      }
+      // Password is correct, redirect based on role
+      // switch (dbRole) {
+      //   case 1:
+      //     res.redirect('/mbari-employee-dashboard');
+      //     break;
+      //   case 2:
+      //     res.redirect('/registered-user-dashboard');
+      //     break;
+      //   case 3:
+      //     res.redirect('/logistics-coordinator-dashboard');
+      //     break;
+      //   case 4:
+      //     res.redirect('/employee-coordinator-dashboard');
+      //     break;
+      //   case 5:
+      //     res.redirect('/registered-logistics-dashboard');
+      //     break;
+      //   case 6:
+      //     res.redirect('/employee-registered-dashboard');
+      //     break;
+      //   default:
+      //     res.redirect('/login');
+      //     break;
+      // }
+    });
+  });
+});
+
+router.post('/signup', async (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  let firstName = req.body.first_name;
+  let lastName = req.body.last_name;
+  let email = req.body.email;
+  let role = req.body.role; 
+
+  bcrypt.hash(password, 10, async (err, hashedPassword) => {
+    if (err) {
+      console.error('Error hashing password:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    let sql = 'INSERT INTO Users (username, password, first_name, last_name, email, role) VALUES (?, ?, ?, ?, ?, ?)';
+    await executeSQL(sql, [username, hashedPassword, firstName, lastName, email, role], (err, result) => {
+      if (err) {
+        console.error('Error registering user: ' + err.message);
+        res.status(500).send('Error registering user');
+        return;
+      }
+      res.status(201).redirect('/login');
+    });
+  });
+});
+
+
+
+
+
+
+
 module.exports = router;
 
 module.exports = router;
