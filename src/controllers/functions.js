@@ -38,3 +38,6 @@ function authenticateUser(username, password) {
     }
 
 }
+function displayError(message) {
+    document.getElementById("errorMessage").innerText = message;
+}
