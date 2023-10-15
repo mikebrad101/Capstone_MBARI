@@ -39,24 +39,28 @@
     </nav>
 
     <div class="center-container">
-        <form method="POST" action="/src/views/home.html">
+        <form method="POST" action="/home">
             <h1>Welcome, MBARI Employee</h1>
-            Username:
-            <input type="text" name="username">
+            
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
             <br>
-            Password:
-            <input type="password" name="pwd">
+                
+            <label for="pwd">Password:</label>
+            <input type="password" name="pwd" id="pwd" required pattern=".{8,20}" title="Password must be between 8 to 20 characters">
             <br>
-
             <br>
+            
             <button type="submit">Login</button>
-            <button type="button" onclick="window.location.href='/signup.html';">Sign Up</button>
+            <button type="button" onclick="window.location.href='/client/public/html/signup.html';">Sign Up</button>
         </form>
+    
+        <!-- Error message placeholder -->
+        <p id="errorMessage" style="color: red;"></p>
     </div>
-    <!--placeholder for an error message -->
-    <p style="color: red;">Error message placeholder</p>
+    
+    <script src="/src/controllers/functions.js"></script>
 
-    <!-- Assuming footer contains some footer content -->
     <footer>
         <p>&copy; 2023 My App. All Rights Reserved.</p>
     </footer>
