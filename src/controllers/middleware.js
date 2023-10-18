@@ -4,7 +4,7 @@
 router.use(bodyParser.json());
 
 // Middleware for handling POST requests
-router.post('/posts', (req, res) => {
+router.post ('/posts', (req, res) => {
   const { title, content } = req.body;
 
   // Insert the new post into the database
