@@ -1,11 +1,14 @@
 .nav {
-    background-color: #0077b6;  /* Deep blue shade */
+    background-color: #68b7e2;  /* Deep blue shade */
     padding: 10px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .nav a {
-    color: #fff;
+    color: #005fa3;
     margin: 0 15px;
     text-decoration: none;
 }
