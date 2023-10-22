@@ -3,6 +3,8 @@ const router = express.Router();
 const { executeSQL } = require('../controllers/sql.js');
 const bodyParser = require('body-parser');
 router.use(bodyParser.json());
+router.use(express.static('client/public'));
+
 
 router.get("/", async function(req, res) {
   res.render('home');
@@ -31,13 +33,34 @@ router.get("/dive", async function(req, res) {
   //then send it to the view using render
   res.render('dive');
 });
+router.get("/signup", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('signup');
+});
 
+router.get("/mbari-employee-dashboard", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('mbari-employee-dashboard');
+});
+// Registered User Dashboard
+router.get('/registered-user-dashboard', (req, res) => {
+  res.render('registered-user-dashboard');
+});
+
+// Logistics Coordinator Dashboard
+router.get('/logistics-coordinator-dashboard', (req, res) => {
+  res.render('logistics-coordinator-dashboard');
+});
 router.get("/dbTest", async function(req, res) {
   // Create table to test
   let sql = "SELECT * FROM Users";
   let rows = await executeSQL(sql); // Assuming executeSQL is a function to execute SQL queries
   res.send(rows);
 });
+
+// create route.get() to confirm user exist in database to compare the encrypt password 
 
 router.post('/addPrecruise', async (req, res) => {
   let ship_name = req.body.shipName;
@@ -64,61 +87,55 @@ router.post('/addPrecruise', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
+  const { username, password } = req.body;
 
-  let sql = 'SELECT userID, first_name, last_name, email, password, role FROM Users WHERE username = ?';
+  // Make sure you're selecting the password and role columns if they exist in your DB
+  let sql = 'SELECT password, role FROM Users WHERE FirstName = ?';
+
   await executeSQL(sql, [username], async (err, results) => {
     if (err) {
-      console.error('Database query error: ' + err.message);
-      res.status(500).send('Internal Server Error');
-      return;
+        console.error('Database query error: ' + err.message);
+        res.status(500).send('Internal Server Error');
+        return;
     }
 
     if (results.length === 0) {
-      // No user found with that username
-      return res.redirect('/login');
+        // No user found with that username
+        return res.redirect('/login');
     }
 
-    let dbPassword = results[0].password;
-    let dbRole = results[0].role;
+    const dbPassword = results[0].password;
+    const dbRole = results[0].role;
 
-    // Compare provided password with hashed password in database
-    bcrypt.compare(password, dbPassword, (err, match) => {
-      if (err) {
-        console.error('Error verifying password: ' + err.message);
-        return res.status(500).send('Internal Server Error');
-      }
+        // Compare provided password with hashed password in database
+        bcrypt.compare(password, dbPassword, (err, match) => {
+          if (err) {
+              console.error('Error verifying password: ' + err.message);
+              return res.status(500).send('Internal Server Error');
+          }
 
-      if (!match) {
-        // Wrong password
-        return res.redirect('/login');
-      }
-      // Password is correct, redirect based on role
-      // switch (dbRole) {
-      //   case 1:
-      //     res.redirect('/mbari-employee-dashboard');
-      //     break;
-      //   case 2:
-      //     res.redirect('/registered-user-dashboard');
-      //     break;
-      //   case 3:
-      //     res.redirect('/logistics-coordinator-dashboard');
-      //     break;
-      //   case 4:
-      //     res.redirect('/employee-coordinator-dashboard');
-      //     break;
-      //   case 5:
-      //     res.redirect('/registered-logistics-dashboard');
-      //     break;
-      //   case 6:
-      //     res.redirect('/employee-registered-dashboard');
-      //     break;
-      //   default:
-      //     res.redirect('/login');
-      //     break;
-      // }
-    });
+          if (!match) {
+              // Wrong password
+              return res.redirect('/login');
+          }
+
+          // Password is correct, redirect based on role
+          switch (dbRole) {
+              case 'mbari-employee':
+                  res.redirect('/mbari-employee-dashboard');
+                  break;
+              case 'registered-user':
+                  res.redirect('/registered-user-dashboard');
+                  break;
+              case 'logistics-coordinator':
+                  res.redirect('/logistics-coordinator-dashboard');
+                  break;
+              default:
+                  // Unknown role or user not assigned a role
+                  res.redirect('/login');
+                  break;
+          }
+      });
   });
 });
 
