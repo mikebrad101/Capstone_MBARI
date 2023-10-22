@@ -22,20 +22,41 @@ function clickCounter(event) {
 
 function isValidLogin(username, password) {
     // dummy example
-    return username === 'admin' && password === 'password123'; // Example login
+    return username === 'admin@example.com' && password === 'password123'; // Example login
 }
+// fix this
 
-function authenticateUser(username, password) {
-    // checks authentication of specfic roles for each user logged in
-    if(username == 'adminUser' && password == 'adminPass'){
-        return 'admin';
-    }else if (username === 'captainUser' && password === 'captainPass') {
-        return 'captain';
-    } else if (username === 'diverUser' && password === 'diverPass') {
-        return 'diver';
-    } else {
-        return null;
-    }
+module.exports.authenticateUser = function(username, password, callback){
+    connection.query('SELECT password, role FROM Users WHERE username = ?', [username], (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            callback('Error accessing database.');
+            return;
+        }
+
+        if (results.length === 0) {
+            callback('User not found.');
+            return;
+        }
+
+        const dbPassword = results[0].password;
+        const dbRole = results[0].role;
+
+        bcrypt.compare(password, dbPassword, (err, result) => {
+            if (err) {
+                callback('Error comparing passwords.');
+                return;8
+            }
+            
+            if (!result) {
+                callback('Incorrect password.');
+                return;
+            }
+
+            // If everything is correct
+            callback(null, dbRole);
+        });
+    });
 
 }
 function displayError(message) {
