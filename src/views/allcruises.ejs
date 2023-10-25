@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Listed Cruises</title>
+</head>
+<body>
+  <h1>All Cruises</h1>
+  <% for(let i = 0; i < rows.length; i++) { %>
+    <div>
+        Purpose: <%= rows[i].purpose %>
+        <form action="/update/<%= rows[i].expedition_ID %>">
+            <!-- Update post cruise if rows[i].post_cruise_complete == 0-->
+            <button type="submit">Update</button>
+        </form>
+        <% if( rows[i].post_cruise_complete == 0) { %>
+        <form action="/updatePost/<%= rows[i].expedition_ID %>">
+            <!-- Update post cruise if rows[i].post_cruise_complete == 0-->
+            <button type="submit">Post Cruise Update</button>
+        </form>
+        <% } %>
+    </div>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update Expedition</title>
+</head>
+<body>
+  <form action="/updateExpedition" method="POST">
+    <input type="hidden" name="expedition_ID" value="<%= expedition[0].expedition_ID %>">
+
+    <label for="ship_name">Ship Name:</label>
+    <input type="text" id="ship_name" name="ship_name" value="<%= expedition[0].ship_name %>"><br><br>
+
+    <label for="purpose">Purpose:</label>
+    <textarea id="purpose" name="purpose"><%= expedition[0].purpose %></textarea><br><br>
+
+    <label for="chief_scientist">Chief Scientist:</label>
+    <input type="text" id="chief_scientist" name="chief_scientist" value="<%= expedition[0].chief_scientist %>"><br><br>
+
+    <label for="principal_investigator">Principal Investigator:</label>
+    <input type="text" id="principal_investigator" name="principal_investigator" value="<%= expedition[0].principal_investigator %>"><br><br>
+
+    <label for="sch_start">Scheduled Start:</label>
+    <input type="datetime-local" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>
+
+    <label for="sch_end">Scheduled End:</label>
+    <input type="datetime-local" id="sch_end" name="sch_end" value="<%= expedition[0].sch_end %>"><br><br>
+
+    <label for="equip_description">Equipment Description:</label>
+    <textarea id="equip_description" name="equip_description"><%= expedition[0].equip_description %></textarea><br><br>
+
+    <label for="participants">Participants:</label>
+    <textarea id="participants" name="participants"><%= expedition[0].participants %></textarea><br><br>
+
+    <label for="region_description">Region Description:</label>
+    <textarea id="region_description" name="region_description"><%= expedition[0].region_description %></textarea><br><br>
+
+    <label for="planned_track_description">Planned Track Description:</label>
+    <textarea id="planned_track_description" name="planned_track_description"><%= expedition[0].planned_track_description %></textarea><br><br>
+
+    <label for="post_cruise_complete">Post Cruise Complete:</label>
+    <input type="checkbox" id="post_cruise_complete" name="post_cruise_complete" <% if (expedition[0].post_cruise_complete) { %>checked<% } %>><br><br>
+
+    <label for="actual_start">Actual Start:</label>
+    <input type="datetime-local" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
+
+    <label for="actual_end">Actual End:</label>
+    <input type="datetime-local" id="actual_end" name="actual_end" value="<%= expedition[0].actual_end %>"><br><br>
+
+    <label for="accomplishments">Accomplishments:</label>
+    <textarea id="accomplishments" name="accomplishments"><%= expedition[0].accomplishments %></textarea><br><br>
+
+    <label for="scientist_comments">Scientist Comments:</label>
+    <textarea id="scientist_comments" name="scientist_comments"><%= expedition[0].scientist_comments %></textarea><br><br>
+
+    <label for="operator_comments">Operator Comments:</label>
+    <textarea id="operator_comments" name="operator_comments"><%= expedition[0].operator_comments %></textarea><br><br>
+
+    <label for="sci_objective_met">Scientific Objectives Met:</label>
+    <input type="checkbox" id="sci_objective_met" name="sci_objective_met" <% if (expedition[0].sci_objective_met) { %>checked<% } %>><br><br>
+
+    <label for="equipment_function">Equipment Functioned:</label>
+    <input type="checkbox" id="equipment_function" name="equipment_function" <% if (expedition[0].equipment_function) { %>checked<% } %>><br><br>
+
+    <label for="other_comments">Other Comments:</label>
+    <textarea id="other_comments" name="other_comments"><%= expedition[0].other_comments %></textarea><br><br>
+
+    <input type="submit" value="Update Expedition">
+  </form>
+</body>
+</html>
