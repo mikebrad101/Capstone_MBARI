@@ -186,6 +186,7 @@ router.post("/updatePost/:exp_id", async function(req, res) {
   }
 });
 
+
 router.post("/updateExpedition", async function(req, res) {
   try {
     console.log(req.body);
@@ -250,3 +251,4 @@ router.post("/updateExpedition", async function(req, res) {
 
 
 module.exports = router;
+
