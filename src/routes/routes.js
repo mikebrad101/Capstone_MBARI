@@ -62,4 +62,34 @@ router.post("/addPrecruise", async function(req, res) {
       planned_track_description]);
   res.send("Success");
 });
+
+router.post("/addPostcruise", async function(req, res) {
+  act_start = req.body.act_start; 
+  act_end = req.body.act_end; 
+  acomplishments = req.body.acomplishments;
+  scientist_comments = req.body.scientist_comments;
+  operator_comments = req.body.operator_comments;
+  sci_objective_met = req.body.sci_objective_met;
+  equipment_function = req.body.equipment_function;
+  other_comments = req.body.other_comments;
+  updated_by = req.body.updated_by;
+  
+  const sql = 'INSERT INTO expedition (act_start, act_end, acomplishments, scientist_comments, operator_comments, sci_objective_met, equipment_function, other_comments, updated_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    await executeSQL(sql, [act_start, act_end, acomplishments, scientist_comments, operator_comments, sci_objective_met, equipment_function, other_comments, updated_by]);
+  res.send("Success");
+});
+
+router.post("/addDive", async function(req, res){
+	expedition_ID = req.body.expedition_ID;
+	ROV_name = req.body.ROV_name;
+	dive_number = req.body.dive_number;
+	dive_start = req.body.dive_start;
+	dive_end = req.body.dive_end;
+	dive_cheif_scientist = req.body.dive_cheif_scientist;
+	acomplishments = req.body.acomplishments;
+	
+	const sql = 'INSERT INTO dive (expedition_ID ,ROV_name, dive_number, dive_start, dive_end, dive_cheif_scientist, acomplishments) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	await executeSQL(sql, [expedition_ID ,ROV_name, dive_number, dive_start, dive_end, dive_cheif_scientist, acomplishments]);
+	res.send("Success");
+});
 module.exports = router;
