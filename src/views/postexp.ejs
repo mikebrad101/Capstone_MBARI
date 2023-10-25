@@ -5,7 +5,9 @@
 </head>
 <body>
   <h1>Post-cruise Process</h1>
-  <form>
+  Updating for cruise ID: <%= info[0].expedition_ID %><br>
+  Purpose: <%= info[0].purpose %>
+  <form action="/updateCruise/<%= info[0].expedition_ID %>" method="POST">
     <label for="actualStartDatetime">Actual Start Datetime:</label>
     <input type="datetime-local" id="actualStartDatetime" name="actualStartDatetime"><br><br>
 
@@ -29,9 +31,10 @@
 
     <label for="otherComments">Other Comments:</label>
     <textarea id="otherComments" name="otherComments" rows="5" cols="40" maxlength="2048"></textarea><br><br>
-
-    <input type="hidden" id="updatedBy" name="updatedBy" value="12345"> 
-    <!-- Replace with the actual ID of the person filling out the form, this is hidden -->
+    
+    <!-- Replace with the actual ID of the person filling out the form, this is hidden --> 
+    <input type="hidden" id="updatedBy" name="updatedBy" value="005"> 
+    
 
     <input type="submit" value="Submit">
   </form>

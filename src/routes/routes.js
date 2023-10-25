@@ -27,6 +27,22 @@ router.get("/postexp", async function(req, res) {
   res.render('postexp');
 });
 
+//middlware to pass expedition_id to update Post
+router.get("/updatePost/:exp_id", async function(req, res) {
+  let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
+  let info = await executeSQL(sql, [req.params.exp_id]);
+  
+  res.render('postexp', { "info": info});
+});
+
+//middlware to pass expedition_id to update
+router.get("/update/:exp_id", async function(req, res) {
+  let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
+  let expedition = await executeSQL(sql, [req.params.exp_id]);
+  
+  res.render('update', { "expedition": expedition});
+});
+
 router.get("/dive", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
@@ -40,56 +56,199 @@ router.get("/dbTest", async function(req, res) {
   res.send(rows);
 });
 
+router.get("/dive", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('dive');
+});
+
+router.get("/allcruises", async function(req, res) {
+  let sql = "SELECT * FROM expedition;";
+  let rows = await executeSQL(sql); // Assuming executeSQL is a function to execute SQL queries
+  console.log("Results:", rows);
+  res.render('allcruises', { "rows": rows});
+});
+
+router.get("/testSQL", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('testSQL');
+});
+
+router.get("/getLastEntry", async function(req, res) {
+  let sql = 'SELECT * FROM expedition ORDER BY expedition_ID DESC LIMIT 1;';
+  let rows = await executeSQL(sql);
+  res.send(rows);
+});
+
+router.post("/testSQLinsert", async function(req, res) {
+  let sql = 'INSERT INTO expedition (ship_name, purpose,chief_scientist,principal_investigator, sch_start, sch_end, equip_description, participants, region_description, planned_track_description, actual_start, actual_end, accomplishments, scientist_comments, operator_comments, sci_objective_met, equipment_function, other_comments, updated_by ) VALUES(\'TESTT I\', \'TEST Research\', \'Dr. TEST Johnson\', \'Prof. TEST Davis\', \'2023-01-10 08:00:00\', \'2023-01-20 16:00:00\', \'ROV, TEST\', \'Team of TESTS\', \'North TEST\', \'Exploration of underwater TESTS\', \'2023-01-12 08:30:00\', \'2023-01-19 15:45:00\', \'Discovered new TEST of marine life\', \'Impressive TEST formations\', \'Minor TEST issues\', TRUE, TRUE, \'Great TESTS\', \'001\');'
+  await executeSQL(sql);
+  res.redirect('/getLastEntry');
+});
+
 router.post("/addPrecruise", async function(req, res) {
-  // Create table to test
-  console.log(req.body);
-  ship_name = req.body.shipName;
-  purpose = req.body.purpose;
-  chief_scientist = req.body.chief_scientist; 
-  principal_investigator = req.body.principal_investigator; 
-  sch_start = req.body.sch_start; 
-  sch_end = req.body.sch_end; 
-  equip_description = req.body.equip_description; 
-  participants = req.body.participants; 
-  region_description = req.body.region_description; 
-  planned_track_description = req.body.planned_track_description; 
-  //const {ship_name, purpose, chief_scientist, principal_investigator, 
-   // sch_start, sch_end, equip_description, participants, region_description, 
-    //planned_track_description } = req.body;
-  const sql = 'INSERT INTO expedition (ship_name, purpose, chief_scientist, principal_investigator, sch_start, sch_end, equip_description, participants, region_description, planned_track_description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    await executeSQL(sql, [ship_name, purpose, chief_scientist, principal_investigator, 
-      sch_start, sch_end, equip_description, participants, region_description, 
-      planned_track_description]);
-  res.send("Success");
+  try {
+    console.log(req.body);
+
+    const {
+      shipName,
+      purpose,
+      chiefScientist: chief_scientist,
+      principalInvestigator: principal_investigator,
+      scheduledStartDatetime: sch_start,
+      scheduledEndDatetime: sch_end,
+      equipmentDescription: equip_description,
+      participants,
+      regionDescription: region_description,
+      plannedTrackDescription: planned_track_description
+    } = req.body;
+
+    //to keep track of what records are incomplete
+    post_cruise_complete = 0;
+
+    const sql = 'INSERT INTO expedition (ship_name, purpose, chief_scientist, principal_investigator, sch_start, sch_end, equip_description, participants, region_description, planned_track_description, post_cruise_complete) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+    const result = await executeSQL(sql, [
+      shipName,
+      purpose,
+      chief_scientist,
+      principal_investigator,
+      sch_start,
+      sch_end,
+      equip_description,
+      participants,
+      region_description,
+      planned_track_description, 
+      post_cruise_complete
+    ]);
+
+    console.log("Insert result:", result);
+
+    res.redirect('/getLastEntry');
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-router.post("/addPostcruise", async function(req, res) {
-  act_start = req.body.act_start; 
-  act_end = req.body.act_end; 
-  acomplishments = req.body.acomplishments;
-  scientist_comments = req.body.scientist_comments;
-  operator_comments = req.body.operator_comments;
-  sci_objective_met = req.body.sci_objective_met;
-  equipment_function = req.body.equipment_function;
-  other_comments = req.body.other_comments;
-  updated_by = req.body.updated_by;
-  
-  const sql = 'INSERT INTO expedition (act_start, act_end, acomplishments, scientist_comments, operator_comments, sci_objective_met, equipment_function, other_comments, updated_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    await executeSQL(sql, [act_start, act_end, acomplishments, scientist_comments, operator_comments, sci_objective_met, equipment_function, other_comments, updated_by]);
-  res.send("Success");
+//postcruise update
+router.post("/updatePost/:exp_id", async function(req, res) {
+  try {
+    console.log(req.body);
+
+    const {
+      actualStartDatetime: actual_start,
+      actualEndDatetime: actual_end,
+      accomplishments,
+      scientistComments: scientist_comments,
+      operatorComments: operator_comments,
+      sciObjectivesMet: sci_objective_met,
+      allEquipmentFunctioned: equipment_function,
+      otherComments: other_comments,
+      //can remove updated by once we have the user who is logged in
+      updatedBy: updated_by
+    } = req.body;
+
+    //update post_cruise_complete to show that it is updated
+    let sql = `UPDATE expedition
+             SET post_cruise_complete = 1,
+             actual_start = ?,
+             actual_end = ?,
+             accomplishments = ?,
+             scientist_comments = ?,
+             operator_comments = ?,
+             sci_objective_met = ?,
+             equipment_function = ?,
+             other_comments = ?,
+             updated_by = ?
+             WHERE expedition_ID = ?;`;
+
+    const result = await executeSQL(sql, [
+      actual_start, 
+      actual_end, 
+      accomplishments,
+      scientist_comments,
+      operator_comments,
+      sci_objective_met,
+      equipment_function,
+      other_comments,
+      updated_by,
+      req.params.exp_id
+    ]);
+
+    console.log("Insert result:", result);
+
+    res.redirect('/getLastEntry');
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-router.post("/addDive", async function(req, res){
-	expedition_ID = req.body.expedition_ID;
-	ROV_name = req.body.ROV_name;
-	dive_number = req.body.dive_number;
-	dive_start = req.body.dive_start;
-	dive_end = req.body.dive_end;
-	dive_cheif_scientist = req.body.dive_cheif_scientist;
-	acomplishments = req.body.acomplishments;
-	
-	const sql = 'INSERT INTO dive (expedition_ID ,ROV_name, dive_number, dive_start, dive_end, dive_cheif_scientist, acomplishments) VALUES (?, ?, ?, ?, ?, ?, ?)';
-	await executeSQL(sql, [expedition_ID ,ROV_name, dive_number, dive_start, dive_end, dive_cheif_scientist, acomplishments]);
-	res.send("Success");
+
+router.post("/updateExpedition", async function(req, res) {
+  try {
+    console.log(req.body);
+    const {
+      expedition_ID,
+      ship_name,
+      purpose,
+      chief_scientist,
+      principal_investigator,
+      sch_start,
+      sch_end,
+      equip_description,
+      participants,
+      region_description,
+      planned_track_description,
+      post_cruise_complete,
+      actual_start,
+      actual_end,
+      accomplishments,
+      scientist_comments,
+      operator_comments,
+      //error with checkboxes
+      sci_objective_met,
+      equipment_function,
+      other_comments
+    } = req.body;
+
+    const sql = 'UPDATE expedition SET ship_name = ?, purpose = ?, chief_scientist = ?, principal_investigator = ?, sch_start = ?, sch_end = ?, equip_description = ?, participants = ?, region_description = ?, planned_track_description = ?, post_cruise_complete = ?, actual_start = ?, actual_end = ?, accomplishments = ?, scientist_comments = ?, operator_comments = ?, sci_objective_met = ?, equipment_function = ?, other_comments = ? WHERE expedition_ID = ?';
+
+    const result = await executeSQL(sql, [
+      ship_name,
+      purpose,
+      chief_scientist,
+      principal_investigator,
+      sch_start,
+      sch_end,
+      equip_description,
+      participants,
+      region_description,
+      planned_track_description,
+      post_cruise_complete,
+      actual_start,
+      actual_end,
+      accomplishments,
+      scientist_comments,
+      operator_comments,
+      //error with checkboxes
+      sci_objective_met,
+      equipment_function,
+      other_comments,
+      expedition_ID
+    ]);
+
+    console.log("Update result:", result);
+
+    res.redirect('/getLastEntry');
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
+
+
 module.exports = router;
+
