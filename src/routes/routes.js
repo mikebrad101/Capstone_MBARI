@@ -4,6 +4,9 @@ const { executeSQL } = require('../controllers/sql.js');
 const app = express();
 //need this to get data from webpage
 router.use(express.urlencoded({ extended: true }));
+const saltRounds = 10;
+const bcrypt = require('bcrypt');
+
 
 router.get("/", async function(req, res) {
   res.render('home');
@@ -18,7 +21,18 @@ router.get("/preexp", async function(req, res) {
 router.get("/login", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('login');
+  res.render('login', { errorMessage: null });
+});
+router.get("/signup", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('signup', { errorMessage: null });
+});
+
+router.get("/mbari-employee-dashboard", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('mbari-employee-dashboard');
 });
 
 router.get("/postexp", async function(req, res) {
@@ -234,6 +248,78 @@ router.post("/updateExpedition", async function(req, res) {
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
+  }
+});
+router.post('/login', async (req, res) => {
+  const { email, pwd, position } = req.body;
+
+  let sql = 'SELECT user_ID, PassWord, position FROM person WHERE email = ?';
+  await executeSQL(sql, [email], (err, results) => {
+      if (err) {
+          console.error('Database query error: ' + err.message);
+          return res.status(500).send('Internal Server Error');
+      }
+
+      if (results.length === 0) {
+          // No user found with that email
+          return res.render('login', { errorMessage: 'Invalid email or password.' });
+      }
+
+      const dbPassword = results[0].password;
+      const dbRole = results[0].position;
+      bcrypt.compare(pwd, dbPassword, (err, match) => {
+        if (err) {
+            console.error('Error verifying password: ' + err.message);
+            return res.status(500).send('Internal Server Error');
+        }
+
+        if (!match) {
+            return res.render('login', { errorMessage: 'Invalid email or password.' });
+        }
+
+        // Password is correct, redirect based on role
+        switch (dbRole) {
+            case 'Intern':
+                res.redirect('/mbari-employee-dashboard');
+                break;
+            case 'admin':
+                res.redirect('/admin-dashboard');
+                break;
+            // ... Add other roles as necessary ...
+            // add files for different roles 
+            default:
+                // Unknown role or user not assigned a role
+                res.redirect('/login');
+                break;
+        }
+    });
+});
+});
+
+router.post('/signup', async (req, res) => {
+  const { firstname, lastname, email, password, position } = req.body;
+
+  try {
+      // First, hash the password
+      bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
+          if (err) {
+              console.error('Error hashing password:', err);
+              return res.status(500).send('Internal Server Error');
+          }
+
+          // // Insert into the 'person' table
+          let sqlPerson = 'INSERT INTO person (first_name, last_name, email, position, PassWord) VALUES (?, ?, ?, ?, ?)';
+          await executeSQL(sqlPerson, [firstname, lastname, email, hashedPassword, position]);
+          
+          // Insert into the 'users' table. Adjust this according to the actual structure of the 'users' table
+          let sqlUsers = 'INSERT INTO Users (FirstName, LastName, Email, PassWord, Position) VALUES (?, ?, ?, ?, ?)';
+          await executeSQL(sqlUsers, [firstname, lastname, email, hashedPassword, position]);
+
+          res.status(201).redirect('/login');
+      });
+  } catch (err) {
+      console.error('Error during signup:', err);
+      res.status(500).send('Internal Server Error');
   }
 });
 
