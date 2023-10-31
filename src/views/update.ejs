@@ -37,8 +37,13 @@
     <label for="planned_track_description">Planned Track Description:</label>
     <textarea id="planned_track_description" name="planned_track_description"><%= expedition[0].planned_track_description %></textarea><br><br>
 
-    <label for="post_cruise_complete">Post Cruise Complete:</label>
-    <input type="checkbox" id="post_cruise_complete" name="post_cruise_complete" <% if (expedition[0].post_cruise_complete) { %>checked<% } %>><br><br>
+    <label for="expedition_status">Status:</label>
+      <select id="expedition_status" name="expedition_status">
+        <option value="Complete" <% if (expedition[0].expedition_status === "Complete") { %>selected<% } %>>Complete</option>
+        <option value="Incomplete" <% if (expedition[0].expedition_status === "Incomplete") { %>selected<% } %>>Incomplete</option>
+        <option value="Deleted" <% if (expedition[0].expedition_status === "Deleted") { %>selected<% } %>>Deleted</option>
+      </select>
+    <br><br>
 
     <label for="actual_start">Actual Start:</label>
     <input type="datetime-local" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
