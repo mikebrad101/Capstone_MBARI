@@ -109,7 +109,7 @@ router.post("/addPrecruise", async function(req, res) {
     //to keep track of what records are incomplete
     expedition_status = "Incomplete";
 
-    const sql = 'INSERT INTO expedition (ship_name, purpose, chief_scientist, principal_investigator, sch_start, sch_end, equip_description, participants, region_description, planned_track_description, post_cruise_complete) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const sql = 'INSERT INTO expedition (ship_name, purpose, chief_scientist, principal_investigator, sch_start, sch_end, equip_description, participants, region_description, planned_track_description, expedition_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     const result = await executeSQL(sql, [
       shipName,
@@ -204,7 +204,7 @@ router.post("/updateExpedition", async function(req, res) {
       participants,
       region_description,
       planned_track_description,
-      post_cruise_complete,
+      expedition_status,
       actual_start,
       actual_end,
       accomplishments,
@@ -216,7 +216,7 @@ router.post("/updateExpedition", async function(req, res) {
       other_comments
     } = req.body;
 
-    const sql = 'UPDATE expedition SET ship_name = ?, purpose = ?, chief_scientist = ?, principal_investigator = ?, sch_start = ?, sch_end = ?, equip_description = ?, participants = ?, region_description = ?, planned_track_description = ?, post_cruise_complete = ?, actual_start = ?, actual_end = ?, accomplishments = ?, scientist_comments = ?, operator_comments = ?, sci_objective_met = ?, equipment_function = ?, other_comments = ? WHERE expedition_ID = ?';
+    const sql = 'UPDATE expedition SET ship_name = ?, purpose = ?, chief_scientist = ?, principal_investigator = ?, sch_start = ?, sch_end = ?, equip_description = ?, participants = ?, region_description = ?, planned_track_description = ?, expedition_status = ?, actual_start = ?, actual_end = ?, accomplishments = ?, scientist_comments = ?, operator_comments = ?, sci_objective_met = ?, equipment_function = ?, other_comments = ? WHERE expedition_ID = ?';
 
     const result = await executeSQL(sql, [
       ship_name,
@@ -229,7 +229,7 @@ router.post("/updateExpedition", async function(req, res) {
       participants,
       region_description,
       planned_track_description,
-      post_cruise_complete,
+      expedition_status,
       actual_start,
       actual_end,
       accomplishments,

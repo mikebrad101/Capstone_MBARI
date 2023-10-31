@@ -14,7 +14,7 @@
             <!-- Update post cruise if rows[i].post_cruise_complete == 0-->
             <button type="submit">Update</button>
         </form>
-        <% if( rows[i].post_cruise_complete == 0) { %>
+        <% if( rows[i].expedition_status == "Incomplete") { %>
         <form action="/updatePost/<%= rows[i].expedition_ID %>">
             <!-- Update post cruise if rows[i].post_cruise_complete == 0-->
             <button type="submit">Post Cruise Update</button>
