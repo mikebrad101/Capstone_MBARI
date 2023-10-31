@@ -7,12 +7,20 @@ router.use(express.urlencoded({ extended: true }));
 const saltRounds = 10;
 const bcrypt = require('bcrypt');
 
+//middleware
+function isAuthenticated(req, res, next) {
+  if (req.session.authenticated) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+}
 
 router.get("/", async function(req, res) {
   res.render('home');
 });
 
-router.get("/preexp", async function(req, res) {
+router.get("/preexp", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   res.render('preexp');
@@ -35,7 +43,7 @@ router.get("/mbari-employee-dashboard", async function(req, res) {
   res.render('mbari-employee-dashboard');
 });
 
-router.get("/postexp", async function(req, res) {
+router.get("/postexp", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   res.render('postexp');
@@ -50,14 +58,14 @@ router.get("/updatePost/:exp_id", async function(req, res) {
 });
 
 //middlware to pass expedition_id to update
-router.get("/update/:exp_id", async function(req, res) {
+router.get("/update/:exp_id", isAuthenticated, async function(req, res) {
   let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
   let expedition = await executeSQL(sql, [req.params.exp_id]);
   
   res.render('update', { "expedition": expedition});
 });
 
-router.get("/dive", async function(req, res) {
+router.get("/dive", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   res.render('dive');
@@ -70,13 +78,13 @@ router.get("/dbTest", async function(req, res) {
   res.send(rows);
 });
 
-router.get("/dive", async function(req, res) {
+router.get("/dive", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   res.render('dive');
 });
 
-router.get("/allcruises", async function(req, res) {
+router.get("/allcruises", isAuthenticated, async function(req, res) {
   let sql = "SELECT * FROM expedition;";
   let rows = await executeSQL(sql); // Assuming executeSQL is a function to execute SQL queries
   console.log("Results:", rows);
@@ -251,7 +259,7 @@ router.post("/updateExpedition", async function(req, res) {
   }
 });
 router.post('/login', async (req, res) => {
-  const { email, pwd, position } = req.body;
+  const { email, pwd } = req.body;
 
   let sql = 'SELECT user_ID, PassWord, position FROM person WHERE email = ?';
   await executeSQL(sql, [email], (err, results) => {
@@ -272,26 +280,15 @@ router.post('/login', async (req, res) => {
             console.error('Error verifying password: ' + err.message);
             return res.status(500).send('Internal Server Error');
         }
-
         if (!match) {
             return res.render('login', { errorMessage: 'Invalid email or password.' });
         }
-
-        // Password is correct, redirect based on role
-        switch (dbRole) {
-            case 'Intern':
-                res.redirect('/mbari-employee-dashboard');
-                break;
-            case 'admin':
-                res.redirect('/admin-dashboard');
-                break;
-            // ... Add other roles as necessary ...
-            // add files for different roles 
-            default:
-                // Unknown role or user not assigned a role
-                res.redirect('/login');
-                break;
-        }
+        if (match) {
+          req.session.authenticated = true;
+          req.session.userId = userId;
+          req.session.position = dbRole;
+          res.redirect('/home');
+      }
     });
 });
 });
