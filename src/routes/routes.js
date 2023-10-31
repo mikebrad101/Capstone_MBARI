@@ -107,7 +107,7 @@ router.post("/addPrecruise", async function(req, res) {
     } = req.body;
 
     //to keep track of what records are incomplete
-    post_cruise_complete = 0;
+    expedition_status = "Incomplete";
 
     const sql = 'INSERT INTO expedition (ship_name, purpose, chief_scientist, principal_investigator, sch_start, sch_end, equip_description, participants, region_description, planned_track_description, post_cruise_complete) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
@@ -122,7 +122,7 @@ router.post("/addPrecruise", async function(req, res) {
       participants,
       region_description,
       planned_track_description, 
-      post_cruise_complete
+      expedition_status
     ]);
 
     console.log("Insert result:", result);
@@ -154,7 +154,7 @@ router.post("/updatePost/:exp_id", async function(req, res) {
 
     //update post_cruise_complete to show that it is updated
     let sql = `UPDATE expedition
-             SET post_cruise_complete = 1,
+             SET expedition_status = "Complete",
              actual_start = ?,
              actual_end = ?,
              accomplishments = ?,

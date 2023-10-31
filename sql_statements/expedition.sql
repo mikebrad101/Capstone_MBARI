@@ -23,7 +23,7 @@ CREATE TABLE expedition(
     participants TEXT,
     region_description TEXT,
     planned_track_description TEXT,
-    post_cruise_complete boolean,
+    expedition_status VARCHAR(20),
     actual_start DATETIME,
     actual_end DATETIME,
     accomplishments TEXT,
