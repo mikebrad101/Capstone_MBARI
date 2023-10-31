@@ -3,10 +3,11 @@ create database expedition;
 use expedition;
 
 CREATE TABLE person(
-	user_ID VARCHAR(10),
+	user_ID int NOT NULL AUTO_INCREMENT,
+    email VARCHAR(50),
+    password VARCHAR(255),
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
-    email VARCHAR(50),
     role VARCHAR (10),
 	PRIMARY KEY (user_ID)
 );
