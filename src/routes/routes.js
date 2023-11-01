@@ -287,33 +287,12 @@ router.post('/login', async (req, res) => {
         if (!match) {
             return res.render('login', { errorMessage: 'Invalid email or password.' });
         }
-<<<<<<< Updated upstream
         if (match) {
           req.session.authenticated = true;
           req.session.userId = userId;
           req.session.position = dbRole;
           res.redirect('/home');
       }
-=======
-
-        // FOR LATER!!!!!!!!
-        // // Password is correct, redirect based on role
-        // switch (dbRole) {
-        //     case 'Intern':
-        //         res.redirect('/mbari-employee-dashboard');
-        //         break;
-        //     case 'admin':
-        //         res.redirect('/admin-dashboard');
-        //         break;
-        //     // ... Add other roles as necessary ...
-        //     // add files for different roles 
-        //     //
-        //     default:
-        //         // Unknown role or user not assigned a role
-        //         res.redirect('/login');
-        //         break;
-        // }
->>>>>>> Stashed changes
     });
 });
 });
