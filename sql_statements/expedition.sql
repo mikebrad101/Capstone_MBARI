@@ -33,13 +33,13 @@ CREATE TABLE expedition(
     sci_objective_met BOOLEAN,
     equipment_function BOOLEAN,
     other_comments TEXT,
-    updated_by int, 
+    updated_by INT, 
     PRIMARY KEY (expedition_ID),
     FOREIGN KEY (updated_by) REFERENCES person(user_ID)
 );
 
 CREATE TABLE dive(
-	expedition_ID VARCHAR(10),
+	expedition_ID INT,
     ROV_name TEXT,
     dive_number INT,
     dive_start DATETIME,
