@@ -29,12 +29,16 @@ router.get("/preexp", isAuthenticated, async function(req, res) {
 router.get("/login", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('login', { errorMessage: null });
+  res.render('login'
+  // , { errorMessage: null }
+  );
 });
 router.get("/signup", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('signup', { errorMessage: null });
+  res.render('signup'
+  // , { errorMessage: null }
+  );
 });
 
 router.get("/mbari-employee-dashboard", async function(req, res) {
@@ -261,7 +265,7 @@ router.post("/updateExpedition", async function(req, res) {
 router.post('/login', async (req, res) => {
   const { email, pwd } = req.body;
 
-  let sql = 'SELECT user_ID, PassWord, position FROM person WHERE email = ?';
+  let sql = 'SELECT UserID, PassWord, Position FROM Users WHERE Email = ?';
   await executeSQL(sql, [email], (err, results) => {
       if (err) {
           console.error('Database query error: ' + err.message);
@@ -283,12 +287,33 @@ router.post('/login', async (req, res) => {
         if (!match) {
             return res.render('login', { errorMessage: 'Invalid email or password.' });
         }
+<<<<<<< Updated upstream
         if (match) {
           req.session.authenticated = true;
           req.session.userId = userId;
           req.session.position = dbRole;
           res.redirect('/home');
       }
+=======
+
+        // FOR LATER!!!!!!!!
+        // // Password is correct, redirect based on role
+        // switch (dbRole) {
+        //     case 'Intern':
+        //         res.redirect('/mbari-employee-dashboard');
+        //         break;
+        //     case 'admin':
+        //         res.redirect('/admin-dashboard');
+        //         break;
+        //     // ... Add other roles as necessary ...
+        //     // add files for different roles 
+        //     //
+        //     default:
+        //         // Unknown role or user not assigned a role
+        //         res.redirect('/login');
+        //         break;
+        // }
+>>>>>>> Stashed changes
     });
 });
 });
@@ -305,8 +330,8 @@ router.post('/signup', async (req, res) => {
           }
 
           // // Insert into the 'person' table
-          let sqlPerson = 'INSERT INTO person (first_name, last_name, email, position, PassWord) VALUES (?, ?, ?, ?, ?)';
-          await executeSQL(sqlPerson, [firstname, lastname, email, hashedPassword, position]);
+          // let sqlPerson = 'INSERT INTO person (first_name, last_name, email, position, PassWord) VALUES (?, ?, ?, ?, ?)';
+          // await executeSQL(sqlPerson, [firstname, lastname, email, hashedPassword, position]);
           
           // Insert into the 'users' table. Adjust this according to the actual structure of the 'users' table
           let sqlUsers = 'INSERT INTO Users (FirstName, LastName, Email, PassWord, Position) VALUES (?, ?, ?, ?, ?)';
