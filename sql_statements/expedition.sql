@@ -33,7 +33,7 @@ CREATE TABLE expedition(
     sci_objective_met BOOLEAN,
     equipment_function BOOLEAN,
     other_comments TEXT,
-    updated_by VARCHAR(10), 
+    updated_by int, 
     PRIMARY KEY (expedition_ID),
     FOREIGN KEY (updated_by) REFERENCES person(user_ID)
 );
