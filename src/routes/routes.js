@@ -29,16 +29,12 @@ router.get("/preexp", isAuthenticated, async function(req, res) {
 router.get("/login", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('login'
-  // , { errorMessage: null }
-  );
+  res.render('login', { errorMessage: null });
 });
 router.get("/signup", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('signup'
-  // , { errorMessage: null }
-  );
+  res.render('signup', { errorMessage: null });
 });
 
 router.get("/mbari-employee-dashboard", async function(req, res) {
@@ -265,7 +261,7 @@ router.post("/updateExpedition", async function(req, res) {
 router.post('/login', async (req, res) => {
   const { email, pwd } = req.body;
 
-  let sql = 'SELECT UserID, PassWord, Position FROM Users WHERE Email = ?';
+  let sql = 'SELECT user_ID, PassWord, position FROM person WHERE email = ?';
   await executeSQL(sql, [email], (err, results) => {
       if (err) {
           console.error('Database query error: ' + err.message);
@@ -298,7 +294,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
-  const { firstname, lastname, email, password, position } = req.body;
+  const { firstname, lastname, email, password, role, occupation } = req.body;
 
   try {
       // First, hash the password
@@ -308,13 +304,9 @@ router.post('/signup', async (req, res) => {
               return res.status(500).send('Internal Server Error');
           }
 
-          // // Insert into the 'person' table
-          // let sqlPerson = 'INSERT INTO person (first_name, last_name, email, position, PassWord) VALUES (?, ?, ?, ?, ?)';
-          // await executeSQL(sqlPerson, [firstname, lastname, email, hashedPassword, position]);
-          
           // Insert into the 'users' table. Adjust this according to the actual structure of the 'users' table
-          let sqlUsers = 'INSERT INTO Users (FirstName, LastName, Email, PassWord, Position) VALUES (?, ?, ?, ?, ?)';
-          await executeSQL(sqlUsers, [firstname, lastname, email, hashedPassword, position]);
+          let sql = 'INSERT INTO person (email, password, first_name, last_name, role, occupation) VALUES (?, ?, ?, ?, ?)';
+          await executeSQL(sql, [firstname, lastname, email, hashedPassword, role, occupation]);
 
           res.status(201).redirect('/login');
       });

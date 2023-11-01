@@ -8,7 +8,8 @@ CREATE TABLE person(
     password VARCHAR(255),
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
-    role VARCHAR (10),
+    role VARCHAR(30),
+    occupation VARCHAR(30),
 	PRIMARY KEY (user_ID)
 );
 
