@@ -115,7 +115,7 @@ router.post("/addPrecruise", async function(req, res) {
     } = req.body;
 
     //to keep track of what records are incomplete
-    expedition_status = "Incomplete";
+    expedition_status = "Planned";
 
     const sql = 'INSERT INTO expedition (ship_name, purpose, chief_scientist, principal_investigator, sch_start, sch_end, equip_description, participants, region_description, planned_track_description, expedition_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
@@ -218,7 +218,6 @@ router.post("/updateExpedition", async function(req, res) {
       accomplishments,
       scientist_comments,
       operator_comments,
-      //error with checkboxes
       sci_objective_met,
       equipment_function,
       other_comments
@@ -261,7 +260,7 @@ router.post("/updateExpedition", async function(req, res) {
 router.post('/login', async (req, res) => {
   const { email, pwd } = req.body;
 
-  let sql = 'SELECT user_ID, PassWord, position FROM person WHERE email = ?';
+  let sql = 'SELECT user_ID, password, role FROM person WHERE email = ?';
   await executeSQL(sql, [email], (err, results) => {
       if (err) {
           console.error('Database query error: ' + err.message);
@@ -305,7 +304,7 @@ router.post('/signup', async (req, res) => {
           }
 
           // Insert into the 'users' table. Adjust this according to the actual structure of the 'users' table
-          let sql = 'INSERT INTO person (email, password, first_name, last_name, role, occupation) VALUES (?, ?, ?, ?, ?)';
+          let sql = 'INSERT INTO person (email, password, first_name, last_name, role, occupation) VALUES (?, ?, ?, ?, ?, ?)';
           await executeSQL(sql, [firstname, lastname, email, hashedPassword, role, occupation]);
 
           res.status(201).redirect('/login');

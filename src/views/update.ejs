@@ -40,8 +40,8 @@
     <label for="expedition_status">Status:</label>
       <select id="expedition_status" name="expedition_status">
         <option value="Complete" <% if (expedition[0].expedition_status === "Complete") { %>selected<% } %>>Complete</option>
-        <option value="Incomplete" <% if (expedition[0].expedition_status === "Incomplete") { %>selected<% } %>>Incomplete</option>
-        <option value="Deleted" <% if (expedition[0].expedition_status === "Deleted") { %>selected<% } %>>Deleted</option>
+        <option value="Incomplete" <% if (expedition[0].expedition_status === "Planned") { %>selected<% } %>>Planned</option>
+        <option value="Cancelled" <% if (expedition[0].expedition_status === "Cancelled") { %>selected<% } %>>Cancelled</option>
       </select>
     <br><br>
 
