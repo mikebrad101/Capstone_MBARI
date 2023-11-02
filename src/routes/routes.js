@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { executeSQL } = require('../controllers/sql.js');
 const app = express();
+const session = require('express-session');
 //need this to get data from webpage
 router.use(express.urlencoded({ extended: true }));
 const saltRounds = 10;
@@ -9,14 +10,23 @@ const bcrypt = require('bcrypt');
 
 //middleware
 function isAuthenticated(req, res, next) {
+  console.log(req.session);
   if (req.session.authenticated) {
+    console.log("is authenticated");
     next();
   } else {
-    res.redirect('/');
+    console.log("not authenticated, redirecting....");
+    res.redirect('/login');
   }
 }
 
 router.get("/", async function(req, res) {
+  res.render('home');
+});
+
+router.get("/home", isAuthenticated, async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
   res.render('home');
 });
 
@@ -84,12 +94,19 @@ router.get("/dive", isAuthenticated, async function(req, res) {
   res.render('dive');
 });
 
-router.get("/allcruises", isAuthenticated, async function(req, res) {
+router.get("/allcruises", isAuthenticated, async (req, res) => {
   let sql = "SELECT * FROM expedition;";
   let rows = await executeSQL(sql); // Assuming executeSQL is a function to execute SQL queries
   console.log("Results:", rows);
   res.render('allcruises', { "rows": rows});
 });
+
+// router.get("/allcruises", isAuthenticated, async function(req, res) {
+//   let sql = "SELECT * FROM expedition;";
+//   let rows = await executeSQL(sql); // Assuming executeSQL is a function to execute SQL queries
+//   console.log("Results:", rows);
+//   res.render('allcruises', { "rows": rows});
+// });
 
 router.get("/getLastEntry", async function(req, res) {
   let sql = 'SELECT * FROM expedition ORDER BY expedition_ID DESC LIMIT 1;';
@@ -257,39 +274,72 @@ router.post("/updateExpedition", async function(req, res) {
     res.status(500).send("Internal Server Error");
   }
 });
+
 router.post('/login', async (req, res) => {
   const { email, pwd } = req.body;
 
   let sql = 'SELECT user_ID, password, role FROM person WHERE email = ?';
-  await executeSQL(sql, [email], (err, results) => {
+  let results = await executeSQL(sql, [email]);
+  console.log(results);
+  if (results.length === 0) {
+      // No user found with that email
+      return res.render('login', { errorMessage: 'Invalid email or password.' });
+  }
+    const userId = results[0].user_ID
+    const dbPassword = results[0].password;
+    const dbRole = results[0].role;
+    bcrypt.compare(pwd, dbPassword, (err, match) => {
       if (err) {
-          console.error('Database query error: ' + err.message);
+          console.error('Error verifying password: ' + err.message);
           return res.status(500).send('Internal Server Error');
       }
-
-      if (results.length === 0) {
-          // No user found with that email
+      if (!match) {
           return res.render('login', { errorMessage: 'Invalid email or password.' });
       }
-
-      const dbPassword = results[0].password;
-      const dbRole = results[0].position;
-      bcrypt.compare(pwd, dbPassword, (err, match) => {
-        if (err) {
-            console.error('Error verifying password: ' + err.message);
-            return res.status(500).send('Internal Server Error');
-        }
-        if (!match) {
-            return res.render('login', { errorMessage: 'Invalid email or password.' });
-        }
-        if (match) {
-          req.session.authenticated = true;
-          req.session.userId = userId;
-          req.session.position = dbRole;
-          res.redirect('/home');
+      if (match) {
+        console.log("successful login")
+        
+        req.session.authenticated = true;
+        req.session.userId = userId;
+        req.session.position = dbRole;
+        console.log(req.session)
+        req.session.save()
+        res.redirect('/home');
       }
     });
-});
+          
+
+//   await executeSQL(sql, [email], (err, results) => {
+//     console.log(results);
+//       if (err) {
+//           console.error('Database query error: ' + err.message);
+//           return res.status(500).send('Internal Server Error');
+//       }
+
+//       if (results.length === 0) {
+//           // No user found with that email
+//           return res.render('login', { errorMessage: 'Invalid email or password.' });
+//       }
+      
+//       const userId = results[0].user_ID
+//       const dbPassword = results[0].password;
+//       const dbRole = results[0].role;
+//       bcrypt.compare(pwd, dbPassword, (err, match) => {
+//         if (err) {
+//             console.error('Error verifying password: ' + err.message);
+//             return res.status(500).send('Internal Server Error');
+//         }
+//         if (!match) {
+//             return res.render('login', { errorMessage: 'Invalid email or password.' });
+//         }
+//         if (match) {
+//           req.session.authenticated = true;
+//           req.session.userId = userId;
+//           req.session.position = dbRole;
+//           res.redirect('/home');
+//       }
+//     });
+// });
 });
 
 router.post('/signup', async (req, res) => {
@@ -305,7 +355,7 @@ router.post('/signup', async (req, res) => {
 
           // Insert into the 'users' table. Adjust this according to the actual structure of the 'users' table
           let sql = 'INSERT INTO person (email, password, first_name, last_name, role, occupation) VALUES (?, ?, ?, ?, ?, ?)';
-          await executeSQL(sql, [firstname, lastname, email, hashedPassword, role, occupation]);
+          await executeSQL(sql, [email, hashedPassword, firstname, lastname, role, occupation]);
 
           res.status(201).redirect('/login');
       });

@@ -5,11 +5,12 @@ const routes = require('./src/routes/routes');
 app.set("view engine", "ejs");
 const path = require('path'); 
 
+app.set('trust proxy', 1)
 app.use(session({
   secret: 'ch@r@ct3rs',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: false }
 }));
 
 //will change dirname later when we move index.js file
