@@ -7,7 +7,7 @@ function tempDB() {
     user: "mg6my0cujwumt4lr",
     password: "gnrv7rwzpmvpw19d",
     database: "tq38ylwyfie9f8a6",
-    timeout: 30000 // 30 seconds
+    connectTimeout: 30000 // 30 seconds
   });
 }
 
@@ -16,7 +16,7 @@ const connection = mysql.createConnection({
   user: "mg6my0cujwumt4lr",
   password: "gnrv7rwzpmvpw19d",
   database: "tq38ylwyfie9f8a6",
-  timeout: 30000 // 30 seconds
+  connectTimeout: 30000 // 30 seconds
 });
 
 connection.connect((err) => {

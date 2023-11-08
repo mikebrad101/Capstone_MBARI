@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { executeSQL } = require('../controllers/sql.js');
+const { executeSQL,
+  getChiefScientists,
+  getPrincipalInvestigators } = require('../controllers/sql.js');
 const app = express();
 const session = require('express-session');
 //need this to get data from webpage
@@ -21,7 +23,7 @@ function isAuthenticated(req, res, next) {
 }
 
 router.get("/", async function(req, res) {
-  res.render('home');
+  res.render('login');
 });
 
 router.get("/home", isAuthenticated, async function(req, res) {
@@ -30,10 +32,20 @@ router.get("/home", isAuthenticated, async function(req, res) {
   res.render('home');
 });
 
+router.get("/search", isAuthenticated, async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('search');
+});
+
 router.get("/preexp", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('preexp');
+  let scientists = await getChiefScientists();
+  console.log(scientists);
+  let investigators = await getPrincipalInvestigators();
+  console.log(investigators);
+  res.render('preexp', {"scientists": scientists, "investigators": investigators});
 });
 
 router.get("/login", async function(req, res) {
@@ -41,6 +53,7 @@ router.get("/login", async function(req, res) {
   //then send it to the view using render
   res.render('login', { errorMessage: null });
 });
+
 router.get("/signup", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
@@ -63,7 +76,7 @@ router.get("/postexp", isAuthenticated, async function(req, res) {
 router.get("/updatePost/:exp_id", async function(req, res) {
   let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
   let info = await executeSQL(sql, [req.params.exp_id]);
-  
+
   res.render('postexp', { "info": info});
 });
 
@@ -71,8 +84,9 @@ router.get("/updatePost/:exp_id", async function(req, res) {
 router.get("/update/:exp_id", isAuthenticated, async function(req, res) {
   let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
   let expedition = await executeSQL(sql, [req.params.exp_id]);
-  
-  res.render('update', { "expedition": expedition});
+  let scientists = getChiefScientists();
+  let investigators = getPrincipalInvestigators();
+  res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators});
 });
 
 router.get("/dive", isAuthenticated, async function(req, res) {
@@ -88,25 +102,12 @@ router.get("/dbTest", async function(req, res) {
   res.send(rows);
 });
 
-router.get("/dive", isAuthenticated, async function(req, res) {
-  //in route we get sql statement and data
-  //then send it to the view using render
-  res.render('dive');
-});
-
-router.get("/allcruises", isAuthenticated, async (req, res) => {
+router.get("/allcruises", isAuthenticated, async function(req, res) {
   let sql = "SELECT * FROM expedition;";
   let rows = await executeSQL(sql); // Assuming executeSQL is a function to execute SQL queries
   console.log("Results:", rows);
   res.render('allcruises', { "rows": rows});
 });
-
-// router.get("/allcruises", isAuthenticated, async function(req, res) {
-//   let sql = "SELECT * FROM expedition;";
-//   let rows = await executeSQL(sql); // Assuming executeSQL is a function to execute SQL queries
-//   console.log("Results:", rows);
-//   res.render('allcruises', { "rows": rows});
-// });
 
 router.get("/getLastEntry", async function(req, res) {
   let sql = 'SELECT * FROM expedition ORDER BY expedition_ID DESC LIMIT 1;';

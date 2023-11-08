@@ -24,18 +24,16 @@
 
         <label for="chiefScientist">Chief Scientist:</label>
         <select id="chiefScientist" name="chiefScientist">
-            <!-- Add chief scientist names as options -->
-            <option value="scientist1">Scientist 1</option>
-            <option value="scientist2">Scientist 2</option>
-            <!-- Add more options as needed -->
+            <% for(let i = 0; i < scientists.length; i++) { %>
+            <option value="<%=scientists[i].user_ID %>"> <%=scientists[i].first_name%> <%=scientists[i].last_name%></option>
+            <% } %>
         </select><br>
 
         <label for="principalInvestigator">Principal Investigator:</label>
         <select id="principalInvestigator" name="principalInvestigator">
-            <!-- Add principal investigator names as options -->
-            <option value="investigator1">Investigator 1</option>
-            <option value="investigator2">Investigator 2</option>
-            <!-- Add more options as needed -->
+            <% for(let i = 0; i < investigators.length; i++) { %>
+                <option value="<%=investigators[i].user_ID %>"><%=investigators[i].first_name%> <%=investigators[i].last_name%></option>
+                <% } %>
         </select><br>
 
         <label for="scheduledStartDatetime">Scheduled Start Datetime:</label>

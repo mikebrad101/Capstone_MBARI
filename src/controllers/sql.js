@@ -15,6 +15,19 @@ async function executeSQL(sql, params) {
   });
 }
 
+async function getChiefScientists(){
+  let sql = `SELECT * FROM person WHERE occupation = 'Chief Scientist'`;
+  let scientists = await executeSQL(sql);
+  return scientists;
+}
+async function getPrincipalInvestigators(){
+  let sql = `SELECT * FROM person WHERE occupation = 'Principal Investigator'`;
+  let investigators = await executeSQL(sql);
+  return investigators;
+}
+
 module.exports = {
-   executeSQL
+   executeSQL,
+   getChiefScientists,
+   getPrincipalInvestigators
 };
