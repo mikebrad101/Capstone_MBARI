@@ -18,6 +18,10 @@ app.set('views', path.join(__dirname+"/src", 'views'));
 
 app.use('/', routes);
 
+//added to use stylesheets+images
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 app.listen(8080, () => {
   console.log("Expresss server running...")
 });

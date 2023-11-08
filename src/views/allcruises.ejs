@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title> All Listed Cruises </title>
-        <link rel="icon" href="/images/tabLogo.png" type="image/png">
 
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-        <link href = "/public/css/style.css" rel ="stylesheet">
-        <style>
-            body {
-                background-image:url('/images/kelpForest.png');
-            }
-          </style>
-    
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title> All Listed Cruises </title>
+    <link rel="icon" href="/images/tabLogo.png" type="image/png">
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="/public/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('/images/kelpForest.png');
+        }
+    </style>
+
+</head>
 
 <body>
-  <h1>All Cruises</h1>
-  <% for(let i = 0; i < rows.length; i++) { %>
-    <div>
-        Purpose: <%= rows[i].purpose %>
-        <form action="/update/<%= rows[i].expedition_ID %>">
-            <!-- Update post cruise if rows[i].post_cruise_complete == 0-->
-            <button type="submit">Update</button>
-        </form>
-        <% if( rows[i].expedition_status == "Planned") { %>
-        <form action="/updatePost/<%= rows[i].expedition_ID %>">
-            <!-- Update post cruise if rows[i].post_cruise_complete == 0-->
-            <button type="submit">Post Cruise Update</button>
-        </form>
-        <% } %>
+    <br>
+    <h1 style="color: white;">All Cruises</h1><br>
+    <div class="list-group" style="max-width: 600px; margin: auto;">
+        <% for(let i=0; i < rows.length; i++) { %>
+            <a class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Purpose: <%= rows[i].purpose %>
+                    </h5>
+                    <small><%= rows[i].sch_start %></small>
+                </div>
+                <p class="mb-1">Some placeholder content in a paragraph.</p>
+                <small>And some small print.</small><br>
+                <% if( rows[i].expedition_status=="Planned" ) { %>
+                    <form style="display: inline;" action="/updatePost/<%= rows[i].expedition_ID %>">
+                        <!-- Update post cruise if rows[i].post_cruise_complete == 0-->
+                        <button type="submit" class="btn btn-primary mt-3">Post Cruise Update</button>
+                    </form>
+                <% } %>
+                <form style="display: inline;" action="/update/<%= rows[i].expedition_ID %>">
+                    <!-- Update post cruise if rows[i].post_cruise_complete == 0-->
+                    <button type="submit" class="btn btn-primary mt-3">Update</button>
+                </form>
+            </a>
+            <br>
+            <% } %>
     </div>
-  <% } %>
-  <footer>
-    <div class="foottext">
-        <!-- <img src='/images/horizontal-logo-withglow.png' class="footer-logo"> -->
-        <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
-    </div>
-</footer>
+    <footer>
+        <div class="foottext">
+            <!-- <img src='/images/horizontal-logo-withglow.png' class="footer-logo"> -->
+            <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
+        </div>
+    </footer>
 </body>
+
 </html>

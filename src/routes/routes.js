@@ -13,6 +13,8 @@ const bcrypt = require('bcrypt');
 //middleware
 function isAuthenticated(req, res, next) {
   console.log(req.session);
+  //tired of logging in....
+  //next();
   if (req.session.authenticated) {
     console.log("is authenticated");
     next();
@@ -60,6 +62,7 @@ router.get("/signup", async function(req, res) {
   res.render('signup', { errorMessage: null });
 });
 
+//what is this for?
 router.get("/mbari-employee-dashboard", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
@@ -73,11 +76,11 @@ router.get("/postexp", isAuthenticated, async function(req, res) {
 });
 
 //middlware to pass expedition_id to update Post
-router.get("/updatePost/:exp_id", async function(req, res) {
+router.get("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
   let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
   let info = await executeSQL(sql, [req.params.exp_id]);
 
-  res.render('postexp', { "info": info});
+  res.render('postexp', { "info": info, "userID":req.session.userId});
 });
 
 //middlware to pass expedition_id to update
@@ -95,6 +98,12 @@ router.get("/dive", isAuthenticated, async function(req, res) {
   res.render('dive');
 });
 
+router.get("/test", isAuthenticated, async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('test');
+});
+
 router.get("/dbTest", async function(req, res) {
   // Create table to test
   let sql = "SELECT * FROM Users";
@@ -109,13 +118,13 @@ router.get("/allcruises", isAuthenticated, async function(req, res) {
   res.render('allcruises', { "rows": rows});
 });
 
-router.get("/getLastEntry", async function(req, res) {
+router.get("/getLastEntry", isAuthenticated, async function(req, res) {
   let sql = 'SELECT * FROM expedition ORDER BY expedition_ID DESC LIMIT 1;';
   let rows = await executeSQL(sql);
   res.send(rows);
 });
 
-router.post("/addPrecruise", async function(req, res) {
+router.post("/addPrecruise", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
 
@@ -161,7 +170,7 @@ router.post("/addPrecruise", async function(req, res) {
 });
 
 //postcruise update
-router.post("/updatePost/:exp_id", async function(req, res) {
+router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
 
@@ -215,7 +224,7 @@ router.post("/updatePost/:exp_id", async function(req, res) {
 });
 
 
-router.post("/updateExpedition", async function(req, res) {
+router.post("/updateExpedition", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
     const {
@@ -308,39 +317,6 @@ router.post('/login', async (req, res) => {
         res.redirect('/home');
       }
     });
-          
-
-//   await executeSQL(sql, [email], (err, results) => {
-//     console.log(results);
-//       if (err) {
-//           console.error('Database query error: ' + err.message);
-//           return res.status(500).send('Internal Server Error');
-//       }
-
-//       if (results.length === 0) {
-//           // No user found with that email
-//           return res.render('login', { errorMessage: 'Invalid email or password.' });
-//       }
-      
-//       const userId = results[0].user_ID
-//       const dbPassword = results[0].password;
-//       const dbRole = results[0].role;
-//       bcrypt.compare(pwd, dbPassword, (err, match) => {
-//         if (err) {
-//             console.error('Error verifying password: ' + err.message);
-//             return res.status(500).send('Internal Server Error');
-//         }
-//         if (!match) {
-//             return res.render('login', { errorMessage: 'Invalid email or password.' });
-//         }
-//         if (match) {
-//           req.session.authenticated = true;
-//           req.session.userId = userId;
-//           req.session.position = dbRole;
-//           res.redirect('/home');
-//       }
-//     });
-// });
 });
 
 router.post('/signup', async (req, res) => {
