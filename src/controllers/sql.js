@@ -14,6 +14,18 @@ async function executeSQL(sql, params) {
     });
   });
 }
+// Use the connection from the pool
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.error('Error getting connection from pool:', err);
+    return;
+  }
+
+  // Perform database operations
+
+  // Release the connection back to the pool
+  connection.release();
+});
 
 async function getChiefScientists(){
   let sql = `SELECT * FROM person WHERE occupation = 'Chief Scientist'`;
