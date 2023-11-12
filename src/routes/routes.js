@@ -9,6 +9,9 @@ const session = require('express-session');
 router.use(express.urlencoded({ extended: true }));
 const saltRounds = 10;
 const bcrypt = require('bcrypt');
+const path = require('path'); 
+app.use('/css', express.static(path.join(__dirname, 'src/views/css')));
+
 
 //middleware
 function isAuthenticated(req, res, next) {
@@ -323,25 +326,21 @@ router.post('/signup', async (req, res) => {
   const { firstname, lastname, email, password, role, occupation } = req.body;
 
   try {
-      // First, hash the password
-      bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
-          if (err) {
-              console.error('Error hashing password:', err);
-              return res.status(500).send('Internal Server Error');
-          }
+    // First, hash the password
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-          // Insert into the 'users' table. Adjust this according to the actual structure of the 'users' table
-          let sql = 'INSERT INTO person (email, password, first_name, last_name, role, occupation) VALUES (?, ?, ?, ?, ?, ?)';
-          await executeSQL(sql, [email, hashedPassword, firstname, lastname, role, occupation]);
+    // Insert into the 'person' table. Adjust this according to the actual structure of the 'person' table
+    let sql = 'INSERT INTO person (email, password, first_name, last_name, role, occupation) VALUES (?, ?, ?, ?, ?, ?)';
+    await executeSQL(sql, [email, hashedPassword, firstname, lastname, role, occupation]);
 
-          res.status(201).redirect('/login');
-      });
+    res.status(201).redirect('/login');
   } catch (err) {
-      console.error('Error during signup:', err);
-      res.status(500).send('Internal Server Error');
+    console.error('Error during signup:', err);
+    res.status(500).send('Internal Server Error');
   }
 });
 
 
 module.exports = router;
+
 
