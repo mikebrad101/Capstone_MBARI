@@ -4,6 +4,8 @@ const session = require('express-session');
 const routes = require('./src/routes/routes');
 app.set("view engine", "ejs");
 const path = require('path'); 
+app.use('/css', express.static(path.join(__dirname, 'src/views/css')));
+
 
 app.set('trust proxy', 1)
 app.use(session({
