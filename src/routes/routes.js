@@ -4,7 +4,6 @@ const { executeSQL,
   getChiefScientists,
   getPrincipalInvestigators } = require('../controllers/sql.js');
 const app = express();
-const session = require('express-session');
 //need this to get data from webpage
 router.use(express.urlencoded({ extended: true }));
 const saltRounds = 10;
