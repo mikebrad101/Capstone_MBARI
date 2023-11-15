@@ -6,7 +6,8 @@ function tempDB() {
     host: "t07cxyau6qg7o5nz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     user: "mg6my0cujwumt4lr",
     password: "gnrv7rwzpmvpw19d",
-    database: "tq38ylwyfie9f8a6"
+    database: "tq38ylwyfie9f8a6",
+    connectTimeout: 30000 // 30 seconds
   });
 }
 
@@ -14,7 +15,8 @@ const connection = mysql.createConnection({
   host: "t07cxyau6qg7o5nz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
   user: "mg6my0cujwumt4lr",
   password: "gnrv7rwzpmvpw19d",
-  database: "tq38ylwyfie9f8a6"
+  database: "tq38ylwyfie9f8a6",
+  connectTimeout: 30000 // 30 seconds
 });
 
 connection.connect((err) => {
@@ -25,14 +27,6 @@ connection.connect((err) => {
   console.log('Connected to the database');
 });
 
-//test to see info from database
-// connection.connect(function(err) {
-//   if (err) throw err;
-//   connection.query("SELECT * FROM Users", function (err, result, fields) {
-//     if (err) throw err;
-//     console.log(result);
-//   });
-// });
 
 module.exports= {
   tempDB

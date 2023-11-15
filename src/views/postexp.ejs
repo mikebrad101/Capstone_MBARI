@@ -1,42 +1,88 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Post-cruise Process</title>
-</head>
-<body>
-  <h1>Post-cruise Process</h1>
-  Updating for cruise ID: <%= info[0].expedition_ID %><br>
-  Purpose: <%= info[0].purpose %>
-  <form action="/updateCruise/<%= info[0].expedition_ID %>" method="POST">
-    <label for="actualStartDatetime">Actual Start Datetime:</label>
-    <input type="datetime-local" id="actualStartDatetime" name="actualStartDatetime"><br><br>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Post Expedition Update</title>
+    <link rel="icon" href="/images/tabLogo.png" type="image/png">
 
-    <label for="actualEndDatetime">Actual End Datetime:</label>
-    <input type="datetime-local" id="actualEndDatetime" name="actualEndDatetime"><br><br>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href = "/public/css/style.css" rel ="stylesheet">
 
-    <label for="accomplishments">Accomplishments:</label>
-    <textarea id="accomplishments" name="accomplishments" rows="5" cols="40" maxlength="6144"></textarea><br><br>
+    <style>
+      body {
+          background-image:url('/images/mbari_coral.jpg');
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src='/images/horizontal-logo-withglow.png' class="logo">
+    </header>
 
-    <label for="scientistComments">Scientist Comments:</label>
-    <textarea id="scientistComments" name="scientistComments" rows="5" cols="40" maxlength="6144"></textarea><br><br>
+    <br><h1 style="color: white;">Post Expedition Update</h1><br>
 
-    <label for="sciObjectivesMet">Sci Objectives Met:</label>
-    <input type="checkbox" id="sciObjectivesMet" name="sciObjectivesMet"><br><br>
+    <br><h3 style="color: white;">Updating for cruise ID: <%= info[0].expedition_ID %></h1><br>
+    <h3 style="color: white;">Purpose: <%= info[0].purpose %></h1><br>
+  
+  <form action="/updatePost/<%= info[0].expedition_ID %>" method="POST">
 
-    <label for="operatorComments">Operator Comments:</label>
-    <textarea id="operatorComments" name="operatorComments" rows="5" cols="40" maxlength="2048"></textarea><br><br>
+    <table class="container">
+      <!-- ROW ONE -->
+      <tr>
+        <td class="columnTopSpace">
+          <label for="actualStartDatetime">Actual Start Datetime:</label><br>
+          <input type="datetime-local" id="actualStartDatetime" name="actualStartDatetime" class="dateInput"><br><br>
+        </td >
 
-    <label for="allEquipmentFunctioned">All Equipment Functioned:</label>
-    <input type="checkbox" id="allEquipmentFunctioned" name="allEquipmentFunctioned"><br><br>
-
-    <label for="otherComments">Other Comments:</label>
-    <textarea id="otherComments" name="otherComments" rows="5" cols="40" maxlength="2048"></textarea><br><br>
-    
-    <!-- Replace with the actual ID of the person filling out the form, this is hidden --> 
-    <input type="hidden" id="updatedBy" name="updatedBy" value="005"> 
-    
-
-    <input type="submit" value="Submit">
+        <td class="columnTopSpace">
+          <label for="actualEndDatetime">Actual End Datetime:</label><br>
+          <input type="datetime-local" id="actualEndDatetime" name="actualEndDatetime" class="dateInput"><br><br>
+        </td>
+      </tr>
+      <!-- ROW TWO -->
+      <tr>
+        <td>
+          <label for="sciObjectivesMet">Science Objectives Met:</label>
+          <input type="checkbox" id="sciObjectivesMet" name="sciObjectivesMet"><br><br>
+        </td>
+        <td>
+          <label for="allEquipmentFunctioned">All Equipment Functioned:</label>
+          <input type="checkbox" id="allEquipmentFunctioned" name="allEquipmentFunctioned"><br><br>
+        </td>
+      </tr>
+      <!-- ROW THREE -->
+      <tr>
+        <td>
+          <textarea class="textArea" id="accomplishments" name="accomplishments" placeholder="Accomplishments:" rows="1" cols="40" maxlength="8000"></textarea>
+        </td>
+        <td>
+          <textarea class="textArea" id="operatorComments" name="operatorComments" placeholder="Operator Comments:" rows="1" cols="40" maxlength="8000"></textarea>
+        </td>
+      </tr>
+      <!-- ROW FOUR -->
+      <tr>
+        <td>
+          <textarea class="textArea" id="scientistComments" name="scientistComments" placeholder="Scientist Comments:" rows="1" cols="40" maxlength="8000"></textarea>
+        </td>
+        <td>
+          <textarea class="textArea" id="otherComments" name="otherComments" placeholder="Other Comments:" rows="1" cols="40" maxlength="8000"></textarea>
+        </td>
+      </tr>
+          <!-- Replace with the actual ID of the person filling out the form, this is hidden --> 
+    <input type="hidden" id="updatedBy" name="updatedBy" value="<%= userID %>"> 
+      <tr>
+        <td colspan="2">
+          <input type="submit" value="Submit" class="button">
+        </td>
+    </tr>
+    </table>
   </form>
+  <footer>
+    <div class="foottext">
+    <p> Website is only for academic purposes. Capstone 2023© MBARI</p>
+    </div>
+  </footer>
 </body>
 </html>

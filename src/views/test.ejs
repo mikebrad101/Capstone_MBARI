@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title> Pre-Cruise Process </title>
+        <link rel="icon" href="/images/tabLogo.png" type="image/png">
+
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <link href = "/public/css/style.css" rel ="stylesheet">
+        <style>
+            body {
+                background-image:url('/images/kelpForest.png');
+            }
+          </style>
+    
+    </head>
+    <body>
+        <header>
+            <img src='/images/horizontal-logo-withglow.png' class="logo">
+        </header>
+
+        <br><h1>Pre-Cruise Process</h1><br>
+        <form action="/addPrecruise" method="POST"></form>
+        <table class="container">
+            <!-- ROW ONE -->
+            <tr>
+                <td class="columnTopSpace">
+                    <label for="shipName" class="modern-label">Ship Name:</label><br>
+                    <select id="shipName" name="shipName" class="modern-select">
+                        <!-- Add ship names as options -->
+                        <option value="ship1">Ship 1</option>
+                        <option value="ship2">Ship 2</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </td>
+                <td class="columnTopSpace">
+                    <!-- <label for="purpose">Purpose:</label><br> -->
+                    <textarea class="textArea" id="purpose" name="purpose" placeholder="Purpose" rows="1" cols="40" maxlength="8000"></textarea><br>
+                </td>
+            </tr>
+
+            <!-- ROW TWO -->
+            <tr>
+                <td>
+                    <label for="chiefScientist" class="modern-label">Chief Scientist:</label><br>
+                    <select id="chiefScientist" name="chiefScientist" class="modern-select">
+                        <!-- Add chief scientist names as options -->
+                        <option value="scientist1">Scientist 1</option>
+                        <option value="scientist2">Scientist 2</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </td>
+                <td>
+                    <!-- <label for="equipmentDescription">Equipment Description:</label> -->
+                    <textarea class="textArea" id="equipmentDescription" name="equipmentDescription" placeholder="Equipment Description:" rows="1" cols="40" maxlength="8000"></textarea>
+                </td>
+            </tr>
+
+            <!-- ROW THREE -->
+            <tr>
+                <td>
+                    <label for="principalInvestigator" class="modern-label">Principal Investigator:</label><br>
+                    <select id="principalInvestigator" name="principalInvestigator" class="modern-select">
+                    <!-- Add principal investigator names as options -->
+                    <option value="investigator1">Investigator 1</option>
+                    <option value="investigator2">Investigator 2</option>
+                    <!-- Add more options as needed -->
+                    </select>
+                </td>
+                <td>
+                    <!-- <label for="participants">Participants:</label><br> -->
+                    <textarea class="textArea" id="participants" name="participants" placeholder="Participants:" rows="1" cols="40" maxlength="8000"></textarea><br>
+                    <!-- Dropdown as well? multiple choice? -->
+                </td>
+                
+            </tr>
+
+            <!-- ROW FOUR -->
+            <tr>
+                <td>
+                    <label for="scheduledStartDatetime">Scheduled Start Datetime:</label><br>
+                    <input type="datetime-local" id="scheduledStartDatetime" name="scheduledStartDatetime" class="dateInput">
+                </td>
+                <td>
+                    <!-- <label for="regionDescription">Region Description:</label> -->
+                    <textarea class="textArea" id="regionDescription" name="regionDescription" placeholder="Region Description:" rows="1" cols="40" maxlength="2048"></textarea>
+
+                </td>
+            </tr>
+
+            <!-- ROW FIVE -->
+            <tr>
+                <td>
+                    <label for="scheduledEndDatetime">Scheduled End Datetime:</label><br>
+                    <input type="datetime-local" id="scheduledEndDatetime" name="scheduledEndDatetime" class="dateInput">
+                </td>
+                <td>
+                    <!-- <label for="plannedTrackDescription">Planned Track Description:</label><br> -->
+                    <textarea class="textArea" id="plannedTrackDescription" name="plannedTrackDescription" placeholder="Planned Track Description:" rows="1" cols="40" maxlength="6144"></textarea><br>
+                </td>
+            </tr>
+            <!-- ROW SIX -->
+            <tr>
+                <td colspan="2">
+                    <input type="submit" class="button" value="Submit">
+                </td>
+            </tr>
+
+        </table>
+
+        <footer>
+            <div class="foottext">
+                <!-- <img src='/images/horizontal-logo-withglow.png' class="footer-logo"> -->
+                <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
+            </div>
+        </footer>
+    </body>
+</html>

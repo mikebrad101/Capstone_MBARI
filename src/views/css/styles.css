@@ -1,0 +1,244 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    text-align: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+}
+
+.logo {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    width: 300px;
+    height: 100px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    width: 900px;
+    height: 100px;
+    margin: auto;
+    margin-top: 20px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.columnTopSpace {
+    padding-top: 20px;
+}
+
+select.round {
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%), radial-gradient(#ddd 70%, transparent 72%);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - .5em) .5em;
+    background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+}
+
+select.round:focus {
+    background-image: linear-gradient(45deg, white 50%, transparent 50%), linear-gradient(135deg, transparent 50%, white 50%), radial-gradient(gray 70%, transparent 72%);
+    background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em, calc(100% - .5em) .5em;
+    background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
+    background-repeat: no-repeat;
+    border-color: green;
+    outline: 0;
+}
+
+.textArea {
+    width: 300px;
+    height: 100px;
+    padding: 0;
+    border: none;
+    outline: none;
+    resize: none;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.dateInput {
+    border: .2em solid gray;
+    padding: .8em .9em;
+    border-radius: 2em;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.button {
+    appearance: none;
+    border: .2em solid gray;
+    background: hsl(0 0 0/0);
+    padding: .85em 1.5em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: gray;
+    border-radius: 2em;
+    transition: 1s;
+    &:hover, &:focus, &:active {
+        background: gray;
+        color: #fff;
+    }
+}
+
+.nav {
+    background-color: #eff4f7;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav a {
+    color: #005fa3;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('https://www.montereybayaquarium.org/globalassets/mba/images/animals/marine-mammals/sea-otter-wild-tr19-0747.jpg?format=webp&quality=60');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+form {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    max-width: 350px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    color: #0077b6;
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #0077b6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005fa3;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #DEC4AD;
+    background-color: #231F20;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    bottom: 0;
+}
+
+.foottext {
+    margin: auto;
+    margin-top: 1%;
+}
+
+.modern-label {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    font-size: 16px;
+}
+
+.modern-select {
+    font-family: 'Arial', sans-serif;
+    color: #555;
+    font-size: 14px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+}
+
+.modern-select:hover {
+    border-color: #231F20;
+}
+
+.modern-select option {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.modern-select:focus {
+    outline: none;
+    border-color: #231F20;
+}
+.button-table {
+    border-collapse: collapse;
+    width: 100%; /* Adjust the width as needed */
+  
+}
+
+.button-table td {
+    padding: 10px;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh; /* Adjust the height as needed */
+    background-color: white;
+}
+.button {
+    display: block;
+    width: 90%;
+    padding: 10px;
+    margin: 7px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #0077b6; /* Blue background color */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+

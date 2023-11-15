@@ -3,11 +3,13 @@ create database expedition;
 use expedition;
 
 CREATE TABLE person(
-	user_ID VARCHAR(10),
+	user_ID int NOT NULL AUTO_INCREMENT,
+    email VARCHAR(50),
+    password VARCHAR(255),
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
-    email VARCHAR(50),
-    role VARCHAR (10),
+    role VARCHAR(30),
+    occupation VARCHAR(30),
 	PRIMARY KEY (user_ID)
 );
 
@@ -23,7 +25,7 @@ CREATE TABLE expedition(
     participants TEXT,
     region_description TEXT,
     planned_track_description TEXT,
-    post_cruise_complete boolean,
+    expedition_status VARCHAR(20),
     actual_start DATETIME,
     actual_end DATETIME,
     accomplishments TEXT,
@@ -32,13 +34,13 @@ CREATE TABLE expedition(
     sci_objective_met BOOLEAN,
     equipment_function BOOLEAN,
     other_comments TEXT,
-    updated_by VARCHAR(10), 
+    updated_by INT, 
     PRIMARY KEY (expedition_ID),
     FOREIGN KEY (updated_by) REFERENCES person(user_ID)
 );
 
 CREATE TABLE dive(
-	expedition_ID VARCHAR(10),
+	expedition_ID INT,
     ROV_name TEXT,
     dive_number INT,
     dive_start DATETIME,
