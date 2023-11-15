@@ -2,7 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { executeSQL,
   getChiefScientists,
-  getPrincipalInvestigators } = require('../controllers/sql.js');
+  getPrincipalInvestigators,
+  getExpedition,
+  getAllCruises,
+  addExpedition,
+  updatePost,
+  updateExpedition,
+  getDives } = require('../controllers/sql.js');
+  const { isAuthenticated } = require('../controllers/middleware.js');
 const app = express();
 //need this to get data from webpage
 router.use(express.urlencoded({ extended: true }));
@@ -10,21 +17,6 @@ const saltRounds = 10;
 const bcrypt = require('bcrypt');
 const path = require('path'); 
 app.use('/css', express.static(path.join(__dirname, 'src/views/css')));
-
-
-//middleware
-function isAuthenticated(req, res, next) {
-  console.log(req.session);
-  //tired of logging in....
-  //next();
-  if (req.session.authenticated) {
-    console.log("is authenticated");
-    next();
-  } else {
-    console.log("not authenticated, redirecting....");
-    res.redirect('/login');
-  }
-}
 
 router.get("/", async function(req, res) {
   res.render('login');
@@ -79,19 +71,17 @@ router.get("/postexp", isAuthenticated, async function(req, res) {
 
 //middlware to pass expedition_id to update Post
 router.get("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
-  let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
-  let info = await executeSQL(sql, [req.params.exp_id]);
-
+  let info = await getExpedition(req.params.exp_id);
   res.render('postexp', { "info": info, "userID":req.session.userId});
 });
 
 //middlware to pass expedition_id to update
 router.get("/update/:exp_id", isAuthenticated, async function(req, res) {
-  let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
-  let expedition = await executeSQL(sql, [req.params.exp_id]);
-  let scientists = getChiefScientists();
-  let investigators = getPrincipalInvestigators();
-  res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators});
+  let expedition = await getExpedition(req.params.exp_id);
+  let scientists = await getChiefScientists();
+  let investigators = await getPrincipalInvestigators();
+  let dives = await getDives(req.params.exp_id);
+  res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators, "dives": dives});
 });
 
 router.get("/dive", isAuthenticated, async function(req, res) {
@@ -114,12 +104,12 @@ router.get("/dbTest", async function(req, res) {
 });
 
 router.get("/allcruises", isAuthenticated, async function(req, res) {
-  let sql = "SELECT * FROM expedition;";
-  let rows = await executeSQL(sql); // Assuming executeSQL is a function to execute SQL queries
-  console.log("Results:", rows);
+  let rows = await getAllCruises();
+  console.log(rows);
   res.render('allcruises', { "rows": rows});
 });
 
+//temporary route to get last entry
 router.get("/getLastEntry", isAuthenticated, async function(req, res) {
   let sql = 'SELECT * FROM expedition ORDER BY expedition_ID DESC LIMIT 1;';
   let rows = await executeSQL(sql);
@@ -130,40 +120,11 @@ router.post("/addPrecruise", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
 
-    const {
-      shipName,
-      purpose,
-      chiefScientist: chief_scientist,
-      principalInvestigator: principal_investigator,
-      scheduledStartDatetime: sch_start,
-      scheduledEndDatetime: sch_end,
-      equipmentDescription: equip_description,
-      participants,
-      regionDescription: region_description,
-      plannedTrackDescription: planned_track_description
-    } = req.body;
-
-    //to keep track of what records are incomplete
-    expedition_status = "Planned";
-
-    const sql = 'INSERT INTO expedition (ship_name, purpose, chief_scientist, principal_investigator, sch_start, sch_end, equip_description, participants, region_description, planned_track_description, expedition_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-
-    const result = await executeSQL(sql, [
-      shipName,
-      purpose,
-      chief_scientist,
-      principal_investigator,
-      sch_start,
-      sch_end,
-      equip_description,
-      participants,
-      region_description,
-      planned_track_description, 
-      expedition_status
-    ]);
+    const result = addExpedition(req.body);
 
     console.log("Insert result:", result);
 
+    //redirect differently, give notification that it was entered correctly. 
     res.redirect('/getLastEntry');
   } catch (error) {
     console.error("Error:", error);
@@ -176,48 +137,11 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
 
-    const {
-      actualStartDatetime: actual_start,
-      actualEndDatetime: actual_end,
-      accomplishments,
-      scientistComments: scientist_comments,
-      operatorComments: operator_comments,
-      sciObjectivesMet: sci_objective_met,
-      allEquipmentFunctioned: equipment_function,
-      otherComments: other_comments,
-      //can remove updated by once we have the user who is logged in
-      updatedBy: updated_by
-    } = req.body;
-
-    //update post_cruise_complete to show that it is updated
-    let sql = `UPDATE expedition
-             SET expedition_status = "Complete",
-             actual_start = ?,
-             actual_end = ?,
-             accomplishments = ?,
-             scientist_comments = ?,
-             operator_comments = ?,
-             sci_objective_met = ?,
-             equipment_function = ?,
-             other_comments = ?,
-             updated_by = ?
-             WHERE expedition_ID = ?;`;
-
-    const result = await executeSQL(sql, [
-      actual_start, 
-      actual_end, 
-      accomplishments,
-      scientist_comments,
-      operator_comments,
-      sci_objective_met,
-      equipment_function,
-      other_comments,
-      updated_by,
-      req.params.exp_id
-    ]);
+    const result = await updatePost(req.body, req.params.exp_id);
 
     console.log("Insert result:", result);
 
+    //temporary redirect
     res.redirect('/getLastEntry');
   } catch (error) {
     console.error("Error:", error);
@@ -229,57 +153,12 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
 router.post("/updateExpedition", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
-    const {
-      expedition_ID,
-      ship_name,
-      purpose,
-      chief_scientist,
-      principal_investigator,
-      sch_start,
-      sch_end,
-      equip_description,
-      participants,
-      region_description,
-      planned_track_description,
-      expedition_status,
-      actual_start,
-      actual_end,
-      accomplishments,
-      scientist_comments,
-      operator_comments,
-      sci_objective_met,
-      equipment_function,
-      other_comments
-    } = req.body;
 
-    const sql = 'UPDATE expedition SET ship_name = ?, purpose = ?, chief_scientist = ?, principal_investigator = ?, sch_start = ?, sch_end = ?, equip_description = ?, participants = ?, region_description = ?, planned_track_description = ?, expedition_status = ?, actual_start = ?, actual_end = ?, accomplishments = ?, scientist_comments = ?, operator_comments = ?, sci_objective_met = ?, equipment_function = ?, other_comments = ? WHERE expedition_ID = ?';
-
-    const result = await executeSQL(sql, [
-      ship_name,
-      purpose,
-      chief_scientist,
-      principal_investigator,
-      sch_start,
-      sch_end,
-      equip_description,
-      participants,
-      region_description,
-      planned_track_description,
-      expedition_status,
-      actual_start,
-      actual_end,
-      accomplishments,
-      scientist_comments,
-      operator_comments,
-      //error with checkboxes
-      sci_objective_met,
-      equipment_function,
-      other_comments,
-      expedition_ID
-    ]);
+    const result = await updateExpedition(req.body)
 
     console.log("Update result:", result);
 
+    //temporary redirect
     res.redirect('/getLastEntry');
   } catch (error) {
     console.error("Error:", error);
@@ -339,7 +218,4 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-
 module.exports = router;
-
-

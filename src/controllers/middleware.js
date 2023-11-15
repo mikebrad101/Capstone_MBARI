@@ -1,7 +1,21 @@
 
-
+const express = require('express');
+const router = express.Router();
 // Use body-parser middleware to parse JSON requests
-router.use(bodyParser.json());
+router.use(express.urlencoded({ extended: true }));
+
+function isAuthenticated(req, res, next) {
+  console.log(req.session);
+  //tired of logging in....
+  next();
+  // if (req.session.authenticated) {
+  //   console.log("is authenticated");
+  //   next();
+  // } else {
+  //   console.log("not authenticated, redirecting....");
+  //   res.redirect('/login');
+  // }
+}
 
 // Middleware for handling POST requests
 router.post ('/posts', (req, res) => {
@@ -51,3 +65,7 @@ router.delete('/posts/:postId', (req, res) => {
     res.json({ message: 'Post deleted successfully' });
   });
 });
+
+module.exports= {
+  isAuthenticated
+}

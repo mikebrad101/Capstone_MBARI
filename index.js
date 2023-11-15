@@ -6,7 +6,6 @@ app.set("view engine", "ejs");
 const path = require('path'); 
 app.use('/css', express.static(path.join(__dirname, 'src/views/css')));
 
-
 app.set('trust proxy', 1)
 app.use(session({
   secret: 'ch@r@ct3rs',
