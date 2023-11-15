@@ -8,7 +8,9 @@ const { executeSQL,
   addExpedition,
   updatePost,
   updateExpedition,
-  getDives } = require('../controllers/sql.js');
+  getDives, 
+  getUsersByOccupation,
+  getUsersByRole} = require('../controllers/sql.js');
   const { isAuthenticated } = require('../controllers/middleware.js');
 const app = express();
 //need this to get data from webpage
@@ -25,7 +27,8 @@ router.get("/", async function(req, res) {
 router.get("/home", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('home');
+  let role = await getUsersByRole();
+  res.render('home', { "role": role});
 });
 
 router.get("/search", isAuthenticated, async function(req, res) {
@@ -47,13 +50,13 @@ router.get("/preexp", isAuthenticated, async function(req, res) {
 router.get("/login", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('login', { errorMessage: null });
+  res.render('login');
 });
 
 router.get("/signup", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('signup', { errorMessage: null });
+  res.render('signup');
 });
 
 //what is this for?
