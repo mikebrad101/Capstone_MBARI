@@ -141,6 +141,8 @@ h1 {
     font-family: 'Raleway', sans-serif;
     color: #0077b6;
     margin-bottom: 20px;
+    background-color: white; /* Add this line */
+    padding: 10px; /* Add this line for some padding */
 }
 
 input, select, button {
