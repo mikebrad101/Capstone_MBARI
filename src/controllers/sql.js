@@ -20,6 +20,11 @@ async function getChiefScientists(){
   let scientists = await executeSQL(sql);
   return scientists;
 }
+async function getUsersByRole(){
+  let sql = `SELECT * FROM person WHERE role = MBARI Emplyoee`;
+  let role = await executeSQL(sql);
+  return role;
+}
 async function getPrincipalInvestigators(){
   let sql = `SELECT * FROM person WHERE occupation = 'Principal Investigator'`;
   let investigators = await executeSQL(sql);
@@ -183,5 +188,6 @@ module.exports = {
    addExpedition,
    updatePost,
    updateExpedition,
-   getDives
+   getDives, 
+   getUsersByRole
 };
