@@ -8,9 +8,10 @@ const { executeSQL,
   addExpedition,
   updatePost,
   updateExpedition,
-  getDives, 
+  getAllDives,
+  getDive, 
   getUsersByOccupation,
-  getUsersByRole} = require('../controllers/sql.js');
+  getUsersByRole } = require('../controllers/sql.js');
   const { isAuthenticated } = require('../controllers/middleware.js');
 const app = express();
 //need this to get data from webpage
@@ -83,7 +84,7 @@ router.get("/update/:exp_id", isAuthenticated, async function(req, res) {
   let expedition = await getExpedition(req.params.exp_id);
   let scientists = await getChiefScientists();
   let investigators = await getPrincipalInvestigators();
-  let dives = await getDives(req.params.exp_id);
+  let dives = await getAllDives(req.params.exp_id);
   res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators, "dives": dives});
 });
 
@@ -110,6 +111,12 @@ router.get("/allcruises", isAuthenticated, async function(req, res) {
   let rows = await getAllCruises();
   console.log(rows);
   res.render('allcruises', { "rows": rows});
+});
+
+router.get("/searchResults", isAuthenticated, async function(req, res) {
+  console.log("here")
+  console.log(req.body);
+  //res.render('searchResults', { expeditionResults: result, diveResults: diveResult });
 });
 
 //temporary route to get last entry
@@ -141,6 +148,24 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
     console.log(req.body);
 
     const result = await updatePost(req.body, req.params.exp_id);
+
+    console.log("Insert result:", result);
+
+    //temporary redirect
+    res.redirect('/getLastEntry');
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//postcruise update
+router.post("/updateDive/:exp_id/:dive_number", isAuthenticated, async function(req, res) {
+  try {
+    console.log(req.body);
+
+    //create similar function to updateDive
+    //const result = await updatePost(req.body, req.params.exp_id);
 
     console.log("Insert result:", result);
 
