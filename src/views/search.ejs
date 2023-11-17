@@ -1,108 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search Function</title>
+  <link rel="icon" href="/images/tabLogo.png" type="image/png">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link href="/public/css/style.css" rel="stylesheet">
 </head>
+
 <body>
+  <h1>Search Function</h1>
 
-<h1>Search Function</h1>
+  <main class="container">
+    <div id="logo-container">
+      <img src='/images/horizontal-logo-withglow.png' id="logo"><br>
+    </div>
+    <form class="columnTopSpace">
 
-<form>
-  <label for="shipName">Ship Name:</label>
-  <select id="shipName" name="shipName">
-    <option value="ship1">Ship 1</option>
-    <option value="ship2">Ship 2</option>
-  </select><br><br>
+      <label for="shipName" class="labels">Ship Name:</label>
+      <select id="shipName" name="shipName" class="modern-select">
+        <option value="ship1">Ship 1</option>
+        <option value="ship2">Ship 2</option>
+      </select><br><br>
 
-  <label for="status">Status:</label>
-  <select id="status" name="status">
-    <option value="In_Progress">In Progress</option>
-    <option value="completed">Completed</option>
-    <option value="planned">Planned</option>
-  </select><br><br>
+      <label for="status" class="labels">Status:</label>
+      <select id="status" name="status" class="modern-select">
+        <option value="In_Progress">In Progress</option>
+        <option value="completed">Completed</option>
+        <option value="planned">Planned</option>
+      </select><br><br>
 
-  <label for="startDate">Start Date:</label><br>
-  <input type="datetime-local" id="startDate" name="startDate" class="dateInput"><br><br>
+      <label for="startDate" class="labels">Start Date:</label><br>
+      <input type="datetime-local" id="startDate" name="startDate" class="inputStyle"><br><br>
 
-  <label for="endDate">End Date:</label><br>
-  <input type="datetime-local" id="endDate" name="endDate" class="dateInput"><br><br>
+      <label for="endDate" class="labels">End Date:</label><br>
+      <input type="datetime-local" id="endDate" name="endDate" class="inputStyle"><br><br>
 
-  <label for="singleDate">Single Date:</label><br>
-  <input type="datetime-local" id="singleDate" name="singleDate" class="singleDate"><br><br>
+      <label for="singleDate" class="labels">Single Date:</label><br>
+      <input type="datetime-local" id="singleDate" name="singleDate" class="inputStyle"><br><br>
 
-  <label for="diveNumber">Dive Number:</label>
-  <input type="text" id="diveNumber" name="diveNumber"><br><br>
+      <label for="diveNumber" class="labels">Dive Number:</label><br>
+      <input type="text" id="diveNumber" name="diveNumber" class="inputStyle"><br><br>
 
-  <label for="purpose">Purpose:</label>
-  <input type="text" id="purpose" name="purpose"><br><br>
+      <label for="purpose" class="labels">Purpose:</label><br>
+      <input type="text" id="purpose" name="purpose" class="inputStyle"><br><br>
 
-  <label for="siteTrack">Site/Track:</label>
-  <input type="text" id="siteTrack" name="siteTrack"><br><br>
+      <label for="siteTrack" class="labels">Site/Track:</label><br>
+      <input type="text" id="siteTrack" name="siteTrack" class="inputStyle"><br><br>
 
-  <label for="accomplishments">Accomplishments:</label>
-  <input type="text" id="accomplishments" name="accomplishments"><br><br>
+      <label for="accomplishments" class="labels">Accomplishments:</label><br>
+      <input type="text" id="accomplishments" name="accomplishments" class="inputStyle"><br><br>
 
-  <label for="operatorComments">Operator Comments:</label>
-  <input type="text" id="operatorComments" name="operatorComments"><br><br>
+      <label for="operatorComments" class="labels">Operator Comments:</label><br>
+      <input type="text" id="operatorComments" name="operatorComments" class="inputStyle"><br><br>
 
-  <label for="scientistComments">Scientist Comments:</label>
-  <input type="text" id="scientistComments" name="scientistComments"><br><br>
+      <label for="scientistComments" class="labels">Scientist Comments:</label><br>
+      <input type="text" id="scientistComments" name="scientistComments" class="inputStyle"><br><br>
 
-  <label for="sequenceNumber">Sequence Number:</label>
-  <input type="text" id="sequenceNumber" name="sequenceNumber"><br><br>
+      <label for="sequenceNumber" class="labels">Sequence Number:</label><br>
+      <input type="text" id="sequenceNumber" name="sequenceNumber" class="inputStyle"><br><br>
 
-  <label for="yyyyddd">YYYYDDD:</label>
-  <input type="text" id="yyyyddd" name="yyyyddd"><br><br>
+      <label for="yyyyddd" class="labels">YYYYDDD:</label><br>
+      <input type="text" id="yyyyddd" name="yyyyddd" class="inputStyle"><br><br>
 
-  <label for="participants">Participants:</label>
-  <input type="text" id="participants" name="participants"><br><br>
+      <label for="participants" class="labels">Participants:</label><br>
+      <input type="text" id="participants" name="participants" class="inputStyle"><br><br>
 
-  <label for="chiefScientist">Chief Scientist:</label>
-  <select id="chiefScientist" name="chiefScientist">
-    <option value="scientist1">Scientist 1</option>
-    <option value="scientist2">Scientist 2</option>
-  </select><br><br>
+      <label for="chiefScientist" class="labels">Chief Scientist:</label>
+      <select id="chiefScientist" name="chiefScientist" class="modern-select">
+        <option value="scientist1">Scientist 1</option>
+        <option value="scientist2">Scientist 2</option>
+      </select><br><br>
 
-  <label for="principalInvestigator">Principal Investigator:</label>
-  <select id="principalInvestigator" name="principalInvestigator">
-    <option value="investigator1">Investigator 1</option>
-    <option value="investigator2">Investigator 2</option>
-  </select><br><br>
+      <label for="principalInvestigator" class="labels">Principal Investigator:</label>
+      <select id="principalInvestigator" name="principalInvestigator" class="modern-select">
+        <option value="investigator1">Investigator 1</option>
+        <option value="investigator2">Investigator 2</option>
+      </select><br><br>
 
-  <label for="dataComments">Data Comments:</label>
-  <input type="text" id="dataComments" name="dataComments"><br><br>
-  
-  <br><br>
-  <button type="button" onclick="clearFields()">Clear All Fields</button>
-  <button type="button" onclick="searchExpeditions()">Search for Expeditions</button>
-</form>
+      <label for="dataComments" class="labels">Data Comments:</label><br>
+      <input type="text" id="dataComments" name="dataComments" class="inputStyle">
+      <br><br>
 
-<script>
-    function clearFields() {
-      // Clear all form fields
-      document.getElementById("expeditionForm").reset();
-    }
-  
-    function searchExpeditions() {
-      // Implement your search logic here
-      //for now return all cruises because it looks good.
-      
-      alert("Searching for expeditions...");
-      window.location.href = "/searchResults"
-    }
-  </script>
+      <div class="button-container">
+        <button type="button" onclick="clearFields()" class="button">Clear All Fields</button>
+        <button type="button" onclick="searchExpeditions()" class="button">Search for Expeditions</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
+  </footer>
 
 </body>
+
 </html>
-
-
-
-<!-- Quistions:
-#’Join field below with AND OR’????
-#What is ‘date choice’? date range 
-#What is ‘Start Date’? expedition date
-#Whats is ‘status’? planned/completed 
-#What is ‘YYYYDDD’? year/day 
-#What is ‘end date’?
-#What is ‘single date’? year month day 
-#Should participants be a dropdown instead? no 
