@@ -1,0 +1,83 @@
+<!-- searchResults.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results</title>
+</head>
+<body>
+
+  <h1>Expedition Search Results</h1>
+
+  <% if (expeditionResults.length > 0) { %>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Expedition ID</th>
+          <th>Ship Name</th>
+          <th>Purpose</th>
+          <th>Chief Scientist</th>
+          <th>Principal Investigator</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <% expeditionResults.forEach(expedition => { %>
+          <tr>
+            <td><%= expedition.expedition_ID %></td>
+            <td><%= expedition.ship_name %></td>
+            <td><%= expedition.purpose %></td>
+            <td><%= expedition.chief_scientist %></td>
+            <td><%= expedition.principal_investigator %></td>
+            <td><%= expedition.actual_start %></td>
+            <td><%= expedition.actual_end %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>No expedition results found.</p>
+  <% } %>
+
+  <h1>Dive Search Results</h1>
+
+  <% if (diveResults.length > 0) { %>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Expedition ID</th>
+          <th>ROV Name</th>
+          <th>Dive Number</th>
+          <th>Dive Start</th>
+          <th>Dive End</th>
+          <th>Dive Chief Scientist</th>
+          <th>Accomplishments</th>
+          <!-- Add more headers based on your dive table schema -->
+        </tr>
+      </thead>
+      <tbody>
+        <% diveResults.forEach(dive => { %>
+          <tr>
+            <td><%= dive.expedition_ID %></td>
+            <td><%= dive.ROV_name %></td>
+            <td><%= dive.dive_number %></td>
+            <td><%= dive.dive_start %></td>
+            <td><%= dive.dive_end %></td>
+            <td><%= dive.dive_cheif_scientist %></td>
+            <td><%= dive.accomplishments %></td>
+            <!-- Add more columns based on your dive table schema -->
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>No dive results found.</p>
+  <% } %>
+
+
+</body>
+</html>
