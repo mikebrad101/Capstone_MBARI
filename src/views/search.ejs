@@ -7,7 +7,7 @@
 
 <h1>Search Function</h1>
 
-<form>
+<form action="/searchRequest" method="POST"
   <label for="shipName">Ship Name:</label>
   <select id="shipName" name="shipName">
     <option value="ship1">Ship 1</option>
@@ -74,21 +74,13 @@
   
   <br><br>
   <button type="button" onclick="clearFields()">Clear All Fields</button>
-  <button type="button" onclick="searchExpeditions()">Search for Expeditions</button>
+  <button type="submit">Search for Expeditions</button>
 </form>
 
 <script>
     function clearFields() {
       // Clear all form fields
       document.getElementById("expeditionForm").reset();
-    }
-  
-    function searchExpeditions() {
-      // Implement your search logic here
-      //for now return all cruises because it looks good.
-      
-      alert("Searching for expeditions...");
-      window.location.href = "/searchResults"
     }
   </script>
 

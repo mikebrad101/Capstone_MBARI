@@ -1,30 +1,34 @@
-app.get('/views/search', isAuthenticated, async (req,res) => {
-  
+const { executeSQL } = require('../controllers/sql.js');
+
+async function getSearchResults(data){
+  console.log(data);
   /////VARIABLES////
-  
-  let shipName = req.body.shipName;
-  let status = req.body.status;
-  let startDate = req.body.startDate;
-  let endDate = req.body.endDate;
-  let singleDate = req.body.singleDate;   
-  let diveNumber = req.body.diveNumber; 
-  let purpose = req.body.purpose;
-  let siteTrack = req.body.siteTrack; 
-  let accomplishments = req.body.acomplishments;
-  let operatorComments = req.body.operatorComments; 
-  let scientistComments = req.body.scientistComments;
-  let sequenceNumber = req.body.sequenceNumber; //TODO will need a seperate function 
-  let yyyyddd = req.body.yyyyddd; //TODO will need a seperate function 
-  let participants = req.body.participants;
-  let chiefScientist = req.body.chiefScientist;
-  let principalInvestigator = req.body.principalInvestigator;
-  let dataComments = req.body.dataComments; 
-  
+
+  const {
+    shipName,
+    status,
+    startDate,
+    endDate,
+    singleDate,
+    diveNumber,
+    purpose,
+    siteTrack,
+    accomplishments,
+    operatorComments,
+    scientistComments,
+    sequenceNumber,
+    yyyyddd,
+    participants,
+    chiefScientist,
+    principalInvestigator,
+    dataComments
+  } = data;
+
   /////END OF VARIABLES////
 
   
   let sql = 'SELECT * FROM expedition WHERE 1=1'; //Sets up the SQL query 
-  let diveSQL = 'SELECT * FROM dive WHERE dive_number = ' //query for dive number specifically 
+  //let diveSQL = 'SELECT * FROM dive WHERE dive_number = ' //query for dive number specifically 
 
   if(shipName)
     sql += ' AND ship_name = ${req.body.shipName}';
@@ -72,12 +76,11 @@ if(diveNumber)
     sql += ' AND principal_investigator = ${principalInvestigator}';
 
   let result = await executeSQL(sql);
-  let diveResult = await executeSQL(diveSQL);
+  //let diveResult = await executeSQL(diveSQL);
+  console.log(result);
+  return result
+}
 
-  try {
-  res.render('searchResults', { expeditionResults: result, diveResults: diveResult });
-  } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
-});
+module.exports = {
+  getSearchResults
+}
