@@ -72,6 +72,6 @@ if(diveNumber)
   let result = await executeSQL(sql);
   let diveResult = await executeSQL(diveSQL);
   
-  //Send to the client
+  
 
 });
