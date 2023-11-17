@@ -58,7 +58,9 @@ if(diveNumber)
 
   //SEQUENCE NUMBER HERE
 
-  //yyyyddd HERE
+  if(yyyyddd)
+    sql += ' AND (DATE_FORMAT(actual_start, %Y%j) = YYYYDDD OR DATE_FORMAT(actual_end, %Y%j) = YYYYDDD)';
+  
    
   if(participants)
     sql += ' AND participants LIKE ${participants}';
