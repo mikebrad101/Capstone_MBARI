@@ -43,41 +43,5 @@
     <p>No expedition results found.</p>
   <% } %>
 
-  <h1>Dive Search Results</h1>
-
-  <% if (diveResults.length > 0) { %>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Expedition ID</th>
-          <th>ROV Name</th>
-          <th>Dive Number</th>
-          <th>Dive Start</th>
-          <th>Dive End</th>
-          <th>Dive Chief Scientist</th>
-          <th>Accomplishments</th>
-          <!-- Add more headers based on your dive table schema -->
-        </tr>
-      </thead>
-      <tbody>
-        <% diveResults.forEach(dive => { %>
-          <tr>
-            <td><%= dive.expedition_ID %></td>
-            <td><%= dive.ROV_name %></td>
-            <td><%= dive.dive_number %></td>
-            <td><%= dive.dive_start %></td>
-            <td><%= dive.dive_end %></td>
-            <td><%= dive.dive_cheif_scientist %></td>
-            <td><%= dive.accomplishments %></td>
-            <!-- Add more columns based on your dive table schema -->
-          </tr>
-        <% }); %>
-      </tbody>
-    </table>
-  <% } else { %>
-    <p>No dive results found.</p>
-  <% } %>
-
-
 </body>
 </html>

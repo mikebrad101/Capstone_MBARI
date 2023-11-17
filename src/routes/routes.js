@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { getSearchResults } = require('../controllers/search.js');
 const { executeSQL,
   getChiefScientists,
   getPrincipalInvestigators,
@@ -113,10 +114,11 @@ router.get("/allcruises", isAuthenticated, async function(req, res) {
   res.render('allcruises', { "rows": rows});
 });
 
-router.get("/searchResults", isAuthenticated, async function(req, res) {
+router.post("/searchRequest", isAuthenticated, async function(req, res) {
   console.log("here")
   console.log(req.body);
-  //res.render('searchResults', { expeditionResults: result, diveResults: diveResult });
+  results = getSearchResults(req.body)
+  res.render('searchResults', { expeditionResults: results});
 });
 
 //temporary route to get last entry
