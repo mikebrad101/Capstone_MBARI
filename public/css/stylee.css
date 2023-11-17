@@ -1,0 +1,161 @@
+body {
+    background-image: url('/images/seaimage2.jpeg');
+    text-align: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: left;
+}
+
+main {
+    flex: 1;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    background-color: white;
+    resize: both;
+    border-radius: 35px;
+    width: 80%;
+    min-width: 300px;
+    max-width: 800px;
+    height: 100px;
+    margin-left: 10%;
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin-left: 5%;
+    }
+}
+
+h1 {
+    margin-left: 10%;
+    margin-top: 20px;
+    align-self: flex-start;
+}
+
+#logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#logo {
+    width: 350px;
+    height: auto;
+}
+
+.columnTopSpace {
+    padding-top: 20px;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    color: #00072D;
+}
+
+.inputStyle {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+    .inputStyle {
+        width: 500px;
+    }
+}
+
+.checkbox-container {
+    margin-left: 20px; 
+}
+
+.modern-select {
+    font-family: 'Arial', sans-serif;
+    color: #555;
+    font-size: 14px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modern-select:hover {
+    border-color: #231F20;
+}
+
+.modern-select option {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.modern-select:focus {
+    outline: none;
+    border-color: #231F20;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.button {
+    appearance: none;
+    border: .2em solid gray;
+    background: hsl(0 0 0/0);
+    padding: .85em 1.5em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: gray;
+    border-radius: 2em;
+    transition: 1s;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background: gray;
+        color: #fff;
+    }
+}
+
+@media (max-width: 600px) {
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+footer {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #DEC4AD;
+    background-color: #231F20;
+    position: static;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+}
