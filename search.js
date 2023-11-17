@@ -9,7 +9,7 @@ app.get('/views/search', isAuthenticated, async (req,res) => {
   let singleDate = req.body.singleDate;   
   let diveNumber = req.body.diveNumber; 
   let purpose = req.body.purpose;
-  let siteTrack = req.body.siteTrack; //Is this planned track, region description, or both? ASK MIKE
+  let siteTrack = req.body.siteTrack; 
   let accomplishments = req.body.acomplishments;
   let operatorComments = req.body.operatorComments; 
   let scientistComments = req.body.scientistComments;
@@ -18,7 +18,7 @@ app.get('/views/search', isAuthenticated, async (req,res) => {
   let participants = req.body.participants;
   let chiefScientist = req.body.chiefScientist;
   let principalInvestigator = req.body.principalInvestigator;
-  let dataComments = req.body.dataComments; //I think this corraltes to other comments ASK MIKE 
+  let dataComments = req.body.dataComments; 
   
   /////END OF VARIABLES////
 
