@@ -7,7 +7,9 @@ router.use(express.urlencoded({ extended: true }));
 function isAuthenticated(req, res, next) {
   console.log(req.session);
   //tired of logging in....
-  next();
+  next(); //comment this 
+
+  // uncomment below
   // if (req.session.authenticated) {
   //   console.log("is authenticated");
   //   next();

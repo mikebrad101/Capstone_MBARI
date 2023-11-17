@@ -69,6 +69,42 @@
     <label for="other_comments">Other Comments:</label>
     <textarea id="other_comments" name="other_comments"><%= expedition[0].other_comments %></textarea><br><br>
 
+    <!-- Show dives here if they exist-->
+    <!-- Add option for new dive. -->
+    <h2> Dives: </h2>
+    <table>
+      <tr>
+        <th>ROV Name</th>
+        <th>Dive Number</th>
+        <th>Start Datetime</th>
+        <th>End Datetime</th>
+        <th>Chief Scientist</th>
+        <th>Brief Accomplishments</th>
+      </tr>
+      <% if (dives.length > 0) { %>
+        <% for (i = 0; i < dives.length; i++) { %>
+          <tr>
+            <td> <%= dives[i].ROV_name %> </td>
+            <td> <%= dives[i].dive_number %> </td>
+            <td> <%= dives[i].dive_start %> </td>
+            <td> <%= dives[i].dive_end %> </td>
+            <td> <%= dives[i].dive_cheif_scientist %> </td>
+            <td> <%= dives[i].accomplishments %> </td>
+            <td> <a href="/updateDive/<%= dives[i].dive_number %>/<%= expedition[0].expedition_ID %>" class="button">Update Dive</a></td>
+          </tr>
+        <% } %>
+      <% } else { %>
+        <tr>
+          <td colspan="5">No dives found.</td>
+        </tr>
+      <% } %>
+    </table>
+    <br><br>
+    <!-- make button route to /dive  -->
+    <a href="/dive" class="button">Add Dive</a>
+    <br><br>
+    <br><br>
+    
     <input type="submit" value="Update Expedition">
   </form>
 </body>

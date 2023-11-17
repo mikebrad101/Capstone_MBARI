@@ -74,8 +74,9 @@ if(diveNumber)
   let result = await executeSQL(sql);
   let diveResult = await executeSQL(diveSQL);
 
+  try {
   res.render('searchResults', { expeditionResults: result, diveResults: diveResult });
-    } catch (error) {
+  } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
