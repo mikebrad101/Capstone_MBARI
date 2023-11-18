@@ -1,153 +1,161 @@
-html {
-    scroll-behavior: smooth;
+body {
+  background-image: url('/images/seaimage2.jpeg');
+  text-align: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
 }
 
-body{
-    text-align:center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+main {
+  flex: 1;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-    margin: 0; 
-    padding: 0; 
-    overflow-x: auto;
-  }
-.logo {
-  position: absolute;
-  top: 10px;
-  right: 50px;
-  width: 300px; 
+.container {
+  background-color: white;
+  resize: both;
+  border-radius: 35px;
+  width: 80%;
+  min-width: 300px;
+  max-width: 800px;
   height: 100px;
+  margin-left: 10%;
 }
 
-  .container{
-    display: center;
-    background-color: white;
-    /* box-shadow: 1px 10px 100px 25px white; */
-    resize: both;
-    /* overflow: auto; */
-    border-radius: 25px;
-    /* padding: 60px; */
-    width: 900px;
-    height: 100px;
+@media (max-width: 600px) {
+  .container {
+      margin-left: 5%;
   }
-  .columnTopSpace{
-    padding-top: 20px;
-  }
-
-  /* table, th, td {
-    border: 1px solid black;
-  } */
-
-  select.round {
-    background-image:
-      linear-gradient(45deg, transparent 50%, gray 50%),
-      linear-gradient(135deg, gray 50%, transparent 50%),
-      radial-gradient(#ddd 70%, transparent 72%);
-    background-position:
-      calc(100% - 20px) calc(1em + 2px),
-      calc(100% - 15px) calc(1em + 2px),
-      calc(100% - .5em) .5em;
-    background-size:
-      5px 5px,
-      5px 5px,
-      1.5em 1.5em;
-    background-repeat: no-repeat;
-  }
-  
-  select.round:focus {
-    background-image:
-      linear-gradient(45deg, white 50%, transparent 50%),
-      linear-gradient(135deg, transparent 50%, white 50%),
-      radial-gradient(gray 70%, transparent 72%);
-    background-position:
-      calc(100% - 15px) 1em,
-      calc(100% - 20px) 1em,
-      calc(100% - .5em) .5em;
-    background-size:
-      5px 5px,
-      5px 5px,
-      1.5em 1.5em;
-    background-repeat: no-repeat;
-    border-color: green;
-    outline: 0;
-  }
-
-.textArea{
-    width: 300px;
-    height: 100px;
-    padding: 0; /* Remove padding */
-    border: none; /* Remove borders */
-    outline: none; /* Remove outline */
-    resize: none; /* Disable resizing */
-    border-bottom: 2px solid #ccc; 
-  }
-.dateInput{
-    border: .2em solid gray;
-	padding: .8em .9em;
-	border-radius: 2em;
-	color: gray;
-}
-.button{
-  appearance: none;
-	border: .2em solid gray;
-	background: hsl(0 0 0/0);
-	padding: .85em 1.5em;
-  margin-top: 10px;
-  margin-bottom: 10px;
-	color: gray;
-	border-radius: 2em;
-	transition: 1s;
-	&:hover, &:focus, &:active {
-		background: gray;
-		color: #fff;
-	}
 }
 
-footer{
-  font-family: Arial, Helvetica, sans-serif;
-  color: #DEC4AD;
-  background-color: #231F20;
-  position: fixed;
-  width: 100%;
-  display:flex;
-   bottom: 0; 
+h1 {
+  margin-left: 10%;
+  margin-top: 20px;
+  align-self: flex-start;
+}
+
+#logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#logo {
+  width: 350px;
+  height: auto;
+}
+
+.columnTopSpace {
+  padding-top: 20px;
+}
+
+form {
+  text-align: left;
+}
+
+label {
+  color: #00072D;
+}
+
+.inputStyle {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%; 
+  box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+  .inputStyle {
+      width: 500px;
   }
-  
-.foottext {
-  margin: auto;
-  margin-top: 1%;
 }
 
-
-.modern-label {
-  font-family: 'Arial', sans-serif; 
-  color: #333; 
-  font-size: 16px; 
+.checkbox-container {
+  margin-left: 20px; 
 }
-
 
 .modern-select {
   font-family: 'Arial', sans-serif;
-  color: #555; 
-  font-size: 14px; 
+  color: #555;
+  font-size: 14px;
   background-color: #f5f5f5;
   border: 1px solid #ccc;
-  border-radius: 5px; 
-  padding: 10px; 
-  width: 200px; 
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .modern-select:hover {
-  border-color: #231F20; 
+  border-color: #231F20;
 }
 
 .modern-select option {
-  background-color: #f5f5f5; 
-  color: #333; 
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 .modern-select:focus {
   outline: none;
-  border-color: #231F20; 
+  border-color: #231F20;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.button {
+  appearance: none;
+  border: .2em solid gray;
+  background: hsl(0 0 0/0);
+  padding: .85em 1.5em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: gray;
+  border-radius: 2em;
+  transition: 1s;
+
+  &:hover,
+  &:focus,
+  &:active {
+      background: gray;
+      color: #fff;
+  }
+}
+
+@media (max-width: 600px) {
+  .button-container {
+      flex-direction: column;
+      align-items: center;
+  }
+}
+
+footer {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #DEC4AD;
+  background-color: #231F20;
+  position: static;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 60px;
 }

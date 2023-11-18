@@ -173,10 +173,56 @@ async function updateExpedition(data){
   return result;
 }
 
-async function getDives(exp_id){
+async function getAllDives(exp_id){
   let sql = "SELECT * FROM dive WHERE expedition_ID = ?;";
   let rows = await executeSQL(sql, [exp_id]);
   return rows;
+}
+
+async function getDive(exp_id, dive_id){
+  let sql = "SELECT * FROM dive WHERE expedition_ID = ?;";
+  let rows = await executeSQL(sql, [exp_id]);
+  return rows;
+}
+
+async function updateDive(data, exp_id, dive_id){
+  const {
+    ROV_name,
+    dive_number,
+    dive_start,
+    dive_end,
+    dive_cheif_scientist,
+    accomplishments
+  } = data;
+
+  //update post_cruise_complete to show that it is updated
+  let sql = `UPDATE dive
+           SET expedition_status = "Complete",
+           actual_start = ?,
+           actual_end = ?,
+           accomplishments = ?,
+           scientist_comments = ?,
+           operator_comments = ?,
+           sci_objective_met = ?,
+           equipment_function = ?,
+           other_comments = ?,
+           updated_by = ?
+           WHERE expedition_ID = ?
+           AND dive_number = ?;`;
+
+  const result = await executeSQL(sql, [
+    actual_start, 
+    actual_end, 
+    accomplishments,
+    scientist_comments,
+    operator_comments,
+    sci_objective_met,
+    equipment_function,
+    other_comments,
+    updated_by,
+    id
+  ]);
+  return result;
 }
 
 module.exports = {
@@ -188,6 +234,7 @@ module.exports = {
    addExpedition,
    updatePost,
    updateExpedition,
-   getDives, 
+   getAllDives,
+   getDive, 
    getUsersByRole
 };
