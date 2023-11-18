@@ -138,11 +138,17 @@ form {
 
 h1 {
     text-align: center;
-    font-family: 'Raleway', sans-serif;
-    color: #0077b6;
-    margin-bottom: 20px;
-    background-color: white; /* Add this line */
+    font-family: Arial, Helvetica, sans-serif;
+    color: #DEC4AD;
+    background-color: #231F20;
     padding: 10px; /* Add this line for some padding */
+    margin-bottom: 20px;
+
+}
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+
+    
 }
 
 input, select, button {
@@ -233,7 +239,7 @@ footer {
 }
 .button {
     display: block;
-    width: 90%;
+    width: 95%;
     padding: 10px;
     margin: 7px;
     text-align: center;
@@ -249,8 +255,19 @@ footer {
     border-radius: 4px;
     overflow: hidden;
     background: #fff;
-    width: 262px;
+    width: 332px;
     display: inline-block;
     vertical-align: top;
-    margin: 36px 0 0 36px;
+    margin: 36px 72px 36px 36px;
+}
+.ic-DashboardCard__header_image {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.ic-DashboardCard__header_hero {
+    box-sizing: border-box;
+    height: 146px;
+    border: 1px solid rgba(0,0,0,.1);
+    text-align: center;
 }
