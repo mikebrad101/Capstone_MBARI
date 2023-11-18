@@ -225,7 +225,27 @@ router.post('/login', async (req, res) => {
         req.session.position = dbRole;
         console.log(req.session)
         req.session.save()
-        res.redirect('/home');
+        
+        // Redirect users based on their role
+        switch (dbRole) {
+          case 'MBARI Employee':
+          // case 'Registered User':
+            res.redirect('/mbari-employee-dashboard');
+            break;
+
+          case 'Logistics Coordinator':
+            res.redirect('/logistics-coordinator-dashboard');
+            break;
+
+          case 'Registered User':
+            res.redirect('/registered-user-dashboard');
+            break;
+          // Add more cases for other roles as needed
+
+          default:
+            res.redirect('/login');
+            break;
+        }
       }
     });
 });
