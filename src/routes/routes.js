@@ -67,6 +67,16 @@ router.get("/mbari-employee-dashboard", async function(req, res) {
   //then send it to the view using render
   res.render('mbari-employee-dashboard');
 });
+router.get("/logistics-coordinator-dashboard", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('logistics-coordinator-dashboard');
+});
+router.get("/registered-user-dashboard", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('registered-user-dashboard');
+});
 
 router.get("/postexp", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
