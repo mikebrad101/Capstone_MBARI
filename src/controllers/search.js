@@ -10,7 +10,7 @@ async function getSearchResults(data){
     startDate,
     endDate,
     singleDate,
-    diveNumber,
+    //diveNumber,
     purpose,
     siteTrack,
     accomplishments,

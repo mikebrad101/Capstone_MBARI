@@ -20,10 +20,10 @@
     <input type="text" id="principal_investigator" name="principal_investigator" value="<%= expedition[0].principal_investigator %>"><br><br>
 
     <label for="sch_start">Scheduled Start:</label>
-    <input type="datetime-local" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>
+    <input type="date" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>
 
     <label for="sch_end">Scheduled End:</label>
-    <input type="datetime-local" id="sch_end" name="sch_end" value="<%= expedition[0].sch_end %>"><br><br>
+    <input type="date" id="sch_end" name="sch_end" value="<%= expedition[0].sch_end %>"><br><br>
 
     <label for="equip_description">Equipment Description:</label>
     <textarea id="equip_description" name="equip_description"><%= expedition[0].equip_description %></textarea><br><br>
@@ -46,10 +46,10 @@
     <br><br>
 
     <label for="actual_start">Actual Start:</label>
-    <input type="datetime-local" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
+    <input type="date" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
 
     <label for="actual_end">Actual End:</label>
-    <input type="datetime-local" id="actual_end" name="actual_end" value="<%= expedition[0].actual_end %>"><br><br>
+    <input type="date" id="actual_end" name="actual_end" value="<%= expedition[0].actual_end %>"><br><br>
 
     <label for="accomplishments">Accomplishments:</label>
     <textarea id="accomplishments" name="accomplishments"><%= expedition[0].accomplishments %></textarea><br><br>
@@ -76,8 +76,8 @@
       <tr>
         <th>ROV Name</th>
         <th>Dive Number</th>
-        <th>Start Datetime</th>
-        <th>End Datetime</th>
+        <th>Start Date</th>
+        <th>End Date</th>
         <th>Chief Scientist</th>
         <th>Brief Accomplishments</th>
       </tr>
