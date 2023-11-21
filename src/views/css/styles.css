@@ -113,7 +113,7 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    background-image: url('https://www.montereybayaquarium.org/globalassets/mba/images/animals/marine-mammals/sea-otter-wild-tr19-0747.jpg?format=webp&quality=60');
+    /* background-image: url('https://www.montereybayaquarium.org/globalassets/mba/images/animals/marine-mammals/sea-otter-wild-tr19-0747.jpg?format=webp&quality=60'); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
