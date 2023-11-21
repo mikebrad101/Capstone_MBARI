@@ -1,5 +1,3 @@
-<!-- searchResults.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,12 +15,9 @@
         <tr>
           <th>Expedition ID</th>
           <th>Ship Name</th>
-          <th>Purpose</th>
-          <th>Chief Scientist</th>
-          <th>Principal Investigator</th>
+          <th>Expedition Status</th>
           <th>Start Date</th>
           <th>End Date</th>
-          
         </tr>
       </thead>
       <tbody>
@@ -30,9 +25,7 @@
           <tr>
             <td><%= expedition.expedition_ID %></td>
             <td><%= expedition.ship_name %></td>
-            <td><%= expedition.purpose %></td>
-            <td><%= expedition.chief_scientist %></td>
-            <td><%= expedition.principal_investigator %></td>
+            <td><%= expedition.expedition_status %></td>
             <td><%= expedition.actual_start %></td>
             <td><%= expedition.actual_end %></td>
           </tr>
