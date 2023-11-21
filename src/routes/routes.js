@@ -253,7 +253,7 @@ router.post('/login', async (req, res) => {
           // Add more cases for other roles as needed
   
           default:
-            res.redirect('/default-dashboard');
+            res.redirect('/home');
             break;
         }
       }
