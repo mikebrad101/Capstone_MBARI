@@ -2,7 +2,6 @@ const { executeSQL } = require('../controllers/sql.js');
 
 async function getSearchResults(data){
   console.log(data);
-  /////VARIABLES////
 
   const {
     shipName,
@@ -10,72 +9,98 @@ async function getSearchResults(data){
     startDate,
     endDate,
     singleDate,
-    //diveNumber,
+    diveNumber, //NEEDS WORK
     purpose,
-    siteTrack,
+    siteTrack, //TODO 
     accomplishments,
     operatorComments,
     scientistComments,
-    sequenceNumber,
-    yyyyddd,
+    sequenceNumber, //TODO
+    yyyyddd, //NEEDS WORK
     participants,
     chiefScientist,
     principalInvestigator,
-    dataComments
+    dataComments //TODO
   } = data;
 
-  /////END OF VARIABLES////
 
   
   let sql = 'SELECT * FROM expedition WHERE 1=1'; //Sets up the SQL query 
   //let diveSQL = 'SELECT * FROM dive WHERE dive_number = ' //query for dive number specifically 
 
-  if(shipName)
-    sql += ' AND ship_name = ${req.body.shipName}';
+  const values =[]; 
 
-  if(status)
-    sql += ' AND status = ${status}';
+  if(shipName){
+    sql += ' AND ship_name = ?';
+    values.push(shipName);
+  }
 
-  if(startDate)
-    sql += ' AND actual_start = ${startDate}';
-   
-  if(endDate)
-    sql += ' AND actual_end = ${endDate}';
+  if(status){    
+    sql += ' AND expedition_status = ?';
+    values.push(status);
+  }
 
-  if(singleDate)
-    sql += ' AND ${singleDate} BETWEEN actual_start AND actual_end';
+  if(startDate){
+    sql += ' AND DATE(actual_start) = ?';
+    values.push(startDate);
+  }
+
+  if(endDate){
+    sql += ' AND actual_end = ?';
+    values.push(endDate);
+  }  
+
+  if(singleDate){
+    sql += ' AND DATE(?) BETWEEN DATE(actual_start) AND DATE(actual_end)';
+    values.push(singleDate);
+  }
   
-if(diveNumber)
-    diveSQL += '${diveNumber}';
+  //if(diveNumber){
+    //diveSQL += '${diveNumber}';
+  //}
   
-  if(purpose)
-    sql += ' AND purpose LIKE ${purpose}';
+  if(purpose){
+    sql += ' AND purpose LIKE ?';
+    values.push(purpose);
+  }
    
-  if(accomplishments)
-    sql += ' AND accomplishments LIKE ${accomplishments}';
-   
-  if(operatorComments)
-    sql += ' AND operator_comments LIKE ${operatorComments}';
+  if(accomplishments){
+    sql += ' AND accomplishments LIKE ?';
+    values.push(accomplishments);
+  }
 
-  if(scientistComments)
-    sql += ' AND scientist_comments LIKE ${scientistComments}'; 
+  if(operatorComments){
+    sql += ' AND operator_comments LIKE ?';
+    values.push(operatorComments);
+  }
 
+  if(scientistComments){
+    sql += ' AND scientist_comments LIKE ?';
+    values.push(scientistComments); 
+  }
   //SEQUENCE NUMBER HERE
 
-  if(yyyyddd)
+  if(yyyyddd){
     sql += ' AND (DATE_FORMAT(actual_start, %Y%j) = YYYYDDD OR DATE_FORMAT(actual_end, %Y%j) = YYYYDDD)';
-  
+    values.push(yyyyddd);
+  }
    
-  if(participants)
-    sql += ' AND participants LIKE ${participants}';
+  if(participants){
+    sql += ' AND participants LIKE ?';
+    values.push(participants);
+  }
 
-  if(chiefScientist)
-    sql += ' AND chief_scientist = ${chiefScientist}';
+  if(chiefScientist){
+    sql += ' AND chief_scientist = ?';
+    values.push(chiefScientist);
+  }
 
-  if(principalInvestigator)
-    sql += ' AND principal_investigator = ${principalInvestigator}';
+  if(principalInvestigator){
+    sql += ' AND principal_investigator = ?';
+    values.push(principalInvestigator);
+  }
 
-  let result = await executeSQL(sql);
+  let result = await executeSQL(sql, values);
   //let diveResult = await executeSQL(diveSQL);
   console.log(result);
   return result
@@ -84,3 +109,15 @@ if(diveNumber)
 module.exports = {
   getSearchResults
 }
+
+
+/*
+TO DO NEEDED
+-Dive implementation 
+-YYYYDDD implementation
+-Sequence number implementation
+
+TO DO OPTIONAL
+-Option to export as JASON
+-Dynamically populate selects 
+*/
