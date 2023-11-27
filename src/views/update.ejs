@@ -2,110 +2,146 @@
 <html>
 <head>
   <title>Update Expedition</title>
+  <link rel="icon" href="/images/tabLogo.png" type="image/png">
+  <!-- Add other styles and scripts if necessary -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+  crossorigin="anonymous">
+    <link href="/public/css/style.css" rel="stylesheet">
+  <style>
+  body {
+      background:#E3CEAF;
+  }
+  </style>
 </head>
 <body>
-  <form action="/updateExpedition" method="POST">
-    <input type="hidden" name="expedition_ID" value="<%= expedition[0].expedition_ID %>">
+  <div class="center-container">
+    <form action="/updateExpedition" method="POST">
+      <input type="hidden" name="expedition_ID" value="<%= expedition[0].expedition_ID %>">
 
-    <label for="ship_name">Ship Name:</label>
-    <input type="text" id="ship_name" name="ship_name" value="<%= expedition[0].ship_name %>"><br><br>
+      <label for="ship_name">Ship Name:</label>
+      <input type="text" id="ship_name" name="ship_name" value="<%= expedition[0].ship_name %>"><br><br>
 
-    <label for="purpose">Purpose:</label>
-    <textarea id="purpose" name="purpose"><%= expedition[0].purpose %></textarea><br><br>
+      <label for="purpose">Purpose:</label>
+      <textarea id="purpose" name="purpose"><%= expedition[0].purpose %></textarea><br><br>
 
-    <label for="chief_scientist">Chief Scientist:</label>
-    <input type="text" id="chief_scientist" name="chief_scientist" value="<%= expedition[0].chief_scientist %>"><br><br>
+      <label for="chief_scientist">Chief Scientist:</label>
+      <input type="text" id="chief_scientist" name="chief_scientist" value="<%= expedition[0].chief_scientist %>"><br><br>
 
-    <label for="principal_investigator">Principal Investigator:</label>
-    <input type="text" id="principal_investigator" name="principal_investigator" value="<%= expedition[0].principal_investigator %>"><br><br>
+      <label for="principal_investigator">Principal Investigator:</label>
+      <input type="text" id="principal_investigator" name="principal_investigator" value="<%= expedition[0].principal_investigator %>"><br><br>
 
+<<<<<<< Updated upstream
     <label for="sch_start">Scheduled Start:</label>
     <input type="date" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>
 
     <label for="sch_end">Scheduled End:</label>
     <input type="date" id="sch_end" name="sch_end" value="<%= expedition[0].sch_end %>"><br><br>
+=======
+      <label for="sch_start">Scheduled Start:</label>
+      <input type="datetime-local" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>
 
-    <label for="equip_description">Equipment Description:</label>
-    <textarea id="equip_description" name="equip_description"><%= expedition[0].equip_description %></textarea><br><br>
+      <label for="sch_end">Scheduled End:</label>
+      <input type="datetime-local" id="sch_end" name="sch_end" value="<%= expedition[0].sch_end %>"><br><br>
+>>>>>>> Stashed changes
 
-    <label for="participants">Participants:</label>
-    <textarea id="participants" name="participants"><%= expedition[0].participants %></textarea><br><br>
+      <label for="equip_description">Equipment Description:</label>
+      <textarea id="equip_description" name="equip_description"><%= expedition[0].equip_description %></textarea><br><br>
 
-    <label for="region_description">Region Description:</label>
-    <textarea id="region_description" name="region_description"><%= expedition[0].region_description %></textarea><br><br>
+      <label for="participants">Participants:</label>
+      <textarea id="participants" name="participants"><%= expedition[0].participants %></textarea><br><br>
 
-    <label for="planned_track_description">Planned Track Description:</label>
-    <textarea id="planned_track_description" name="planned_track_description"><%= expedition[0].planned_track_description %></textarea><br><br>
+      <label for="region_description">Region Description:</label>
+      <textarea id="region_description" name="region_description"><%= expedition[0].region_description %></textarea><br><br>
 
-    <label for="expedition_status">Status:</label>
-      <select id="expedition_status" name="expedition_status">
-        <option value="Complete" <% if (expedition[0].expedition_status === "Complete") { %>selected<% } %>>Complete</option>
-        <option value="Incomplete" <% if (expedition[0].expedition_status === "Planned") { %>selected<% } %>>Planned</option>
-        <option value="Cancelled" <% if (expedition[0].expedition_status === "Cancelled") { %>selected<% } %>>Cancelled</option>
-      </select>
-    <br><br>
+      <label for="planned_track_description">Planned Track Description:</label>
+      <textarea id="planned_track_description" name="planned_track_description"><%= expedition[0].planned_track_description %></textarea><br><br>
 
+      <label for="expedition_status">Status:</label>
+        <select id="expedition_status" name="expedition_status">
+          <option value="Complete" <% if (expedition[0].expedition_status === "Complete") { %>selected<% } %>>Complete</option>
+          <option value="Incomplete" <% if (expedition[0].expedition_status === "Planned") { %>selected<% } %>>Planned</option>
+          <option value="Cancelled" <% if (expedition[0].expedition_status === "Cancelled") { %>selected<% } %>>Cancelled</option>
+        </select>
+      <br><br>
+
+<<<<<<< Updated upstream
     <label for="actual_start">Actual Start:</label>
     <input type="date" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
 
     <label for="actual_end">Actual End:</label>
     <input type="date" id="actual_end" name="actual_end" value="<%= expedition[0].actual_end %>"><br><br>
+=======
+      <label for="actual_start">Actual Start:</label>
+      <input type="datetime-local" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
 
-    <label for="accomplishments">Accomplishments:</label>
-    <textarea id="accomplishments" name="accomplishments"><%= expedition[0].accomplishments %></textarea><br><br>
+      <label for="actual_end">Actual End:</label>
+      <input type="datetime-local" id="actual_end" name="actual_end" value="<%= expedition[0].actual_end %>"><br><br>
+>>>>>>> Stashed changes
 
-    <label for="scientist_comments">Scientist Comments:</label>
-    <textarea id="scientist_comments" name="scientist_comments"><%= expedition[0].scientist_comments %></textarea><br><br>
+      <label for="accomplishments">Accomplishments:</label>
+      <textarea id="accomplishments" name="accomplishments"><%= expedition[0].accomplishments %></textarea><br><br>
 
-    <label for="operator_comments">Operator Comments:</label>
-    <textarea id="operator_comments" name="operator_comments"><%= expedition[0].operator_comments %></textarea><br><br>
+      <label for="scientist_comments">Scientist Comments:</label>
+      <textarea id="scientist_comments" name="scientist_comments"><%= expedition[0].scientist_comments %></textarea><br><br>
 
-    <label for="sci_objective_met">Scientific Objectives Met:</label>
-    <input type="checkbox" id="sci_objective_met" name="sci_objective_met" <% if (expedition[0].sci_objective_met) { %>checked<% } %>><br><br>
+      <label for="operator_comments">Operator Comments:</label>
+      <textarea id="operator_comments" name="operator_comments"><%= expedition[0].operator_comments %></textarea><br><br>
 
-    <label for="equipment_function">Equipment Functioned:</label>
-    <input type="checkbox" id="equipment_function" name="equipment_function" <% if (expedition[0].equipment_function) { %>checked<% } %>><br><br>
+      <label for="sci_objective_met">Scientific Objectives Met:</label>
+      <input type="checkbox" id="sci_objective_met" name="sci_objective_met" <% if (expedition[0].sci_objective_met) { %>checked<% } %>><br><br>
 
-    <label for="other_comments">Other Comments:</label>
-    <textarea id="other_comments" name="other_comments"><%= expedition[0].other_comments %></textarea><br><br>
+      <label for="equipment_function">Equipment Functioned:</label>
+      <input type="checkbox" id="equipment_function" name="equipment_function" <% if (expedition[0].equipment_function) { %>checked<% } %>><br><br>
 
-    <!-- Show dives here if they exist-->
-    <!-- Add option for new dive. -->
-    <h2> Dives: </h2>
-    <table>
-      <tr>
-        <th>ROV Name</th>
-        <th>Dive Number</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Chief Scientist</th>
-        <th>Brief Accomplishments</th>
-      </tr>
-      <% if (dives.length > 0) { %>
-        <% for (i = 0; i < dives.length; i++) { %>
+      <label for="other_comments">Other Comments:</label>
+      <textarea id="other_comments" name="other_comments"><%= expedition[0].other_comments %></textarea><br><br>
+
+      <!-- Show dives here if they exist-->
+      <!-- Add option for new dive. -->
+      <h2> Dives: </h2>
+      <table>
+        <tr>
+          <th>ROV Name</th>
+          <th>Dive Number</th>
+          <th>Start Datetime</th>
+          <th>End Datetime</th>
+          <th>Chief Scientist</th>
+          <th>Brief Accomplishments</th>
+        </tr>
+        <% if (dives.length > 0) { %>
+          <% for (i = 0; i < dives.length; i++) { %>
+            <tr>
+              <td> <%= dives[i].ROV_name %> </td>
+              <td> <%= dives[i].dive_number %> </td>
+              <td> <%= dives[i].dive_start %> </td>
+              <td> <%= dives[i].dive_end %> </td>
+              <td> <%= dives[i].dive_cheif_scientist %> </td>
+              <td> <%= dives[i].accomplishments %> </td>
+              <td> <a href="/updateDive/<%= dives[i].dive_number %>/<%= expedition[0].expedition_ID %>" class="button">Update Dive</a></td>
+            </tr>
+          <% } %>
+        <% } else { %>
           <tr>
-            <td> <%= dives[i].ROV_name %> </td>
-            <td> <%= dives[i].dive_number %> </td>
-            <td> <%= dives[i].dive_start %> </td>
-            <td> <%= dives[i].dive_end %> </td>
-            <td> <%= dives[i].dive_cheif_scientist %> </td>
-            <td> <%= dives[i].accomplishments %> </td>
-            <td> <a href="/updateDive/<%= dives[i].dive_number %>/<%= expedition[0].expedition_ID %>" class="button">Update Dive</a></td>
+            <td colspan="5">No dives found.</td>
           </tr>
         <% } %>
-      <% } else { %>
-        <tr>
-          <td colspan="5">No dives found.</td>
-        </tr>
-      <% } %>
-    </table>
-    <br><br>
-    <!-- make button route to /dive  -->
-    <a href="/dive" class="button">Add Dive</a>
-    <br><br>
-    <br><br>
-    
-    <input type="submit" value="Update Expedition">
-  </form>
+      </table>
+      <br><br>
+      <!-- make button route to /dive  -->
+      <a href="/dive" class="button">Add Dive</a>
+      <br><br>
+      <br><br>
+      
+      <input type="submit" value="Update Expedition">
+    </form>
+  </div>
+
+  <footer>
+      <div class="foottext">
+          <!-- <img src='/images/horizontal-logo-withglow.png' class="footer-logo"> -->
+          <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
+      </div>
+  </footer>
 </body>
 </html>

@@ -145,7 +145,7 @@ h1 {
     padding: 10px; /* Add this line for some padding */
 }
 
-input, select, button {
+input, select, button{
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -153,7 +153,7 @@ input, select, button {
     border: 1px solid #ccc;
 }
 
-button {
+button,i {
     background-color: #0077b6;
     color: #fff;
     border: none;
@@ -268,4 +268,28 @@ footer {
     box-sizing: border-box;
     height: 146px;
     border: 1px solid rgba(0,0,0,.1);
+}
+.search-container {
+    position: absolute;
+    margin: 10px;
+}
+/* 
+input[type=text] {
+padding: 10px;
+width: 200px;
+border: 1px solid #ccc;
+border-radius: 5px;
+} */
+
+.search-button {
+padding: 10px;
+background: #E3CEAF; /* Your desired button color */
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.search-button, i {
+font-size: 16px; /* Adjust the size of the search icon */
 }
