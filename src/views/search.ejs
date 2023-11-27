@@ -65,20 +65,20 @@
       margin-right: 10px; /* Add right margin to space out the buttons */
     }
 
-    /* Add some spacing between form elements */
+    /* Add spacing between form elements */
     form > * {
       margin-bottom: 15px;
     }
 
-    /* Two-column layout */
+    
     .form-row {
       display: flex;
       justify-content: space-between;
     }
 
-    /* Adjust column width */
+    
     .form-column {
-      width: 48%; /* Adjust as needed */
+      width: 48%; 
     }
 
     .button-container {
@@ -91,7 +91,7 @@
 
   <h1>Search</h1>
 
-  <form action="/searchRequest" method="POST">
+  <form id="searchForm" action="/searchRequest" method="POST">
     <div class="form-row">
       <div class="form-column">
         <label for="shipName">Ship Name:</label>
@@ -187,21 +187,29 @@
 
     <div class="form-row">
       <div class="form-column">
-        <label for="chiefScientist">Chief Scientist:</label>
-        <select id="chiefScientist" name="chiefScientist">
-          <option value="">Select</option>
-          <option value="scientist1">Scientist 1</option>
-          <option value="scientist2">Scientist 2</option>
-        </select>
+        <label for="chiefScientist" class="modern-label">Chief Scientist:</label><br>
+                    <select id="chiefScientist" name="chiefScientist">
+                      <option value="">Select</option> <!-- Default option with no value -->
+                        <% for(let i=0; i < scientists.length; i++) { %>
+                            <option value="<%=scientists[i].user_ID %>">
+                                <%=scientists[i].first_name%>
+                                    <%=scientists[i].last_name%>
+                            </option>
+                            <% } %>
+                    </select>
       </div>
 
       <div class="form-column">
-        <label for="principalInvestigator">Principal Investigator:</label>
-        <select id="principalInvestigator" name="principalInvestigator">
-          <option value="">Select</option>
-          <option value="investigator1">Investigator 1</option>
-          <option value="investigator2">Investigator 2</option>
-        </select>
+        <label for="principalInvestigator" class="modern-label">Principal Investigator:</label><br>
+                    <select id="principalInvestigator" name="principalInvestigator">
+                      <option value="">Select</option> <!-- Default option with no value -->
+                        <% for(let i=0; i < investigators.length; i++) { %>
+                            <option value="<%=investigators[i].user_ID %>">
+                                <%=investigators[i].first_name%>
+                                    <%=investigators[i].last_name%>
+                            </option>
+                            <% } %>
+                    </select>
       </div>
     </div>
 
@@ -214,7 +222,7 @@
 
     <div class="button-container">
       <button type="submit">Search for Expeditions</button>
-      <button type="button">Show All Cruises</button>
+      <!-- <button type="button">Show All Cruises</button> -->
       <button type="button" onclick="clearFields()">Clear All Fields</button>
     </div>
   </form>
@@ -222,7 +230,7 @@
   <script>
     function clearFields() {
       // Clear all form fields
-      document.getElementById("expeditionForm").reset();
+      document.getElementById("searchForm").reset();
     }
   </script>
 
