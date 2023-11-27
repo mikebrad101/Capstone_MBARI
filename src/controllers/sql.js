@@ -37,9 +37,15 @@ async function getExpedition(exp_id){
 }
 
 async function getAllCruises(){
-  let sql = "SELECT * FROM expedition;";
+  let sql = "SELECT * FROM expedition";
   let rows = await executeSQL(sql);
   return rows;
+}
+
+async function getShips(){
+  let sql = `SELECT DISTINCT ship_name FROM expedition`;
+  let ships = await executeSQL(sql);
+  return ships;
 }
 
 async function addExpedition(data){

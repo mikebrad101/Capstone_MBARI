@@ -1,108 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search Function</title>
-  <link rel="icon" href="/images/tabLogo.png" type="image/png">
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <link href="/public/css/style.css" rel="stylesheet">
+  <!-- Add Bootstrap CSS for styling consistency -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+      background-image: url('images/moon-jellies.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #fff; /* Text color */
+    }
+
+    h1 {
+      max-width: 800px; /* Set a maximum width for the form */
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgba(0, 0, 0, 0.7); /* Transparent black background for the header */
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+  }
+
+    /* Style for the search form */
+    form {
+      max-width: 800px; /* Set a maximum width for the form */
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    label {
+      color: #fff; /* Label text color */
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      background-color: rgba(255, 255, 255, 0.8); /* Transparent white background for input/select */
+      color: #000; /* Input text color */
+    }
+
+    /* Style for buttons */
+    button {
+      background-color: #000;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-right: 10px; /* Add right margin to space out the buttons */
+    }
+
+    /* Add some spacing between form elements */
+    form > * {
+      margin-bottom: 15px;
+    }
+
+    /* Two-column layout */
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Adjust column width */
+    .form-column {
+      width: 48%; /* Adjust as needed */
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
 </head>
-
 <body>
-  <h1>Search Function</h1>
 
-  <main class="container">
-    <div id="logo-container">
-      <img src='/images/horizontal-logo-withglow.png' id="logo"><br>
-    </div>
-    <form class="columnTopSpace">
+  <h1>Search</h1>
 
-      <form action="/searchRequest" method="POST" <label for="shipName" class="labels">Ship Name:</label>
-        <select id="shipName" name="shipName" class="modern-select">
+  <form action="/searchRequest" method="POST">
+    <div class="form-row">
+      <div class="form-column">
+        <label for="shipName">Ship Name:</label>
+        <select id="shipName" name="shipName">
+          <option value="">Select</option>
           <option value="ship1">Ship 1</option>
           <option value="ship2">Ship 2</option>
-        </select><br><br>
+        </select>
+      </div>
 
-        <label for="status" class="labels">Status:</label>
-        <select id="status" name="status" class="modern-select">
+      <div class="form-column">
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+          <option value="">Select</option>
           <option value="In_Progress">In Progress</option>
           <option value="completed">Completed</option>
           <option value="planned">Planned</option>
-        </select><br><br>
+        </select>
+      </div>
+    </div>
 
-        <label for="startDate" class="labels">Start Date:</label><br>
-        <input type="datetime-local" id="startDate" name="startDate" class="inputStyle"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" class="dateInput">
+      </div>
 
-        <label for="endDate" class="labels">End Date:</label><br>
-        <input type="datetime-local" id="endDate" name="endDate" class="inputStyle"><br><br>
+      <div class="form-column">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" class="dateInput">
+      </div>
+    </div>
 
-        <label for="singleDate" class="labels">Single Date:</label><br>
-        <input type="datetime-local" id="singleDate" name="singleDate" class="inputStyle"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="singleDate">Single Date:</label>
+        <input type="date" id="singleDate" name="singleDate" class="singleDate">
+      </div>
 
-        <label for="diveNumber" class="labels">Dive Number:</label><br>
-        <input type="text" id="diveNumber" name="diveNumber" class="inputStyle"><br><br>
+      <div class="form-column">
+        <label for="diveNumber">Dive Number:</label>
+        <input type="text" id="diveNumber" name="diveNumber">
+      </div>
+    </div>
 
-        <label for="purpose" class="labels">Purpose:</label><br>
-        <input type="text" id="purpose" name="purpose" class="inputStyle"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="purpose">Purpose:</label>
+        <input type="text" id="purpose" name="purpose">
+      </div>
 
-        <label for="siteTrack" class="labels">Site/Track:</label><br>
-        <input type="text" id="siteTrack" name="siteTrack" class="inputStyle"><br><br>
+      <div class="form-column">
+        <label for="siteTrack">Site/Track:</label>
+        <input type="text" id="siteTrack" name="siteTrack">
+      </div>
+    </div>
 
-        <label for="accomplishments" class="labels">Accomplishments:</label><br>
-        <input type="text" id="accomplishments" name="accomplishments" class="inputStyle"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="accomplishments">Accomplishments:</label>
+        <input type="text" id="accomplishments" name="accomplishments">
+      </div>
 
-        <label for="operatorComments" class="labels">Operator Comments:</label><br>
-        <input type="text" id="operatorComments" name="operatorComments" class="inputStyle"><br><br>
+      <div class="form-column">
+        <label for="operatorComments">Operator Comments:</label>
+        <input type="text" id="operatorComments" name="operatorComments">
+      </div>
+    </div>
 
-        <label for="scientistComments" class="labels">Scientist Comments:</label><br>
-        <input type="text" id="scientistComments" name="scientistComments" class="inputStyle"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="scientistComments">Scientist Comments:</label>
+        <input type="text" id="scientistComments" name="scientistComments">
+      </div>
 
-        <label for="sequenceNumber" class="labels">Sequence Number:</label><br>
-        <input type="text" id="sequenceNumber" name="sequenceNumber" class="inputStyle"><br><br>
+      <div class="form-column">
+        <label for="sequenceNumber">Sequence Number:</label>
+        <input type="text" id="sequenceNumber" name="sequenceNumber">
+      </div>
+    </div>
 
-        <label for="yyyyddd" class="labels">YYYYDDD:</label><br>
-        <input type="text" id="yyyyddd" name="yyyyddd" class="inputStyle"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="yyyyddd">YYYYDDD:</label>
+        <input type="text" id="yyyyddd" name="yyyyddd">
+      </div>
 
-        <label for="participants" class="labels">Participants:</label><br>
-        <input type="text" id="participants" name="participants" class="inputStyle"><br><br>
+      <div class="form-column">
+        <label for="participants">Participants:</label>
+        <input type="text" id="participants" name="participants">
+      </div>
+    </div>
 
-        <label for="chiefScientist" class="labels">Chief Scientist:</label>
-        <select id="chiefScientist" name="chiefScientist" class="modern-select">
+    <div class="form-row">
+      <div class="form-column">
+        <label for="chiefScientist">Chief Scientist:</label>
+        <select id="chiefScientist" name="chiefScientist">
+          <option value="">Select</option>
           <option value="scientist1">Scientist 1</option>
           <option value="scientist2">Scientist 2</option>
-        </select><br><br>
+        </select>
+      </div>
 
-        <label for="principalInvestigator" class="labels">Principal Investigator:</label>
-        <select id="principalInvestigator" name="principalInvestigator" class="modern-select">
+      <div class="form-column">
+        <label for="principalInvestigator">Principal Investigator:</label>
+        <select id="principalInvestigator" name="principalInvestigator">
+          <option value="">Select</option>
           <option value="investigator1">Investigator 1</option>
           <option value="investigator2">Investigator 2</option>
-        </select><br><br>
+        </select>
+      </div>
+    </div>
 
-        <<<<<<< HEAD <label for="dataComments" class="labels">Data Comments:</label><br>
-          <input type="text" id="dataComments" name="dataComments" class="inputStyle">
-          <br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="dataComments">Data Comments:</label>
+        <input type="text" id="dataComments" name="dataComments">
+      </div>
+    </div>
 
-          <div class="button-container">
-            <button type="button" onclick="clearFields()" class="button">Clear All Fields</button>
-            <button type="button" onclick="searchExpeditions()" class="button">Search for Expeditions</button>
-          </div>
-      </form>
-  </main>
-
-  <footer>
-    <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
-  </footer>
-  =======
-  <label for="dataComments">Data Comments:</label>
-  <input type="text" id="dataComments" name="dataComments"><br><br>
-
-  <br><br>
-  <button type="button" onclick="clearFields()">Clear All Fields</button>
-  <button type="submit">Search for Expeditions</button>
+    <div class="button-container">
+      <button type="submit">Search for Expeditions</button>
+      <button type="button">Show All Cruises</button>
+      <button type="button" onclick="clearFields()">Clear All Fields</button>
+    </div>
   </form>
 
   <script>
@@ -111,8 +225,11 @@
       document.getElementById("expeditionForm").reset();
     }
   </script>
-  >>>>>>> a6007445e99bd5fd2406f5356185e9224cbe8ad3
+
+  <!-- Add Bootstrap JS and Popper.js for Bootstrap functionality -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </body>
-
 </html>

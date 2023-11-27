@@ -2,88 +2,128 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pre-Cruise Process</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Pre-Expedition</title>
     <link rel="icon" href="/images/tabLogo.png" type="image/png">
-    <!-- Bootstrap CSS -->
+
+    <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href="/public/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('/images/kelpForest.png');
+        }
+    </style>
+
 </head>
 
 <body>
-    <h1>Pre-Cruise Process</h1>
+    <header>
+        <img src='/images/horizontal-logo-withglow.png' class="logo">
+    </header>
 
-    <main class="container">
-        <div id="logo-container">
-            <img src='/images/horizontal-logo-withglow.png' id="logo"><br>
-        </div>
-        <form class="columnTopSpace" action="/addPrecruise" method="POST">
-            <label for="shipName" class="labels">Ship Name:</label><br>
-            <select id="shipName" name="shipName" class="modern-select">
-                <option value="ship_David_Packard">R/V David Packard</option>
-                <option value="ship_Rachel_Carson">R/V Rachel Carson</option>
-                <option value="ship_Paragon">R/V Paragon</option>
-            </select><br><br>
+    <br>
+    <h1>Pre-Cruise Process</h1><br>
 
-            <label for="purpose">Purpose:</label><br>
-            <textarea class="inputStyle" id="purpose" name="purpose" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
+    <form action="/addPrecruise" method="POST">
+        <table class="container">
+            <!-- ROW ONE -->
+            <tr>
+                <td class="columnTopSpace">
+                    <label for="shipName" class="modern-label">Ship Name:</label><br>
+                    <select id="shipName" name="shipName" class="modern-select">
+                        <option value="ship_David_Packard">R/V David Packard</option>
+                        <option value="ship_Rachel_Carson">R/V Rachel Carson</option>
+                        <option value="ship_Paragon">R/V Paragon</option>
+                    </select>
+                </td>
+                <td class="columnTopSpace">
+                    <!-- <label for="purpose">Purpose:</label><br> -->
+                    <textarea class="textArea" id="purpose" name="purpose" placeholder="Purpose" rows="1" cols="40"
+                        maxlength="8000"></textarea><br>
+                </td>
+            </tr>
 
-            <label for="chiefScientist" class="labels">Chief Scientist:</label><br>
-            <select id="chiefScientist" name="chiefScientist" class="modern-select">
-                <% for(let i=0; i < scientists.length; i++) { %>
-                    <option value="<%=scientists[i].user_ID %>">
-                        <%=scientists[i].first_name%>
-                            <%=scientists[i].last_name%>
-                    </option>
-                    <% } %>
-            </select><br><br>
+            <!-- ROW TWO -->
+            <tr>
+                <td>
+                    <label for="chiefScientist" class="modern-label">Chief Scientist:</label><br>
+                    <select id="chiefScientist" name="chiefScientist">
+                        <% for(let i=0; i < scientists.length; i++) { %>
+                            <option value="<%=scientists[i].user_ID %>">
+                                <%=scientists[i].first_name%>
+                                    <%=scientists[i].last_name%>
+                            </option>
+                            <% } %>
+                    </select>
+                </td>
+                <td>
+                    <!-- <label for="equipmentDescription">Equipment Description:</label> -->
+                    <textarea class="textArea" id="equipmentDescription" name="equipmentDescription"
+                        placeholder="Equipment Description:" rows="1" cols="40" maxlength="8000"></textarea>
+                </td>
+            </tr>
 
-            <label for="equipmentDescription">Equipment Description:</label><br>
-            <textarea class="inputStyle" id="equipmentDescription" name="equipmentDescription" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
+            <!-- ROW THREE -->
+            <tr>
+                <td>
+                    <label for="principalInvestigator" class="modern-label">Principal Investigator:</label><br>
+                    <select id="principalInvestigator" name="principalInvestigator">
+                        <% for(let i=0; i < investigators.length; i++) { %>
+                            <option value="<%=investigators[i].user_ID %>">
+                                <%=investigators[i].first_name%>
+                                    <%=investigators[i].last_name%>
+                            </option>
+                            <% } %>
+                    </select>
+                </td>
+                <td>
+                    <!-- <label for="participants">Participants:</label><br> -->
+                    <textarea class="textArea" id="participants" name="participants" placeholder="Participants:"
+                        rows="1" cols="40" maxlength="8000"></textarea><br>
+                    <!-- Dropdown as well? multiple choice? -->
+                </td>
 
-            <label for="principalInvestigator" class="labels">Principal Investigator:</label><br>
-            <select id="principalInvestigator" name="principalInvestigator" class="modern-select">
-                <% for(let i=0; i < investigators.length; i++) { %>
-                    <option value="<%=investigators[i].user_ID %>">
-                        <%=investigators[i].first_name%>
-                            <%=investigators[i].last_name%>
-                    </option>
-                    <% } %>
-            </select><br><br>
+            </tr>
 
-            <label for="participants">Participants:</label><br>
-            <textarea class="inputStyle" id="participants" name="participants" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
+            <!-- ROW FOUR -->
+            <tr>
+                <td>
+                    <label for="scheduledStartDatetime">Scheduled Start Datetime:</label><br>
+                    <input type="datetime-local" id="scheduledStartDatetime" name="scheduledStartDatetime"
+                        class="dateInput">
+                </td>
+                <td>
+                    <!-- <label for="regionDescription">Region Description:</label> -->
+                    <textarea class="textArea" id="regionDescription" name="regionDescription"
+                        placeholder="Region Description:" rows="1" cols="40" maxlength="2048"></textarea>
 
-            <label for="scheduledStartDatetime">Scheduled Start Datetime:</label><br>
-            <input type="datetime-local" id="scheduledStartDatetime" name="scheduledStartDatetime"
-                class="inputStyle"><br><br>
+                </td>
+            </tr>
 
-            <label for="scheduledEndDatetime">Scheduled End Datetime:</label><br>
-            <input type="datetime-local" id="scheduledEndDatetime" name="scheduledEndDatetime"
-                class="inputStyle"><br><br>
+            <!-- ROW FIVE -->
+            <tr>
+                <td>
+                    <label for="scheduledEndDatetime">Scheduled End Datetime:</label><br>
+                    <input type="datetime-local" id="scheduledEndDatetime" name="scheduledEndDatetime"
+                        class="dateInput">
+                </td>
+                <td>
+                    <!-- <label for="plannedTrackDescription">Planned Track Description:</label><br> -->
+                    <textarea class="textArea" id="plannedTrackDescription" name="plannedTrackDescription"
+                        placeholder="Planned Track Description:" rows="1" cols="40" maxlength="6144"></textarea><br>
+                </td>
+            </tr>
+            <!-- ROW SIX -->
+            <tr>
+                <td colspan="2">
+                    <input type="submit" class="button" value="Submit for Approval">
+                </td>
+            </tr>
 
-            <label for="regionDescription">Region Description:</label><br>
-            <textarea class="inputStyle" id="regionDescription" name="regionDescription" rows="3" cols="40"
-                maxlength="2048"></textarea><br><br>
-
-            <label for="plannedTrackDescription">Planned Track Description:</label><br>
-            <textarea class="inputStyle" id="plannedTrackDescription" name="plannedTrackDescription" rows="3" cols="40"
-                maxlength="6144"></textarea><br><br>
-
-            <div class="button-container">
-                <input type="submit" class="button" value="Submit for Approval">
-            </div>
-        </form>
-    </main>
-
-    <footer>
-        <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
-    </footer>
+        </table>
 </body>
 
 </html>

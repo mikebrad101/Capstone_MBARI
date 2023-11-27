@@ -115,10 +115,16 @@ router.get("/allcruises", isAuthenticated, async function(req, res) {
 });
 
 router.post("/searchRequest", isAuthenticated, async function(req, res) {
-  console.log("here")
+  console.log("here");
   console.log(req.body);
-  results = getSearchResults(req.body)
-  res.render('searchResults', { expeditionResults: results});
+  
+  try {
+    const results = await getSearchResults(req.body);
+    res.render('searchResults', { expeditionResults: results });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 //temporary route to get last entry
@@ -225,6 +231,27 @@ router.post('/login', async (req, res) => {
         req.session.position = dbRole;
         console.log(req.session)
         req.session.save()
+        //redirects beased on user role 
+        switch (dbRole) {
+          case 'MBARI Employee':
+          case 'Registered User':
+            res.redirect('/mbari-employee-dashboard');
+            break;
+  
+          case 'Logistics Coordinator':
+            res.redirect('/logistics-coordinator-dashboard');
+            break;
+        
+          case 'Registered User':
+            res.redirect('/registered-user-dashboard');
+            break;
+  
+          // Add more cases for other roles as needed
+  
+          default:
+            res.redirect('/home');
+            break;
+        }
         res.redirect('/home');
       }
     });
