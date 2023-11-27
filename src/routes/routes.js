@@ -67,16 +67,6 @@ router.get("/mbari-employee-dashboard", async function(req, res) {
   //then send it to the view using render
   res.render('mbari-employee-dashboard');
 });
-router.get("/registered-user-dashboard", async function(req, res) {
-  //in route we get sql statement and data
-  //then send it to the view using render
-  res.render('registered-user-dashboard');
-});
-router.get("/logistics-coordinator-dashboard", async function(req, res) {
-  //in route we get sql statement and data
-  //then send it to the view using render
-  res.render('logistics-coordinator-dashboard');
-});
 
 router.get("/postexp", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
@@ -241,27 +231,7 @@ router.post('/login', async (req, res) => {
         req.session.position = dbRole;
         console.log(req.session)
         req.session.save()
-        //redirects beased on user role 
-        switch (dbRole) {
-          case 'MBARI Employee':
-          case 'Registered User':
-            res.redirect('/mbari-employee-dashboard');
-            break;
-  
-          case 'Logistics Coordinator':
-            res.redirect('/logistics-coordinator-dashboard');
-            break;
-        
-          case 'Registered User':
-            res.redirect('/registered-user-dashboard');
-            break;
-  
-          // Add more cases for other roles as needed
-  
-          default:
-            res.redirect('/default-dashboard');
-            break;
-        }
+        res.redirect('/home');
       }
     });
 });

@@ -11,12 +11,12 @@ async function getSearchResults(data){
     singleDate,
     diveNumber, //NEEDS WORK
     purpose,
-    siteTrack, //TODO 
+    siteTrack, 
     accomplishments,
     operatorComments,
     scientistComments,
     sequenceNumber, //TODO
-    yyyyddd, //NEEDS WORK
+    yyyyddd, 
     participants,
     chiefScientist,
     principalInvestigator,
@@ -63,6 +63,11 @@ async function getSearchResults(data){
     sql += ' AND purpose LIKE ?';
     values.push(purpose);
   }
+
+  if (siteTrack) {
+    sql += ' AND (planned_track_description LIKE ? OR region_description LIKE ?)';
+    values.push(`%${siteTrack}%`, `%${siteTrack}%`);
+}
    
   if(accomplishments){
     sql += ' AND accomplishments LIKE ?';
@@ -80,10 +85,11 @@ async function getSearchResults(data){
   }
   //SEQUENCE NUMBER HERE
 
-  if(yyyyddd){
-    sql += ' AND (DATE_FORMAT(actual_start, %Y%j) = YYYYDDD OR DATE_FORMAT(actual_end, %Y%j) = YYYYDDD)';
-    values.push(yyyyddd);
-  }
+  if (yyyyddd) {
+    sql += ' AND (DATE_FORMAT(actual_start, "%Y%j") = ? OR DATE_FORMAT(actual_end, "%Y%j") = ?)';
+    values.push(yyyyddd, yyyyddd);
+}
+
    
   if(participants){
     sql += ' AND participants LIKE ?';
@@ -100,11 +106,17 @@ async function getSearchResults(data){
     values.push(principalInvestigator);
   }
 
+  if(dataComments){
+    sql += ' AND (scientist_comments LIKE ? OR operator_comments LIKE ? OR other_comments LIKE ?)';
+    values.push(`%${dataComments}%`, `%${dataComments}%`, `%${dataComments}%`); 
+  }
+
   let result = await executeSQL(sql, values);
   //let diveResult = await executeSQL(diveSQL);
   console.log(result);
   return result
 }
+
 
 module.exports = {
   getSearchResults
@@ -116,8 +128,8 @@ TO DO NEEDED
 -Dive implementation 
 -YYYYDDD implementation
 -Sequence number implementation
+-Add show all cruises 
 
 TO DO OPTIONAL
--Option to export as JASON
--Dynamically populate selects 
+-Option to export as JASON 
 */

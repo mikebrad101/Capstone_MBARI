@@ -1,104 +1,235 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search Function</title>
+  <!-- Add Bootstrap CSS for styling consistency -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+      background-image: url('images/moon-jellies.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #fff; /* Text color */
+    }
+
+    h1 {
+      max-width: 800px; /* Set a maximum width for the form */
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgba(0, 0, 0, 0.7); /* Transparent black background for the header */
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+  }
+
+    /* Style for the search form */
+    form {
+      max-width: 800px; /* Set a maximum width for the form */
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    label {
+      color: #fff; /* Label text color */
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      background-color: rgba(255, 255, 255, 0.8); /* Transparent white background for input/select */
+      color: #000; /* Input text color */
+    }
+
+    /* Style for buttons */
+    button {
+      background-color: #000;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-right: 10px; /* Add right margin to space out the buttons */
+    }
+
+    /* Add some spacing between form elements */
+    form > * {
+      margin-bottom: 15px;
+    }
+
+    /* Two-column layout */
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Adjust column width */
+    .form-column {
+      width: 48%; /* Adjust as needed */
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Search Function</h1>
+  <h1>Search</h1>
 
-<form action="/searchRequest" method="POST"
-  <label for="shipName">Ship Name:</label>
-  <select id="shipName" name="shipName">
-    <option value="">Select</option> <!-- Default option with empty value -->
-    <option value="ship1">Ship 1</option>
-    <option value="ship2">Ship 2</option>
-  </select><br><br>
+  <form action="/searchRequest" method="POST">
+    <div class="form-row">
+      <div class="form-column">
+        <label for="shipName">Ship Name:</label>
+        <select id="shipName" name="shipName">
+          <option value="">Select</option>
+          <option value="ship1">Ship 1</option>
+          <option value="ship2">Ship 2</option>
+        </select>
+      </div>
 
-  <label for="status">Status:</label>
-  <select id="status" name="status">
-    <option value="">Select</option> <!-- Default option with empty value -->
-    <option value="In_Progress">In Progress</option>
-    <option value="completed">Completed</option>
-    <option value="planned">Planned</option>
-  </select><br><br>
+      <div class="form-column">
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+          <option value="">Select</option>
+          <option value="In_Progress">In Progress</option>
+          <option value="completed">Completed</option>
+          <option value="planned">Planned</option>
+        </select>
+      </div>
+    </div>
 
-  <label for="startDate">Start Date:</label><br>
-  <input type="date" id="startDate" name="startDate" class="dateInput"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" class="dateInput">
+      </div>
 
-  <label for="endDate">End Date:</label><br>
-  <input type="date" id="endDate" name="endDate" class="dateInput"><br><br>
+      <div class="form-column">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" class="dateInput">
+      </div>
+    </div>
 
-  <label for="singleDate">Single Date:</label><br>
-  <input type="date" id="singleDate" name="singleDate" class="singleDate"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="singleDate">Single Date:</label>
+        <input type="date" id="singleDate" name="singleDate" class="singleDate">
+      </div>
 
-  <label for="diveNumber">Dive Number:</label>
-  <input type="text" id="diveNumber" name="diveNumber"><br><br>
+      <div class="form-column">
+        <label for="diveNumber">Dive Number:</label>
+        <input type="text" id="diveNumber" name="diveNumber">
+      </div>
+    </div>
 
-  <label for="purpose">Purpose:</label>
-  <input type="text" id="purpose" name="purpose"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="purpose">Purpose:</label>
+        <input type="text" id="purpose" name="purpose">
+      </div>
 
-  <label for="siteTrack">Site/Track:</label>
-  <input type="text" id="siteTrack" name="siteTrack"><br><br>
+      <div class="form-column">
+        <label for="siteTrack">Site/Track:</label>
+        <input type="text" id="siteTrack" name="siteTrack">
+      </div>
+    </div>
 
-  <label for="accomplishments">Accomplishments:</label>
-  <input type="text" id="accomplishments" name="accomplishments"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="accomplishments">Accomplishments:</label>
+        <input type="text" id="accomplishments" name="accomplishments">
+      </div>
 
-  <label for="operatorComments">Operator Comments:</label>
-  <input type="text" id="operatorComments" name="operatorComments"><br><br>
+      <div class="form-column">
+        <label for="operatorComments">Operator Comments:</label>
+        <input type="text" id="operatorComments" name="operatorComments">
+      </div>
+    </div>
 
-  <label for="scientistComments">Scientist Comments:</label>
-  <input type="text" id="scientistComments" name="scientistComments"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="scientistComments">Scientist Comments:</label>
+        <input type="text" id="scientistComments" name="scientistComments">
+      </div>
 
-  <label for="sequenceNumber">Sequence Number:</label>
-  <input type="text" id="sequenceNumber" name="sequenceNumber"><br><br>
+      <div class="form-column">
+        <label for="sequenceNumber">Sequence Number:</label>
+        <input type="text" id="sequenceNumber" name="sequenceNumber">
+      </div>
+    </div>
 
-  <label for="yyyyddd">YYYYDDD:</label>
-  <input type="text" id="yyyyddd" name="yyyyddd"><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="yyyyddd">YYYYDDD:</label>
+        <input type="text" id="yyyyddd" name="yyyyddd">
+      </div>
 
-  <label for="participants">Participants:</label>
-  <input type="text" id="participants" name="participants"><br><br>
+      <div class="form-column">
+        <label for="participants">Participants:</label>
+        <input type="text" id="participants" name="participants">
+      </div>
+    </div>
 
-  <label for="chiefScientist">Chief Scientist:</label>
-  <select id="chiefScientist" name="chiefScientist">
-    <option value="">Select</option> <!-- Default option with empty value -->
-    <option value="scientist1">Scientist 1</option>
-    <option value="scientist2">Scientist 2</option>
-  </select><br><br>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="chiefScientist">Chief Scientist:</label>
+        <select id="chiefScientist" name="chiefScientist">
+          <option value="">Select</option>
+          <option value="scientist1">Scientist 1</option>
+          <option value="scientist2">Scientist 2</option>
+        </select>
+      </div>
 
-  <label for="principalInvestigator">Principal Investigator:</label>
-  <select id="principalInvestigator" name="principalInvestigator">
-    <option value="">Select</option> <!-- Default option with empty value -->
-    <option value="investigator1">Investigator 1</option>
-    <option value="investigator2">Investigator 2</option>
-  </select><br><br>
+      <div class="form-column">
+        <label for="principalInvestigator">Principal Investigator:</label>
+        <select id="principalInvestigator" name="principalInvestigator">
+          <option value="">Select</option>
+          <option value="investigator1">Investigator 1</option>
+          <option value="investigator2">Investigator 2</option>
+        </select>
+      </div>
+    </div>
 
-  <label for="dataComments">Data Comments:</label>
-  <input type="text" id="dataComments" name="dataComments"><br><br>
-  
-  <br><br>
-  <button type="button" onclick="clearFields()">Clear All Fields</button>
-  <button type="submit">Search for Expeditions</button>
-</form>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="dataComments">Data Comments:</label>
+        <input type="text" id="dataComments" name="dataComments">
+      </div>
+    </div>
 
-<script>
+    <div class="button-container">
+      <button type="submit">Search for Expeditions</button>
+      <button type="button">Show All Cruises</button>
+      <button type="button" onclick="clearFields()">Clear All Fields</button>
+    </div>
+  </form>
+
+  <script>
     function clearFields() {
       // Clear all form fields
       document.getElementById("expeditionForm").reset();
     }
   </script>
 
+  <!-- Add Bootstrap JS and Popper.js for Bootstrap functionality -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </body>
 </html>
-
-
-
-<!-- Quistions:
-#’Join field below with AND OR’????
-#What is ‘date choice’? date range 
-#What is ‘Start Date’? expedition date
-#Whats is ‘status’? planned/completed 
-#What is ‘YYYYDDD’? year/day 
-#What is ‘end date’?
-#What is ‘single date’? year month day 
-#Should participants be a dropdown instead? no 
