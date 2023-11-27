@@ -42,7 +42,7 @@ async function getAllCruises(){
   return rows;
 }
 
-async function getShips(){
+async function getAllShips(){
   let sql = `SELECT DISTINCT ship_name FROM expedition`;
   let ships = await executeSQL(sql);
   return ships;

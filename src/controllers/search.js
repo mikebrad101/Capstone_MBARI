@@ -20,7 +20,7 @@ async function getSearchResults(data){
     participants,
     chiefScientist,
     principalInvestigator,
-    dataComments //TODO
+    dataComments 
   } = data;
 
 
@@ -86,7 +86,7 @@ async function getSearchResults(data){
   //SEQUENCE NUMBER HERE
 
   if (yyyyddd) {
-    sql += ' AND (DATE_FORMAT(actual_start, "%Y%j") = ? OR DATE_FORMAT(actual_end, "%Y%j") = ?)';
+    sql += ' AND (DATE_FORMAT(actual_start, "%Y%j") <= ? AND DATE_FORMAT(actual_end, "%Y%j") >= ?)';
     values.push(yyyyddd, yyyyddd);
 }
 
@@ -126,10 +126,7 @@ module.exports = {
 /*
 TO DO NEEDED
 -Dive implementation 
--YYYYDDD implementation
+
 -Sequence number implementation
 -Add show all cruises 
-
-TO DO OPTIONAL
--Option to export as JASON 
 */

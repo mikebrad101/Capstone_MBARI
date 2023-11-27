@@ -36,9 +36,10 @@ router.get("/home", isAuthenticated, async function(req, res) {
 router.get("/search", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
+  let ships = await getAllShips();
   let scientists = await getChiefScientists();
   let investigators = await getPrincipalInvestigators();
-  res.render('search', {"scientists": scientists, "investigators": investigators});
+  res.render('search', {"ships": ships,"scientists": scientists, "investigators": investigators});
 });
 
 router.get("/preexp", isAuthenticated, async function(req, res) {
