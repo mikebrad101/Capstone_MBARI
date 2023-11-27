@@ -273,13 +273,13 @@ footer {
     position: absolute;
     margin: 10px;
 }
-
+/* 
 input[type=text] {
 padding: 10px;
 width: 200px;
 border: 1px solid #ccc;
 border-radius: 5px;
-}
+} */
 
 .search-button {
 padding: 10px;
