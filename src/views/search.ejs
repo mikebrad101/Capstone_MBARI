@@ -222,7 +222,7 @@
 
     <div class="button-container">
       <button type="submit">Search for Expeditions</button>
-      <!-- <button type="button">Show All Cruises</button> -->
+     <button type="button" onclick="allCruises()">All Cruises</button>
       <button type="button" onclick="clearFields()">Clear All Fields</button>
     </div>
   </form>
@@ -231,6 +231,9 @@
     function clearFields() {
       // Clear all form fields
       document.getElementById("searchForm").reset();
+    }
+    function allCruises(){
+      window.location.href = '/allcruises';
     }
   </script>
 
