@@ -229,6 +229,14 @@ async function updateDive(data, exp_id, dive_id){
     id
   ]);
   return result;
+  
+}
+
+async function getExpeditionsNeedingApproval(exp_app) {
+  let sql = 'SELECT * FROM expedition WHERE expedition_status = "Planned";';
+
+  let rows = await executeSQL(sql, [exp_app]);
+  return rows;
 }
 
 module.exports = {
@@ -242,5 +250,6 @@ module.exports = {
    updateExpedition,
    getAllDives,
    getDive, 
-   getUsersByRole
+   getUsersByRole, 
+   getExpeditionsNeedingApproval
 };
