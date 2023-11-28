@@ -11,8 +11,8 @@ const { executeSQL,
   updateExpedition,
   getAllDives,
   getDive, 
-  getUsersByOccupation,
-  getUsersByRole } = require('../controllers/sql.js');
+  getUsersByRole,
+  getExpeditionsNeedingApproval } = require('../controllers/sql.js');
   const { isAuthenticated } = require('../controllers/middleware.js');
 const app = express();
 //need this to get data from webpage
@@ -69,6 +69,32 @@ router.get("/mbari-employee-dashboard", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   res.render('mbari-employee-dashboard');
+});
+router.get("/logistics-coordinator-dashboard", async function(req, res) {
+  try {
+    // Get the expeditions needing approval data
+    const expeditionsNeedingApproval = await getExpeditionsNeedingApproval(req.body);
+    // let expedition = await getExpedition(req.params.exp_id);
+
+
+    // Render the logistics-coordinator-dashboard template with the data
+    res.render('logistics-coordinator-dashboard', { "app_exp" :expeditionsNeedingApproval});
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+router.get("/registered-user-dashboard", async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('registered-user-dashboard');
+});
+router.get("/approveExpedition", isAuthenticated, async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  const results = await getSearchResults(req.body);
+
+  res.render('appcruise', { expeditionResults: results});
 });
 
 router.get("/postexp", isAuthenticated, async function(req, res) {
@@ -208,57 +234,71 @@ router.post("/updateExpedition", isAuthenticated, async function(req, res) {
 router.post('/login', async (req, res) => {
   const { email, pwd } = req.body;
 
-  let sql = 'SELECT user_ID, password, role FROM person WHERE email = ?';
-  let results = await executeSQL(sql, [email]);
-  console.log(results);
-  if (results.length === 0) {
+  try {
+    let sql = 'SELECT user_ID, password, role FROM person WHERE email = ?';
+    let results = await executeSQL(sql, [email]);
+
+    if (results.length === 0) {
       // No user found with that email
       return res.render('login', { errorMessage: 'Invalid email or password.' });
-  }
-    const userId = results[0].user_ID
+    }
+
+    const userId = results[0].user_ID;
     const dbPassword = results[0].password;
     const dbRole = results[0].role;
+
     bcrypt.compare(pwd, dbPassword, (err, match) => {
       if (err) {
-          console.error('Error verifying password: ' + err.message);
-          return res.status(500).send('Internal Server Error');
+        console.error('Error verifying password: ' + err.message);
+        return res.status(500).send('Internal Server Error');
       }
+
       if (!match) {
-          return res.render('login', { errorMessage: 'Invalid email or password.' });
+        return res.render('login', { errorMessage: 'Invalid email or password.' });
       }
-      if (match) {
-        console.log("successful login")
-        
-        req.session.authenticated = true;
-        req.session.userId = userId;
-        req.session.position = dbRole;
-        console.log(req.session)
-        req.session.save()
-        //redirects beased on user role 
+
+      // Passwords match
+      console.log("Successful login");
+
+      req.session.authenticated = true;
+      req.session.userId = userId;
+      req.session.position = dbRole;
+
+      req.session.save((err) => {
+        if (err) {
+          console.error('Error saving session: ' + err.message);
+          return res.status(500).send('Internal Server Error');
+        }
+
+        // Redirect logic based on user role
         switch (dbRole) {
           case 'MBARI Employee':
           case 'Registered User':
             res.redirect('/mbari-employee-dashboard');
             break;
-  
+
           case 'Logistics Coordinator':
             res.redirect('/logistics-coordinator-dashboard');
             break;
-        
+
           case 'Registered User':
             res.redirect('/registered-user-dashboard');
             break;
-  
+
           // Add more cases for other roles as needed
-  
+
           default:
-            res.redirect('/home');
+            res.redirect('/login');
             break;
         }
-        res.redirect('/home');
-      }
+      });
     });
+  } catch (error) {
+    console.error('Error executing SQL query: ' + error.message);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
 
 router.post('/signup', async (req, res) => {
   const { firstname, lastname, email, password, role, occupation } = req.body;
