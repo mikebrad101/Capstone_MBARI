@@ -73,7 +73,7 @@
               <th>Scheduled End</th>
               <th>Actual Start</th>
               <th>Actual End</th>
-              <th></th>
+              <th>Options</th>
             </tr>
           </thead>
           <tbody>
@@ -93,11 +93,9 @@
                   <button class="btn btn-show-more" type="button" data-toggle="collapse" data-target="#expeditionDetails<%= expedition.expedition_ID %>" aria-expanded="false" aria-controls="expeditionDetails<%= expedition.expedition_ID %>" style="border: 1px solid #fff;">
                     Show More
                   </button>
-                  
                   <button class="btn btn-show-more" onclick="goToUpdatePage(<%= expedition.expedition_ID %>)" style="border: 1px solid #fff;">
                     Update Expedition
                   </button>
-                  
                 </td>
               </tr>
               <tr>
