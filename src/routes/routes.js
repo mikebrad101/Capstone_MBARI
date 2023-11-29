@@ -6,11 +6,14 @@ const { executeSQL,
   getPrincipalInvestigators,
   getExpedition,
   getAllCruises,
+  getAllShips,
   addExpedition,
   updatePost,
   updateExpedition,
   getAllDives,
+  //will need this to update dive
   getDive, 
+  updateDive,
   getUsersByRole,
   getExpeditionsNeedingApproval } = require('../controllers/sql.js');
   const { isAuthenticated } = require('../controllers/middleware.js');
@@ -39,7 +42,8 @@ router.get("/search", isAuthenticated, async function(req, res) {
   //let ships = await getAllShips();
   let scientists = await getChiefScientists();
   let investigators = await getPrincipalInvestigators();
-  res.render('search', {"scientists": scientists, "investigators": investigators}); //"ships": ships,
+  let ships = await getAllShips();
+  res.render('search', {"scientists": scientists, "investigators": investigators, "ships": ships}); 
 });
 
 router.get("/preexp", isAuthenticated, async function(req, res) {

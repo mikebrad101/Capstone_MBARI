@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,32 +14,38 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      color: #fff; /* Text color */
+      color: #fff;
+      /* Text color */
     }
 
     h1 {
-      max-width: 800px; /* Set a maximum width for the form */
+      max-width: 800px;
+      /* Set a maximum width for the form */
       margin-left: auto;
       margin-right: auto;
-      background-color: rgba(0, 0, 0, 0.7); /* Transparent black background for the header */
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Transparent black background for the header */
       padding: 10px;
       border-radius: 10px;
       text-align: center;
-  }
+    }
 
     /* Style for the search form */
     form {
-      max-width: 800px; /* Set a maximum width for the form */
+      max-width: 800px;
+      /* Set a maximum width for the form */
       margin-left: auto;
       margin-right: auto;
-      background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Transparent black background */
       padding: 20px;
       border-radius: 10px;
       margin-top: 20px;
     }
 
     label {
-      color: #fff; /* Label text color */
+      color: #fff;
+      /* Label text color */
     }
 
     input,
@@ -49,8 +56,10 @@
       display: inline-block;
       border: 1px solid #ccc;
       box-sizing: border-box;
-      background-color: rgba(255, 255, 255, 0.8); /* Transparent white background for input/select */
-      color: #000; /* Input text color */
+      background-color: rgba(255, 255, 255, 0.8);
+      /* Transparent white background for input/select */
+      color: #000;
+      /* Input text color */
     }
 
     /* Style for buttons */
@@ -62,23 +71,24 @@
       border-radius: 5px;
       cursor: pointer;
       margin-top: 10px;
-      margin-right: 10px; /* Add right margin to space out the buttons */
+      margin-right: 10px;
+      /* Add right margin to space out the buttons */
     }
 
     /* Add spacing between form elements */
-    form > * {
+    form>* {
       margin-bottom: 15px;
     }
 
-    
+
     .form-row {
       display: flex;
       justify-content: space-between;
     }
 
-    
+
     .form-column {
-      width: 48%; 
+      width: 48%;
     }
 
     .button-container {
@@ -87,6 +97,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <h1>Search</h1>
@@ -96,9 +107,12 @@
       <div class="form-column">
         <label for="shipName">Ship Name:</label>
         <select id="shipName" name="shipName">
-          <option value="">Select</option>
-          <option value="ship1">Ship 1</option>
-          <option value="ship2">Ship 2</option>
+          <option value="">Select</option> <!-- Default option with no value -->
+          <% for(let i=0; i < ships.length; i++) { %>
+            <option value="<%=ships[i].ship_name %>">
+              <%=ships[i].ship_name%>
+            </option>
+            <% } %>
         </select>
       </div>
 
@@ -188,28 +202,28 @@
     <div class="form-row">
       <div class="form-column">
         <label for="chiefScientist" class="modern-label">Chief Scientist:</label><br>
-                    <select id="chiefScientist" name="chiefScientist">
-                      <option value="">Select</option> <!-- Default option with no value -->
-                        <% for(let i=0; i < scientists.length; i++) { %>
-                            <option value="<%=scientists[i].user_ID %>">
-                                <%=scientists[i].first_name%>
-                                    <%=scientists[i].last_name%>
-                            </option>
-                            <% } %>
-                    </select>
+        <select id="chiefScientist" name="chiefScientist">
+          <option value="">Select</option> <!-- Default option with no value -->
+          <% for(let i=0; i < scientists.length; i++) { %>
+            <option value="<%=scientists[i].user_ID %>">
+              <%=scientists[i].first_name%>
+                <%=scientists[i].last_name%>
+            </option>
+            <% } %>
+        </select>
       </div>
 
       <div class="form-column">
         <label for="principalInvestigator" class="modern-label">Principal Investigator:</label><br>
-                    <select id="principalInvestigator" name="principalInvestigator">
-                      <option value="">Select</option> <!-- Default option with no value -->
-                        <% for(let i=0; i < investigators.length; i++) { %>
-                            <option value="<%=investigators[i].user_ID %>">
-                                <%=investigators[i].first_name%>
-                                    <%=investigators[i].last_name%>
-                            </option>
-                            <% } %>
-                    </select>
+        <select id="principalInvestigator" name="principalInvestigator">
+          <option value="">Select</option> <!-- Default option with no value -->
+          <% for(let i=0; i < investigators.length; i++) { %>
+            <option value="<%=investigators[i].user_ID %>">
+              <%=investigators[i].first_name%>
+                <%=investigators[i].last_name%>
+            </option>
+            <% } %>
+        </select>
       </div>
     </div>
 
@@ -222,7 +236,7 @@
 
     <div class="button-container">
       <button type="submit">Search for Expeditions</button>
-     <button type="button" onclick="allCruises()">All Cruises</button>
+      <button type="button" onclick="allCruises()">All Cruises</button>
       <button type="button" onclick="clearFields()">Clear All Fields</button>
     </div>
   </form>
@@ -232,7 +246,7 @@
       // Clear all form fields
       document.getElementById("searchForm").reset();
     }
-    function allCruises(){
+    function allCruises() {
       window.location.href = '/allcruises';
     }
   </script>
@@ -242,4 +256,5 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>

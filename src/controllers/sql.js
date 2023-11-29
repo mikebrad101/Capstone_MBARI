@@ -245,11 +245,13 @@ module.exports = {
    getPrincipalInvestigators,
    getExpedition,
    getAllCruises,
+   getAllShips,
    addExpedition,
    updatePost,
    updateExpedition,
    getAllDives,
    getDive, 
+   updateDive,
    getUsersByRole, 
    getExpeditionsNeedingApproval
 };
