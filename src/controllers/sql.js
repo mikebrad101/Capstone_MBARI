@@ -20,10 +20,10 @@ async function getChiefScientists(){
   let scientists = await executeSQL(sql);
   return scientists;
 }
-async function getUsersByRole(){
-  let sql = `SELECT * FROM person WHERE role = 'MBARI Emplyoee'`;
-  let role = await executeSQL(sql);
-  return role;
+async function getUsersByRole() {
+  let sql = `SELECT * FROM person WHERE role = 'MBARI Employee'`;
+  let users = await executeSQL(sql);
+  return users;
 }
 async function getPrincipalInvestigators(){
   let sql = `SELECT * FROM person WHERE occupation = 'Principal Investigator'`;
