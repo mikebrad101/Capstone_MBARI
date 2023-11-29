@@ -1,0 +1,12 @@
+<nav class="nav">
+  <ul>
+    <li><a href="/">Dashboard</a></li>
+    <% if (role === 'MBARI Employee') { %>
+      <li><a href="/mbari-employee-dashboard">MBARI Employee Panel</a></li>
+    <% } else if (role === 'Registered User') { %>
+      <li><a href="/registered-user-dashboard">Registered User Panel</a></li>
+    <% } else if (role  === 'Logistics Coordinator') { %>
+      <li><a href="/logistics-coordinator-dashboard">Logistics Coordinator Panel</a></li>
+    <% } %>
+  </ul>
+</nav>
