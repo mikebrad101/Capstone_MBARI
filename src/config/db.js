@@ -2,7 +2,7 @@ const mysql = require('mysql');
 
 function tempDB() {
   return mysql.createPool({
-    connectionLimit: 100,
+    connectionLimit: 10,
     host: "t07cxyau6qg7o5nz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     user: "mg6my0cujwumt4lr",
     password: "gnrv7rwzpmvpw19d",

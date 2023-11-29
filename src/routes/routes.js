@@ -88,15 +88,13 @@ router.get("/mbari-employee-dashboard", async function(req, res) {
 router.get("/logistics-coordinator-dashboard", async function(req, res) {
   try {
     // Get the expeditions needing approval data
-    const expeditionsNeedingApproval = await getExpeditionsNeedingApproval();
+    const expeditionsNeedingApproval = await getExpeditionsNeedingApproval(req.body);
     let expedition = await getExpedition(req.params.exp_id);
-    // const logisticsCoordinators = await getUsersByRole('Logistics Coordinator');
-    const userRole = req.session.user ? req.session.user.role : null;
-
+    const logisticsCoordinators = await getUsersByRole('Logistics Coordinator');
 
 
     // Render the logistics-coordinator-dashboard template with the data
-    res.render('logistics-coordinator-dashboard', { "approval" :expeditionsNeedingApproval, "role": userRole, "expedition": expedition});
+    res.render('logistics-coordinator-dashboard', { "approval" :expeditionsNeedingApproval, "expedition": expedition, "role": logisticsCoordinators});
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
