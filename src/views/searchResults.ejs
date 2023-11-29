@@ -93,6 +93,9 @@
                   <button class="btn btn-show-more" type="button" data-toggle="collapse" data-target="#expeditionDetails<%= expedition.expedition_ID %>" aria-expanded="false" aria-controls="expeditionDetails<%= expedition.expedition_ID %>">
                     Show More
                   </button>
+                  <button class="btn btn-show-more" onclick="goToUpdatePage(<%= expedition.expedition_ID %>)">
+                    Update Expedition
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -134,6 +137,10 @@
       // Use window.location to navigate back to the search page
       window.location.href = '/search';
     }
+    function goToUpdatePage(expeditionID) {
+    // Use window.location to navigate to the update page with the expedition ID
+    window.location.href = '/update/' + expeditionID;
+  }
   </script>
 
 </body>
