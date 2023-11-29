@@ -40,12 +40,14 @@ CREATE TABLE expedition(
 );
 
 CREATE TABLE dive(
+    dive_ID int NOT NULL AUTO_INCREMENT,
 	expedition_ID INT,
     ROV_name TEXT,
     dive_number INT,
     dive_start DATE,
     dive_end DATE,
-    dive_cheif_scientist VARCHAR(100),
+    dive_chief_scientist VARCHAR(100),
     accomplishments TEXT,
+    PRIMARY KEY (dive_ID),
     FOREIGN KEY (expedition_ID) REFERENCES expedition(expedition_ID)
 );
