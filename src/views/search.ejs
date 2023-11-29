@@ -103,136 +103,91 @@
   <h1>Search</h1>
 
   <form id="searchForm" action="/searchRequest" method="POST">
-    <div class="form-row">
-      <div class="form-column">
-        <label for="shipName">Ship Name:</label>
-        <select id="shipName" name="shipName">
-          <option value="">Select</option> <!-- Default option with no value -->
-          <% for(let i=0; i < ships.length; i++) { %>
-            <option value="<%=ships[i].ship_name %>">
-              <%=ships[i].ship_name%>
-            </option>
-            <% } %>
-        </select>
-      </div>
 
-      <div class="form-column">
-        <label for="status">Status:</label>
-        <select id="status" name="status">
-          <option value="">Select</option>
-          <option value="In_Progress">In Progress</option>
-          <option value="completed">Completed</option>
-          <option value="planned">Planned</option>
-        </select>
-      </div>
-    </div>
+<!-- ... Previous code ... -->
 
-    <div class="form-row">
-      <div class="form-column">
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate" class="dateInput">
-      </div>
+<div class="form-row">
+  <div class="form-column">
+    <label for="shipName">Ship Name:</label>
+    <select id="shipName" name="shipName">
+      <option value="">Select</option>
+      <% for(let i=0; i < ships.length; i++) { %>
+        <option value="<%=ships[i].ship_name %>">
+          <%=ships[i].ship_name%>
+        </option>
+        <% } %>
+    </select>
 
-      <div class="form-column">
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate" class="dateInput">
-      </div>
-    </div>
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" class="dateInput">
 
-    <div class="form-row">
-      <div class="form-column">
-        <label for="singleDate">Single Date:</label>
-        <input type="date" id="singleDate" name="singleDate" class="singleDate">
-      </div>
+    <label for="singleDate">Single Date:</label>
+    <input type="date" id="singleDate" name="singleDate" class="singleDate">
 
-      <div class="form-column">
-        <label for="diveNumber">Dive Number:</label>
-        <input type="text" id="diveNumber" name="diveNumber">
-      </div>
-    </div>
+    <label for="purpose">Purpose:</label>
+    <input type="text" id="purpose" name="purpose">
 
-    <div class="form-row">
-      <div class="form-column">
-        <label for="purpose">Purpose:</label>
-        <input type="text" id="purpose" name="purpose">
-      </div>
+    <label for="accomplishments">Accomplishments:</label>
+    <input type="text" id="accomplishments" name="accomplishments">
 
-      <div class="form-column">
-        <label for="siteTrack">Site/Track:</label>
-        <input type="text" id="siteTrack" name="siteTrack">
-      </div>
-    </div>
+    <label for="scientistComments">Scientist Comments:</label>
+    <input type="text" id="scientistComments" name="scientistComments">
 
-    <div class="form-row">
-      <div class="form-column">
-        <label for="accomplishments">Accomplishments:</label>
-        <input type="text" id="accomplishments" name="accomplishments">
-      </div>
+    <label for="chiefScientist" class="modern-label">Principal Investigator:</label>
+    <select id="principalInvestigator" name="principalInvestigator">
+      <option value="">Select</option>
+      <% for(let i=0; i < investigators.length; i++) { %>
+        <option value="<%=investigators[i].user_ID %>">
+          <%=investigators[i].first_name%> <%=investigators[i].last_name%>
+        </option>
+        <% } %>
+    </select>
 
-      <div class="form-column">
-        <label for="operatorComments">Operator Comments:</label>
-        <input type="text" id="operatorComments" name="operatorComments">
-      </div>
-    </div>
+    <label for="chiefScientist" class="modern-label">Chief Scientist:</label>
+    <select id="chiefScientist" name="chiefScientist">
+      <option value="">Select</option>
+      <% for(let i=0; i < scientists.length; i++) { %>
+        <option value="<%=scientists[i].user_ID %>">
+          <%=scientists[i].first_name%> <%=scientists[i].last_name%>
+        </option>
+        <% } %>
+    </select>
+  </div>
 
-    <div class="form-row">
-      <div class="form-column">
-        <label for="scientistComments">Scientist Comments:</label>
-        <input type="text" id="scientistComments" name="scientistComments">
-      </div>
+  <div class="form-column">
+    <label for="status">Status:</label>
+    <select id="status" name="status">
+      <option value="">Select</option>
+      <option value="In_Progress">In Progress</option>
+      <option value="completed">Completed</option>
+      <option value="planned">Planned</option>
+    </select>
 
-      <div class="form-column">
-        <label for="sequenceNumber">Sequence Number:</label>
-        <input type="text" id="sequenceNumber" name="sequenceNumber">
-      </div>
-    </div>
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" class="dateInput">
 
-    <div class="form-row">
-      <div class="form-column">
-        <label for="yyyyddd">YYYYDDD:</label>
-        <input type="text" id="yyyyddd" name="yyyyddd">
-      </div>
+    <label for="diveNumber">Dive Number:</label>
+    <input type="text" id="diveNumber" name="diveNumber">
 
-      <div class="form-column">
-        <label for="participants">Participants:</label>
-        <input type="text" id="participants" name="participants">
-      </div>
-    </div>
+    <label for="siteTrack">Site/Track:</label>
+    <input type="text" id="siteTrack" name="siteTrack">
 
-    <div class="form-row">
-      <div class="form-column">
-        <label for="chiefScientist" class="modern-label">Chief Scientist:</label><br>
-        <select id="chiefScientist" name="chiefScientist">
-          <option value="">Select</option> <!-- Default option with no value -->
-          <% for(let i=0; i < scientists.length; i++) { %>
-            <option value="<%=scientists[i].user_ID %>">
-              <%=scientists[i].first_name%>
-                <%=scientists[i].last_name%>
-            </option>
-            <% } %>
-        </select>
-      </div>
+    <label for="operatorComments">Operator Comments:</label>
+    <input type="text" id="operatorComments" name="operatorComments">
 
-      <div class="form-column">
-        <label for="principalInvestigator" class="modern-label">Principal Investigator:</label><br>
-        <select id="principalInvestigator" name="principalInvestigator">
-          <option value="">Select</option> <!-- Default option with no value -->
-          <% for(let i=0; i < investigators.length; i++) { %>
-            <option value="<%=investigators[i].user_ID %>">
-              <%=investigators[i].first_name%>
-                <%=investigators[i].last_name%>
-            </option>
-            <% } %>
-        </select>
-      </div>
-    </div>
+    <label for="participants">Participants:</label>
+    <input type="text" id="participants" name="participants">
 
-    <div class="form-row">
-      <div class="form-column">
-        <label for="dataComments">Data Comments:</label>
-        <input type="text" id="dataComments" name="dataComments">
-      </div>
-    </div>
+    <label for="yyyyddd">YYYYDDD:</label>
+    <input type="text" id="yyyyddd" name="yyyyddd">
+
+    <label for="dataComments">Data Comments:</label>
+    <input type="text" id="dataComments" name="dataComments">
+  </div>
+</div>
+
+<!-- ... Remaining code ... -->
+
 
     <div class="button-container">
       <button type="submit" style="border: 1px solid #fff;">Search for Expeditions</button>
