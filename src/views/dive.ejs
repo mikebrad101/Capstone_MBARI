@@ -1,37 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dive Information Form</title>
+  <link rel="icon" href="/images/tabLogo.png" type="image/png">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link href="/css/style2.css" rel="stylesheet">
+
+  </script>
 </head>
+
 <body>
   <h1>Dive Information</h1>
-  <form>
-    <label for="rovName">Rov Name:</label>
-    <input type="text" id="rovName" name="rovName" required><br><br>
 
-    <label for="diveNumber">Dive Number:</label>
-    <input type="number" id="diveNumber" name="diveNumber" required><br><br>
+  <main class="container">
+    <div id="logo-container">
+      <img src='/images/horizontal-logo-withglow.png' id="logo"><br>
+    </div>
 
-    <label for="diveStartDatetime">Dive Start Datetime:</label>
-    <input type="date" id="diveStartDate" name="diveStartDate" required><br><br>
+    <form class="columnTopSpace">
+      <label for="rovName" class="labels">Rov Name:</label><br>
+      <input type="text" id="rovName" name="rovName" class="inputStyle" required><br><br>
 
-    <label for="diveEndDatetime">Dive End Datetime:</label>
-    <input type="date" id="diveEndDate" name="diveEndDate" required><br><br>
+      <label for="diveNumber">Dive Number:</label><br>
+      <input class="inputStyle" type="number" id="diveNumber" name="diveNumber" required><br><br>
 
-    <label for="diveChiefScientist">Dive Chief Scientist:</label>
-    <select id="diveChiefScientist" name="diveChiefScientist" required>
-      <option value="" disabled selected>Select Chief Scientist</option>
-      <option value="scientist1">Scientist 1</option>
-      <option value="scientist2">Scientist 2</option>
-      <option value="scientist3">Scientist 3</option>
-    </select><br><br>
+      <label for="diveStartDatetime">Dive Start Datetime:</label><br>
+      <input class="inputStyle" type="datetime-local" id="diveStartDatetime" name="diveStartDatetime" required><br><br>
 
-    <label for="briefAccomplishments">Brief Accomplishments:</label><br>
-    <textarea id="briefAccomplishments" name="briefAccomplishments" rows="5" cols="40" maxlength="2048" required></textarea><br><br>
+      <label for="diveEndDatetime">Dive End Datetime:</label><br>
+      <input class="inputStyle" type="datetime-local" id="diveEndDatetime" name="diveEndDatetime" required><br><br>
 
-    <input type="submit" value="Submit">
-  </form>
+      <select class="modern-select" id="diveChiefScientist" name="diveChiefScientist" required>
+        <option value="" disabled selected>Select Chief Scientist</option>
+        <option value="scientist1">Scientist 1</option>
+        <option value="scientist2">Scientist 2</option>
+        <option value="scientist3">Scientist 3</option>
+      </select><br><br>
+
+      <label for="briefAccomplishments">Brief Accomplishments:</label><br>
+      <textarea class="inputStyle" id="briefAccomplishments" name="briefAccomplishments" rows="3" cols="40"
+        maxlength="2048" required></textarea><br><br>
+
+      <div class="button-container">
+        <button class="button">submit</button>
+      </div>
+    </form>
+  </main>
+  <footer>
+    <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
+  </footer>
+
 </body>
+
 </html>
