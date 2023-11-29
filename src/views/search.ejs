@@ -247,7 +247,8 @@
       document.getElementById("searchForm").reset();
     }
     function allCruises() {
-      window.location.href = '/allcruises';
+      clearFields();
+      document.getElementById("searchForm").submit();
     }
   </script>
 
