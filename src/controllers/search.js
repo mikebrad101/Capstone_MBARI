@@ -9,7 +9,7 @@ async function getSearchResults(data){
     startDate,
     endDate,
     singleDate,
-    diveNumber, //NEEDS WORK
+    diveNumber, //TODO
     purpose,
     siteTrack, 
     accomplishments,
@@ -55,9 +55,10 @@ async function getSearchResults(data){
     values.push(singleDate);
   }
   
-  //if(diveNumber){
-    //diveSQL += '${diveNumber}';
-  //}
+  // if (diveNumber) {
+  //   sql += ' AND expedition_ID IN (SELECT expedition_ID FROM dive WHERE dive_number = ?)';
+  //   values.push(diveNumber);
+  // } 
   
   if(purpose){
     sql += ' AND purpose LIKE ?';
@@ -112,7 +113,6 @@ async function getSearchResults(data){
   }
 
   let result = await executeSQL(sql, values);
-  //let diveResult = await executeSQL(diveSQL);
   console.log(result);
   return result
 }
@@ -124,9 +124,7 @@ module.exports = {
 
 
 /*
-TO DO NEEDED
--Dive implementation 
-
+TO DO
+-Dive implementation
 -Sequence number implementation
--Add show all cruises 
 */

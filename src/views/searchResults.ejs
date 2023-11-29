@@ -90,12 +90,14 @@
                 <td><%= expedition.actual_start %></td>
                 <td><%= expedition.actual_end %></td>
                 <td>
-                  <button class="btn btn-show-more" type="button" data-toggle="collapse" data-target="#expeditionDetails<%= expedition.expedition_ID %>" aria-expanded="false" aria-controls="expeditionDetails<%= expedition.expedition_ID %>">
+                  <button class="btn btn-show-more" type="button" data-toggle="collapse" data-target="#expeditionDetails<%= expedition.expedition_ID %>" aria-expanded="false" aria-controls="expeditionDetails<%= expedition.expedition_ID %>" style="border: 1px solid #fff;">
                     Show More
                   </button>
-                  <button class="btn btn-show-more" onclick="goToUpdatePage(<%= expedition.expedition_ID %>)">
+                  
+                  <button class="btn btn-show-more" onclick="goToUpdatePage(<%= expedition.expedition_ID %>)" style="border: 1px solid #fff;">
                     Update Expedition
                   </button>
+                  
                 </td>
               </tr>
               <tr>
@@ -126,7 +128,7 @@
       No expedition results found.
   <% } %>
 
-  <button class="btn btn-show-more mt-2" onclick="backToSearch()">Back to Search</button>
+  <button class="btn btn-show-more mt-2" onclick="backToSearch()" style="border: 1px solid #fff;">Back to Search</button>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
