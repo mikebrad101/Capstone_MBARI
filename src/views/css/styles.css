@@ -91,16 +91,17 @@ select.round:focus {
 }
 
 .nav {
-    background-color: #eff4f7;
+    max-width: 800px; /* Set a maximum width for the form */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.7); /*Transparent black background for the header */
     padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .nav a {
-    color: #005fa3;
+    color: #fff;
     margin: 0 15px;
     text-decoration: none;
 }
@@ -117,7 +118,8 @@ html, body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    background-attachment: scroll;
+    background-attachment: fixed;
+    color:#fff;
 }
 
 .center-container {
@@ -127,25 +129,45 @@ html, body {
     height: 100%;
 }
 
-form {
-    background-color: rgba(255, 255, 255, 0.85);
+/* form {
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 10px;
     width: 50%;
     max-width: 350px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); 
+} */
+form {
+    max-width: 800px; /* Set a maximum width for the form */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
 
-h1 {
+/* h1 {
     text-align: center;
     font-family: 'Raleway', sans-serif;
     color: #DEC4AD;
     margin-bottom: 20px;
-    background-color: #231F20; /* Add this line */
-    padding: 10px; /* Add this line for some padding */
+    background-color: #231F20; 
+    padding: 10px; 
+} */
+
+h1 {
+    max-width: 800px; /* Set a maximum width for the form */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.7); /*Transparent black background for the header */
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
 }
 
-input, select, button{
+
+input, select{
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -153,12 +175,23 @@ input, select, button{
     border: 1px solid #ccc;
 }
 
-button,i {
+/* button,i {
     background-color: #0077b6;
     color: #fff;
     border: none;
     cursor: pointer;
-}
+} */
+button {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px; /* Add right margin to space out the buttons */
+  }
+
 
 button:hover {
     background-color: #005fa3;
@@ -172,7 +205,7 @@ button:hover {
 
 footer {
     font-family: Arial, Helvetica, sans-serif;
-    color: #DEC4AD;
+    color: #fff;
     background-color: #231F20;
     position: fixed;
     width: 100%;
@@ -239,7 +272,7 @@ footer {
     text-align: center;
     text-decoration: none;
     color: white;
-    background-color: #0077b6; /* Blue background color */
+    background-color: #28282B; /* Blue background color */
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
@@ -283,7 +316,7 @@ border-radius: 5px;
 
 .search-button {
 padding: 10px;
-background: #E3CEAF; /* Your desired button color */
+background: #28282B; /* Your desired button color */
 color: #fff;
 border: none;
 border-radius: 5px;
