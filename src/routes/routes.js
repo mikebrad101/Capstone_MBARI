@@ -49,7 +49,9 @@ router.get("/preexp", isAuthenticated, async function(req, res) {
   console.log(scientists);
   let investigators = await getPrincipalInvestigators();
   console.log(investigators);
-  res.render('preexp', {"scientists": scientists, "investigators": investigators});
+  const mbariEmployees = await getUsersByRole('MBARI Employee');
+
+  res.render('preexp', {"scientists": scientists, "investigators": investigators, "role": mbariEmployees });
 });
 
 router.get("/login", async function(req, res) {
@@ -68,17 +70,27 @@ router.get("/signup", async function(req, res) {
 router.get("/mbari-employee-dashboard", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('mbari-employee-dashboard');
+  try {
+    // Get the users with the 'MBARI Employee' role
+    const mbariEmployees = await getUsersByRole('MBARI Employee');
+
+    // Render the mbari-employee-dashboard template with the data
+    res.render('mbari-employee-dashboard', { "role": mbariEmployees });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 router.get("/logistics-coordinator-dashboard", async function(req, res) {
   try {
     // Get the expeditions needing approval data
     const expeditionsNeedingApproval = await getExpeditionsNeedingApproval(req.body);
-    // let expedition = await getExpedition(req.params.exp_id);
+    let expedition = await getExpedition(req.params.exp_id);
+    const logisticsCoordinators = await getUsersByRole('Logistics Coordinator');
 
 
     // Render the logistics-coordinator-dashboard template with the data
-    res.render('logistics-coordinator-dashboard', { "app_exp" :expeditionsNeedingApproval});
+    res.render('logistics-coordinator-dashboard', { "approval" :expeditionsNeedingApproval, "expedition": expedition, "role": logisticsCoordinators});
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
@@ -87,7 +99,16 @@ router.get("/logistics-coordinator-dashboard", async function(req, res) {
 router.get("/registered-user-dashboard", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('registered-user-dashboard');
+  try {
+    // Get the users with the 'Registered User' role
+    const registeredUsers = await getUsersByRole('Registered User');
+
+    // Render the registered-user-dashboard template with the data
+    res.render('registered-user-dashboard', { "role": registeredUsers });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 router.get("/approveExpedition", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
@@ -273,7 +294,7 @@ router.post('/login', async (req, res) => {
         // Redirect logic based on user role
         switch (dbRole) {
           case 'MBARI Employee':
-          case 'Registered User':
+          // case 'Registered User':
             res.redirect('/mbari-employee-dashboard');
             break;
 
