@@ -46,6 +46,11 @@ h1 {
     margin-top: 20px;
     align-self: flex-start;
 }
+h3{
+    margin-left: 10%;
+    margin-top: 20px;
+    align-self: flex-start;
+}
 
 #logo-container {
     display: flex;
