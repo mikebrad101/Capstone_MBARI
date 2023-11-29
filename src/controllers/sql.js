@@ -21,7 +21,7 @@ async function getChiefScientists(){
   return scientists;
 }
 async function getUsersByRole() {
-  let sql = `SELECT * FROM person WHERE role = 'MBARI Employee'`;
+  let sql = `SELECT * FROM person WHERE role = ?`;
   let users = await executeSQL(sql);
   return users;
 }
