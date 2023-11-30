@@ -5,81 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search Function</title>
+  <link rel="icon" href="/images/tabLogo.png" type="image/png">
   <!-- Add Bootstrap CSS for styling consistency -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link href="/css/style2.css" rel="stylesheet">
+
   <style>
     body {
-      padding: 20px;
       background-image: url('images/moon-jellies.jpg');
-      background-size: cover;
+      text-align: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      color: #fff;
-      /* Text color */
+      background-size: cover;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: left;
     }
-
-    h1 {
-      max-width: 800px;
-      /* Set a maximum width for the form */
-      margin-left: auto;
-      margin-right: auto;
-      background-color: rgba(0, 0, 0, 0.7);
-      /* Transparent black background for the header */
-      padding: 10px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    /* Style for the search form */
-    form {
-      max-width: 800px;
-      /* Set a maximum width for the form */
-      margin-left: auto;
-      margin-right: auto;
-      background-color: rgba(0, 0, 0, 0.7);
-      /* Transparent black background */
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
-
-    label {
-      color: #fff;
-      /* Label text color */
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 8px;
-      margin: 5px 0;
-      display: inline-block;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      background-color: rgba(255, 255, 255, 0.8);
-      /* Transparent white background for input/select */
-      color: #000;
-      /* Input text color */
-    }
-
-    /* Style for buttons */
-    button {
-      background-color: #000;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 10px;
-      margin-right: 10px;
-      /* Add right margin to space out the buttons */
-    }
-
-    /* Add spacing between form elements */
-    form>* {
-      margin-bottom: 15px;
-    }
-
 
     .form-row {
       display: flex;
@@ -99,99 +44,104 @@
 </head>
 
 <body>
+  <main class="container">
 
-  <h1>Search</h1>
+    <form id="searchForm" action="/searchRequest" method="POST">
+      <h1>Search</h1>
+      <div class="form-row">
+        <div class="form-column">
+          <label for="shipName">Ship Name:</label>
+          <select id="shipName" name="shipName">
+            <option value="">Select</option>
+            <% for(let i=0; i < ships.length; i++) { %>
+              <option value="<%=ships[i].ship_name %>">
+                <%=ships[i].ship_name%>
+              </option>
+              <% } %>
+          </select>
 
-  <form id="searchForm" action="/searchRequest" method="POST">
+          <label for="startDate">Start Date:</label>
+          <input type="date" id="startDate" name="startDate" class="singleDate">
 
-    <div class="form-row">
-      <div class="form-column">
-        <label for="shipName">Ship Name:</label>
-        <select id="shipName" name="shipName">
-          <option value="">Select</option>
-          <% for(let i=0; i < ships.length; i++) { %>
-            <option value="<%=ships[i].ship_name %>">
-              <%=ships[i].ship_name%>
-            </option>
-            <% } %>
-        </select>
+          <label for="singleDate">Single Date:</label>
+          <input type="date" id="singleDate" name="singleDate" class="singleDate">
 
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate" class="dateInput">
+          <label for="purpose">Purpose:</label>
+          <input type="text" id="purpose" name="purpose">
 
-        <label for="singleDate">Single Date:</label>
-        <input type="date" id="singleDate" name="singleDate" class="singleDate">
+          <label for="accomplishments">Accomplishments:</label>
+          <input type="text" id="accomplishments" name="accomplishments">
 
-        <label for="purpose">Purpose:</label>
-        <input type="text" id="purpose" name="purpose">
+          <label for="scientistComments">Scientist Comments:</label>
+          <input type="text" id="scientistComments" name="scientistComments">
 
-        <label for="accomplishments">Accomplishments:</label>
-        <input type="text" id="accomplishments" name="accomplishments">
+          <label for="chiefScientist" class="modern-label">Principal Investigator:</label>
+          <select id="principalInvestigator" name="principalInvestigator">
+            <option value="">Select</option>
+            <% for(let i=0; i < investigators.length; i++) { %>
+              <option value="<%=investigators[i].user_ID %>">
+                <%=investigators[i].first_name%>
+                  <%=investigators[i].last_name%>
+              </option>
+              <% } %>
+          </select>
 
-        <label for="scientistComments">Scientist Comments:</label>
-        <input type="text" id="scientistComments" name="scientistComments">
+          <label for="chiefScientist" class="modern-label">Chief Scientist:</label>
+          <select id="chiefScientist" name="chiefScientist">
+            <option value="">Select</option>
+            <% for(let i=0; i < scientists.length; i++) { %>
+              <option value="<%=scientists[i].user_ID %>">
+                <%=scientists[i].first_name%>
+                  <%=scientists[i].last_name%>
+              </option>
+              <% } %>
+          </select>
+        </div>
 
-        <label for="chiefScientist" class="modern-label">Principal Investigator:</label>
-        <select id="principalInvestigator" name="principalInvestigator">
-          <option value="">Select</option>
-          <% for(let i=0; i < investigators.length; i++) { %>
-            <option value="<%=investigators[i].user_ID %>">
-              <%=investigators[i].first_name%>
-                <%=investigators[i].last_name%>
-            </option>
-            <% } %>
-        </select>
+        <div class="form-column">
+          <label for="status">Status:</label>
+          <select id="status" name="status">
+            <option value="">Select</option>
+            <option value="In_Progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="planned">Planned</option>
+          </select>
 
-        <label for="chiefScientist" class="modern-label">Chief Scientist:</label>
-        <select id="chiefScientist" name="chiefScientist">
-          <option value="">Select</option>
-          <% for(let i=0; i < scientists.length; i++) { %>
-            <option value="<%=scientists[i].user_ID %>">
-              <%=scientists[i].first_name%>
-                <%=scientists[i].last_name%>
-            </option>
-            <% } %>
-        </select>
+          <label for="endDate">End Date:</label>
+          <input type="date" id="endDate" name="endDate" class="dateInput">
+
+          <label for="diveNumber">Dive Number:</label>
+          <input type="text" id="diveNumber" name="diveNumber">
+
+          <label for="siteTrack">Site/Track:</label>
+          <input type="text" id="siteTrack" name="siteTrack">
+
+          <label for="operatorComments">Operator Comments:</label>
+          <input type="text" id="operatorComments" name="operatorComments">
+
+          <label for="participants">Participants:</label>
+          <input type="text" id="participants" name="participants">
+
+          <label for="yyyyddd">YYYYDDD:</label>
+          <input type="text" id="yyyyddd" name="yyyyddd">
+
+          <label for="dataComments">Data Comments:</label>
+          <input type="text" id="dataComments" name="dataComments">
+        </div>
       </div>
 
-      <div class="form-column">
-        <label for="status">Status:</label>
-        <select id="status" name="status">
-          <option value="">Select</option>
-          <option value="In_Progress">In Progress</option>
-          <option value="completed">Completed</option>
-          <option value="planned">Planned</option>
-        </select>
-
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate" class="dateInput">
-
-        <label for="diveNumber">Dive Number:</label>
-        <input type="text" id="diveNumber" name="diveNumber">
-
-        <label for="siteTrack">Site/Track:</label>
-        <input type="text" id="siteTrack" name="siteTrack">
-
-        <label for="operatorComments">Operator Comments:</label>
-        <input type="text" id="operatorComments" name="operatorComments">
-
-        <label for="participants">Participants:</label>
-        <input type="text" id="participants" name="participants">
-
-        <label for="yyyyddd">YYYYDDD:</label>
-        <input type="text" id="yyyyddd" name="yyyyddd">
-
-        <label for="dataComments">Data Comments:</label>
-        <input type="text" id="dataComments" name="dataComments">
+      <div class="button-container">
+        <button type="submit" class="button">Search for Expeditions</button>
+        <button type="button" onclick="allCruises()" class="button">All Cruises</button>
+        <button type="button" onclick="clearFields()" class="button">Clear All Fields</button>
       </div>
-    </div>
+    </form>
+  </main>
 
-    <div class="button-container">
-      <button type="submit" style="border: 1px solid #fff;">Search for Expeditions</button>
-      <button type="button" onclick="allCruises()" style="border: 1px solid #fff;">All Cruises</button>
-      <button type="button" onclick="clearFields()" style="border: 1px solid #fff;">Clear All Fields</button>
-    </div>
-  </form>
+  <footer>
+    <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
+  </footer>
+
 
   <script>
     function clearFields() {
