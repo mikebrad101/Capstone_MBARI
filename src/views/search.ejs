@@ -104,85 +104,87 @@
 
   <form id="searchForm" action="/searchRequest" method="POST">
 
-<div class="form-row">
-  <div class="form-column">
-    <label for="shipName">Ship Name:</label>
-    <select id="shipName" name="shipName">
-      <option value="">Select</option>
-      <% for(let i=0; i < ships.length; i++) { %>
-        <option value="<%=ships[i].ship_name %>">
-          <%=ships[i].ship_name%>
-        </option>
-        <% } %>
-    </select>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="shipName">Ship Name:</label>
+        <select id="shipName" name="shipName">
+          <option value="">Select</option>
+          <% for(let i=0; i < ships.length; i++) { %>
+            <option value="<%=ships[i].ship_name %>">
+              <%=ships[i].ship_name%>
+            </option>
+            <% } %>
+        </select>
 
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" name="startDate" class="dateInput">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" class="dateInput">
 
-    <label for="singleDate">Single Date:</label>
-    <input type="date" id="singleDate" name="singleDate" class="singleDate">
+        <label for="singleDate">Single Date:</label>
+        <input type="date" id="singleDate" name="singleDate" class="singleDate">
 
-    <label for="purpose">Purpose:</label>
-    <input type="text" id="purpose" name="purpose">
+        <label for="purpose">Purpose:</label>
+        <input type="text" id="purpose" name="purpose">
 
-    <label for="accomplishments">Accomplishments:</label>
-    <input type="text" id="accomplishments" name="accomplishments">
+        <label for="accomplishments">Accomplishments:</label>
+        <input type="text" id="accomplishments" name="accomplishments">
 
-    <label for="scientistComments">Scientist Comments:</label>
-    <input type="text" id="scientistComments" name="scientistComments">
+        <label for="scientistComments">Scientist Comments:</label>
+        <input type="text" id="scientistComments" name="scientistComments">
 
-    <label for="chiefScientist" class="modern-label">Principal Investigator:</label>
-    <select id="principalInvestigator" name="principalInvestigator">
-      <option value="">Select</option>
-      <% for(let i=0; i < investigators.length; i++) { %>
-        <option value="<%=investigators[i].user_ID %>">
-          <%=investigators[i].first_name%> <%=investigators[i].last_name%>
-        </option>
-        <% } %>
-    </select>
+        <label for="chiefScientist" class="modern-label">Principal Investigator:</label>
+        <select id="principalInvestigator" name="principalInvestigator">
+          <option value="">Select</option>
+          <% for(let i=0; i < investigators.length; i++) { %>
+            <option value="<%=investigators[i].user_ID %>">
+              <%=investigators[i].first_name%>
+                <%=investigators[i].last_name%>
+            </option>
+            <% } %>
+        </select>
 
-    <label for="chiefScientist" class="modern-label">Chief Scientist:</label>
-    <select id="chiefScientist" name="chiefScientist">
-      <option value="">Select</option>
-      <% for(let i=0; i < scientists.length; i++) { %>
-        <option value="<%=scientists[i].user_ID %>">
-          <%=scientists[i].first_name%> <%=scientists[i].last_name%>
-        </option>
-        <% } %>
-    </select>
-  </div>
+        <label for="chiefScientist" class="modern-label">Chief Scientist:</label>
+        <select id="chiefScientist" name="chiefScientist">
+          <option value="">Select</option>
+          <% for(let i=0; i < scientists.length; i++) { %>
+            <option value="<%=scientists[i].user_ID %>">
+              <%=scientists[i].first_name%>
+                <%=scientists[i].last_name%>
+            </option>
+            <% } %>
+        </select>
+      </div>
 
-  <div class="form-column">
-    <label for="status">Status:</label>
-    <select id="status" name="status">
-      <option value="">Select</option>
-      <option value="In_Progress">In Progress</option>
-      <option value="completed">Completed</option>
-      <option value="planned">Planned</option>
-    </select>
+      <div class="form-column">
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+          <option value="">Select</option>
+          <option value="In_Progress">In Progress</option>
+          <option value="completed">Completed</option>
+          <option value="planned">Planned</option>
+        </select>
 
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate" name="endDate" class="dateInput">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" class="dateInput">
 
-    <label for="diveNumber">Dive Number:</label>
-    <input type="text" id="diveNumber" name="diveNumber">
+        <label for="diveNumber">Dive Number:</label>
+        <input type="text" id="diveNumber" name="diveNumber">
 
-    <label for="siteTrack">Site/Track:</label>
-    <input type="text" id="siteTrack" name="siteTrack">
+        <label for="siteTrack">Site/Track:</label>
+        <input type="text" id="siteTrack" name="siteTrack">
 
-    <label for="operatorComments">Operator Comments:</label>
-    <input type="text" id="operatorComments" name="operatorComments">
+        <label for="operatorComments">Operator Comments:</label>
+        <input type="text" id="operatorComments" name="operatorComments">
 
-    <label for="participants">Participants:</label>
-    <input type="text" id="participants" name="participants">
+        <label for="participants">Participants:</label>
+        <input type="text" id="participants" name="participants">
 
-    <label for="yyyyddd">YYYYDDD:</label>
-    <input type="text" id="yyyyddd" name="yyyyddd">
+        <label for="yyyyddd">YYYYDDD:</label>
+        <input type="text" id="yyyyddd" name="yyyyddd">
 
-    <label for="dataComments">Data Comments:</label>
-    <input type="text" id="dataComments" name="dataComments">
-  </div>
-</div>
+        <label for="dataComments">Data Comments:</label>
+        <input type="text" id="dataComments" name="dataComments">
+      </div>
+    </div>
 
     <div class="button-container">
       <button type="submit" style="border: 1px solid #fff;">Search for Expeditions</button>

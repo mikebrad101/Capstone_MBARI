@@ -25,26 +25,24 @@ main {
 }
 
 .container {
-    background-color: white;
-    resize: both;
-    border-radius: 35px;
-    width: 80%;
-    min-width: 300px;
     max-width: 800px;
-    height: 100px;
-    margin-left: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
 @media (max-width: 600px) {
     .container {
-        margin-left: 5%;
+        margin-left: 0%;
     }
 }
 
 h1 {
-    margin-left: 10%;
-    margin-top: 20px;
-    align-self: flex-start;
+    text-align: center;
+    color: white;
 }
 h3{
     margin-left: 10%;
@@ -73,7 +71,7 @@ form {
 }
 
 label {
-    color: #00072D;
+    color: white;
 }
 
 .inputStyle {
@@ -129,22 +127,15 @@ label {
 }
 
 .button {
-    appearance: none;
-    border: .2em solid gray;
-    background: hsl(0 0 0/0);
-    padding: .85em 1.5em;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: gray;
-    border-radius: 2em;
-    transition: 1s;
-
-    &:hover,
-    &:focus,
-    &:active {
-        background: gray;
-        color: #fff;
-    }
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+    border: 1px solid #fff;
 }
 
 @media (max-width: 600px) {
