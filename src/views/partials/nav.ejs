@@ -1,12 +1,39 @@
 <nav class="nav">
-  <ul>
-    <li><a href="/">Dashboard</a></li>
-    <% if (role === 'MBARI Employee') { %>
-      <li><a href="/mbari-employee-dashboard">MBARI Employee Panel</a></li>
-    <% } else if (role === 'Registered User') { %>
-      <li><a href="/registered-user-dashboard">Registered User Panel</a></li>
-    <% } else if (role  === 'Logistics Coordinator') { %>
-      <li><a href="/logistics-coordinator-dashboard">Logistics Coordinator Panel</a></li>
-    <% } %>
-  </ul>
+  <div class="dropdown">
+    <button class="dropbtn">Menu &#9662;</button>
+    <div class="dropdown-content">
+      <a href="/">Dashboard</a>
+      <% if (role === 'MBARI Employee') { %>
+        <a href="/mbari-employee-dashboard">MBARI Employee Panel</a>
+      <% } else if (role === 'Registered User') { %>
+        <a href="/registered-user-dashboard">Registered User Panel</a>
+      <% } else if (role === 'Logistics Coordinator') { %>
+        <a href="/logistics-coordinator-dashboard">Logistics Coordinator Panel</a>
+      <% } %>
+
+      <!-- Search container -->
+      <div class="search-container">
+        <button class="search-button" onclick="window.location.href='/search'">
+          &#128269;
+          Search
+        </button>
+      </div>
+      <br> <br>
+
+      <!-- Logout form -->
+      <form id="logoutForm" class="logout-form" method="POST" action="/logout">
+        <button type="submit" class="logout-link">Logout</button>
+      </form>
+
+      <!-- Additional link -->
+      <a href="/about">About Us</a>
+    </div>
+  </div>
+
+  <!-- Script for the logout function -->
+  <script>
+    function logout() {
+      document.getElementById('logoutForm').submit();
+    }
+  </script>
 </nav>
