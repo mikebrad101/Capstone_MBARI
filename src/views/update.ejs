@@ -23,10 +23,36 @@
       <textarea id="purpose" name="purpose"><%= expedition[0].purpose %></textarea><br><br>
 
       <label for="chief_scientist">Chief Scientist:</label>
-      <input type="text" id="chief_scientist" name="chief_scientist" value="<%= expedition[0].chief_scientist %>"><br><br>
+      <select class="modern-select" id="chief_scientist" name="chief_scientist" required>
+        <% for(let i=0; i < scientists.length; i++) { %>
+          <%if (scientists[i].user_ID == expedition[0].chief_scientist) { %>   
+            <option value="<%=scientists[i].user_ID %>" selected>
+              <%=scientists[i].first_name%>
+              <%=scientists[i].last_name%>
+          <% } else { %>
+          <option value="<%=scientists[i].user_ID %>">
+              <%=scientists[i].first_name%>
+                  <%=scientists[i].last_name%>
+                  <% } %>
+          </option>
+          <% } %>
+      </select><br><br>
 
       <label for="principal_investigator">Principal Investigator:</label>
-      <input type="text" id="principal_investigator" name="principal_investigator" value="<%= expedition[0].principal_investigator %>"><br><br>
+      <select class="modern-select" id="principal_investigator" name="principal_investigator" required>
+        <% for(let i=0; i < investigators.length; i++) { %>
+          <%if (investigators[i].user_ID == expedition[0].principal_investigator) { %>   
+            <option value="<%=investigators[i].user_ID %>" selected>
+              <%=investigators[i].first_name%>
+              <%=investigators[i].last_name%>
+          <% } else { %>
+          <option value="<%=investigators[i].user_ID %>">
+              <%=investigators[i].first_name%>
+                  <%=investigators[i].last_name%>
+                  <% } %>
+          </option>
+          <% } %>
+      </select><br><br>
 
     <label for="sch_start">Scheduled Start:</label>
     <input type="date" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>

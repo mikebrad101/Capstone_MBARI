@@ -15,6 +15,12 @@ async function executeSQL(sql, params) {
   });
 }
 
+async function getUserFullName(user_id) {
+  let sql = `SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM person WHERE user_ID = ?`;
+  let rows = await executeSQL(sql, [user_id]);
+  return rows[0].full_name;
+}
+
 async function getChiefScientists() {
   let sql = `SELECT * FROM person WHERE occupation = 'Chief Scientist'`;
   let scientists = await executeSQL(sql);
@@ -233,6 +239,7 @@ async function getExpeditionsNeedingApproval(exp_app) {
 
 module.exports = {
   executeSQL,
+  getUserFullName,
   getChiefScientists,
   getPrincipalInvestigators,
   getExpedition,
