@@ -46,9 +46,11 @@ h1 {
 }
 
 h3 {
+    color: white;
     margin-left: 10%;
     margin-top: 20px;
-    align-self: flex-start;
+    text-align: left;
+    /* align-self: flex-start; */
 }
 
 #logo-container {
@@ -79,9 +81,9 @@ label {
     color: white;
 }
 
-.checkbox-container {
+/* .checkbox-container {
     margin-left: 20px;
-}
+} */
 
 input,
 select {

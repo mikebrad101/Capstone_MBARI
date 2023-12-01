@@ -31,7 +31,6 @@
 <body>
 
   <main class="container">
-
     <form id="searchForm" action="/searchRequest" method="POST">
       <h1>Search</h1>
       <div class="form-row">
@@ -50,10 +49,10 @@
           </select>
 
           <label for="startDate">Start Date:</label>
-          <input type="date" id="startDate" name="startDate" class="singleDate">
+          <input type="date" id="startDate" name="startDate">
 
           <label for="singleDate">Single Date:</label>
-          <input type="date" id="singleDate" name="singleDate" class="singleDate">
+          <input type="date" id="singleDate" name="singleDate">
 
           <label for="purpose">Purpose:</label>
           <input type="text" id="purpose" name="purpose">
@@ -64,7 +63,7 @@
           <label for="scientistComments">Scientist Comments:</label>
           <input type="text" id="scientistComments" name="scientistComments">
 
-          <label for="chiefScientist" class="modern-label">Principal Investigator:</label>
+          <label for="chiefScientist">Principal Investigator:</label>
           <select id="principalInvestigator" name="principalInvestigator">
             <option value="">Select</option>
             <% for(let i=0; i < investigators.length; i++) { %>
@@ -75,7 +74,7 @@
               <% } %>
           </select>
 
-          <label for="chiefScientist" class="modern-label">Chief Scientist:</label>
+          <label for="chiefScientist">Chief Scientist:</label>
           <select id="chiefScientist" name="chiefScientist">
             <option value="">Select</option>
             <% for(let i=0; i < scientists.length; i++) { %>
@@ -98,7 +97,7 @@
           </select>
 
           <label for="endDate">End Date:</label>
-          <input type="date" id="endDate" name="endDate" class="dateInput">
+          <input type="date" id="endDate" name="endDate">
 
           <label for="diveNumber">Dive Number:</label>
           <input type="text" id="diveNumber" name="diveNumber">

@@ -13,54 +13,52 @@
 </head>
 
 <body>
-  <h1>Post-Cruise Process</h1>
-  <h3>Updating for cruise ID: <%= info[0].expedition_ID %></h1><br>
-  <h3>Purpose: <%= info[0].purpose %></h1><br>
+  <main class="container">
+    <form class="columnTopSpace" action="/updatePost/<%= info[0].expedition_ID %>" method="POST">
+      <h1>Post-Cruise Process</h1>
+      <div class="form-row">
+        <div class="form-column">
+          <h3>Cruise ID: <%= info[0].expedition_ID %></h3>
+          <label for="actualStartDatetime">Actual Start Datetime:</label><br>
+          <input type="datetime-local" id="actualStartDatetime" name="actualStartDatetime">
 
-          <main class="container">
-            <div id="logo-container">
-              <img src='/images/horizontal-logo-withglow.png' id="logo"><br>
-            </div>
+          <label for="accomplishments">Accomplishments:</label>
+          <input type="text" id="accomplishments" name="accomplishments">
 
-            <form class="columnTopSpace" action="/updatePost/<%= info[0].expedition_ID %>" method="POST">
-              <label for="actualStartDatetime" class="labels">Actual Start Datetime:</label><br>
-              <input type="datetime-local" id="actualStartDatetime" name="actualStartDatetime"
-                class="inputStyle"><br><br>
+          <label for="operatorComments">Operator Comments:</label>
+          <input type="text" id="operatorComments" name="operatorComments">
 
-              <label for="actualEndDatetime" class="labels">Actual End Datetime:</label><br>
-              <input type="datetime-local" id="actualEndDatetime" name="actualEndDatetime" class="inputStyle"><br><br>
+          <label for="'sciObjectivesMet">Science Objectives Met:</label>
+          <input type="checkbox" id="sciObjectivesMet" name="sciObjectivesMet">
+        </div>
 
-              <label class="labels">Science Objectives Met:</label>
-              <input type="checkbox" id="sciObjectivesMet" name="sciObjectivesMet">
+        <div class="form-column">
+          <h3>Purpose: <%= info[0].purpose %></h3>
+          <label for="actualEndDatetime">Actual End Datetime:</label>
+          <input type="datetime-local" id="actualEndDatetime" name="actualEndDatetime">
 
-              <label>All Equipment Functioned:</label>
-              <input type="checkbox" id="allEquipmentFunctioned" name="allEquipmentFunctioned"><br><br>
+          <label for="scientistComments">Scientist Comments:</label>
+          <input type="text" id="scientistComments" name="scientistComments">
 
-              <label for="accomplishments">Accomplishments:</label><br>
-              <textarea class="inputStyle" id="accomplishments" name="accomplishments" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
 
-              <label for="operatorComments" class="labels">Operator Comments:</label><br>
-              <textarea class="inputStyle" id="operatorComments" name="operatorComments" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
+          <label for="otherComments">Other Comments:</label>
+          <input type="text" id="otherComments" name="otherComments">
 
-              <label for="scientistComments" class="labels">Scientist Comments:</label><br>
-              <textarea class="inputStyle" id="scientistComments" name="scientistComments" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
+          <label for="'allEquipmentFunctioned">All Equipment Functioned:</label>
+          <input type="checkbox" id="allEquipmentFunctioned" name="allEquipmentFunctioned">
+        </div>
+      </div>
 
-              <label for="otherComments" class="labels">Other Comments:</label><br>
-              <textarea class="inputStyle" id="otherComments" name="otherComments" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
+      <div class="button-container">
+        <button class="button">Submit</button>
+      </div>
 
-              <div class="button-container">
-                <button class="button">Submit</button>
-              </div>
-            </form>
-          </main>
+    </form>
+  </main>
 
-          <footer>
-            <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
-          </footer>
+  <footer>
+    <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
+  </footer>
 
 </body>
 
