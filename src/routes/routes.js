@@ -156,7 +156,8 @@ router.get("/editDive/:dive_ID", isAuthenticated, async function(req, res) {
 router.get("/dive", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('dive');
+  let scientists = await getChiefScientists();
+  res.render('dive', {"scientists": scientists});
 });
 
 router.get("/test", isAuthenticated, async function(req, res) {
