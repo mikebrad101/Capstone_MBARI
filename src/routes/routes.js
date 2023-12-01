@@ -334,6 +334,18 @@ router.post('/login', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+router.post('/logout', (req, res) => {
+  // Destroy the session
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session: ' + err.message);
+      return res.status(500).send('Internal Server Error');
+    }
+
+    // Redirect to the login page after logout
+    res.redirect('/login');
+  });
+});
 
 
 router.post('/signup', async (req, res) => {
