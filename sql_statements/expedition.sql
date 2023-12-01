@@ -46,7 +46,7 @@ CREATE TABLE dive(
     dive_number INT,
     dive_start DATE,
     dive_end DATE,
-    dive_chief_scientist VARCHAR(100),
+    chief_scientist_id INT,
     accomplishments TEXT,
     PRIMARY KEY (dive_ID),
     FOREIGN KEY (expedition_ID) REFERENCES expedition(expedition_ID)

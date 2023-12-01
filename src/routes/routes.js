@@ -143,20 +143,19 @@ router.get("/update/:exp_id", isAuthenticated, async function(req, res) {
   res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators, "dives": dives});
 });
 
-
+//mike is finishing this
 router.get("/editDive/:dive_ID", isAuthenticated, async function(req, res) {
-  let expedition = await getExpedition(req.params.exp_id);
   let scientists = await getChiefScientists();
-  let investigators = await getPrincipalInvestigators();
-  let dives = await getAllDives(req.params.exp_id);
-  res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators, "dives": dives});
+  let dive = await getDive(req.params.dive_ID);
+  res.render('editDive', { "scientists": scientists, "dive": dive});
 });
 
 //needs to pass a expedition_id to associate dive to expedition
 router.get("/dive", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('dive');
+  let scientists = await getChiefScientists();
+  res.render('dive', { "scientists": scientists});
 });
 
 router.get("/test", isAuthenticated, async function(req, res) {
@@ -232,12 +231,12 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
 });
 
 //Dive update
-router.post("/updateDive/:exp_id/:dive_number", isAuthenticated, async function(req, res) {
+router.post("/updateDive/:dive_id", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
 
     //create similar function to updateDive
-    const result = await updateDive(req.body, req.params.exp_id, req.params.dive_number);
+    const result = await updateDive(req.body, req.params.dive_id);
 
     console.log("Insert result:", result);
 

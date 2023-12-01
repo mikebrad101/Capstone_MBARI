@@ -32,6 +32,7 @@
 
             <label for="chiefScientist" class="modern-label">Chief Scientist:</label><br>
             <select id="chiefScientist" name="chiefScientist" class="modern-select">
+                <option value="" disabled selected>Select Chief Scientist</option>
                 <% for(let i=0; i < scientists.length; i++) { %>
                     <option value="<%=scientists[i].user_ID %>">
                         <%=scientists[i].first_name%>
@@ -46,6 +47,7 @@
 
             <label for="principalInvestigator" class="modern-label">Principal Investigator:</label><br>
             <select id="principalInvestigator" name="principalInvestigator" class="modern-select">
+                <option value="" disabled selected>Select Principal Investigator</option>
                 <% for(let i=0; i < investigators.length; i++) { %>
                     <option value="<%=investigators[i].user_ID %>">
                         <%=investigators[i].first_name%>

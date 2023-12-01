@@ -118,7 +118,7 @@
               <td> <%= dives[i].dive_end %> </td>
               <td> <%= dives[i].dive_cheif_scientist %> </td>
               <td> <%= dives[i].accomplishments %> </td>
-              <td> <a href="/updateDive/<%= dives[i].dive_number %>/<%= expedition[0].expedition_ID %>" class="button">Update Dive</a></td>
+              <td> <a href="/editDive/<%= dives[i].dive_ID%>" class="button">Update Dive</a></td>
             </tr>
           <% } %>
         <% } else { %>

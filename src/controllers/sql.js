@@ -185,13 +185,13 @@ async function getAllDives(exp_id) {
   return rows;
 }
 
-async function getDive(exp_id, dive_id) {
-  let sql = "SELECT * FROM dive WHERE expedition_ID = ?;";
-  let rows = await executeSQL(sql, [exp_id]);
+async function getDive(dive_id) {
+  let sql = "SELECT * FROM dive WHERE dive_ID = ?;";
+  let rows = await executeSQL(sql, [dive_id]);
   return rows;
 }
 
-async function updateDive(data, exp_id, dive_id) {
+async function updateDive(data, dive_id) {
   //Dive number is unique for and should not be changed
   const {
     ROV_name,
@@ -208,8 +208,7 @@ async function updateDive(data, exp_id, dive_id) {
            dive_end = ?,
            dive_cheif_scientist = ?,
            accomplishments = ?
-           WHERE expedition_ID = ?
-           AND dive_number = ?;`;
+           WHERE dive_number = ?;`;
 
   //fix below
   const result = await executeSQL(sql, [

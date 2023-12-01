@@ -36,9 +36,12 @@
 
       <select class="modern-select" id="diveChiefScientist" name="diveChiefScientist" required>
         <option value="" disabled selected>Select Chief Scientist</option>
-        <option value="scientist1">Scientist 1</option>
-        <option value="scientist2">Scientist 2</option>
-        <option value="scientist3">Scientist 3</option>
+        <% for(let i=0; i < scientists.length; i++) { %>
+          <option value="<%=scientists[i].user_ID %>">
+              <%=scientists[i].first_name%>
+                  <%=scientists[i].last_name%>
+          </option>
+          <% } %>
       </select><br><br>
 
       <label for="briefAccomplishments">Brief Accomplishments:</label><br>
