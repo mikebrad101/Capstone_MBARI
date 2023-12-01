@@ -155,7 +155,7 @@ router.get("/dive", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   let scientists = await getChiefScientists();
-  res.render('dive', { "scientists": scientists});
+  res.render('dive', {"scientists": scientists});
 });
 
 router.get("/test", isAuthenticated, async function(req, res) {
@@ -331,6 +331,18 @@ router.post('/login', async (req, res) => {
     console.error('Error executing SQL query: ' + error.message);
     res.status(500).send('Internal Server Error');
   }
+});
+router.post('/logout', (req, res) => {
+  // Destroy the session
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session: ' + err.message);
+      return res.status(500).send('Internal Server Error');
+    }
+
+    // Redirect to the login page after logout
+    res.redirect('/login');
+  });
 });
 
 
