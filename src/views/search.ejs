@@ -29,12 +29,17 @@
 </head>
 
 <body>
+
   <main class="container">
 
     <form id="searchForm" action="/searchRequest" method="POST">
       <h1>Search</h1>
+
       <div class="form-row">
         <div class="form-column">
+
+          <button type="button" onclick="allCruises()" class="button">All Cruises</button><br><br>
+
           <label for="shipName">Ship Name:</label>
           <select id="shipName" name="shipName">
             <option value="">Select</option>
@@ -84,6 +89,7 @@
         </div>
 
         <div class="form-column">
+          <button type="button" onclick="clearFields()" class="button">Clear All Fields</button><br><br>
           <label for="status">Status:</label>
           <select id="status" name="status">
             <option value="">Select</option>
@@ -117,8 +123,6 @@
 
       <div class="button-container">
         <button type="submit" class="button">Search for Expeditions</button>
-        <button type="button" onclick="allCruises()" class="button">All Cruises</button>
-        <button type="button" onclick="clearFields()" class="button">Clear All Fields</button>
       </div>
     </form>
   </main>
