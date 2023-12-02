@@ -31,6 +31,21 @@ async function getUsersByRole() {
   let users = await executeSQL(sql);
   return users;
 }
+async function getMBARIEmployee() {
+  let sql = `SELECT * FROM person WHERE role = 'MBARI Employee'`;
+  let users = await executeSQL(sql);
+  return users;
+}
+async function getRegisteredUser() {
+  let sql = `SELECT * FROM person WHERE role = 'Registered User'`;
+  let users = await executeSQL(sql);
+  return users;
+}
+async function getLogisticsCoordinator() {
+  let sql = `SELECT * FROM person WHERE role = 'Logistics Coordinator'`;
+  let users = await executeSQL(sql);
+  return users;
+}
 async function getPrincipalInvestigators() {
   let sql = `SELECT * FROM person WHERE occupation = 'Principal Investigator'`;
   let investigators = await executeSQL(sql);
@@ -252,5 +267,8 @@ module.exports = {
   getDive,
   updateDive,
   getUsersByRole,
+  getMBARIEmployee,
+  getRegisteredUser,
+  getLogisticsCoordinator,
   getExpeditionsNeedingApproval
 };
