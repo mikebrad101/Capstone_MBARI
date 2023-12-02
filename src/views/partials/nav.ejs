@@ -1,36 +1,37 @@
+<!-- nav.ejs -->
+
 <nav class="nav">
   <div class="dropdown">
     <button class="dropbtn">Menu &#9662;</button>
     <div class="dropdown-content">
-      <a href="/">Dashboard</a>
-      <% if (role === 'MBARI Employee') { %>
-        <a href="/mbari-employee-dashboard">MBARI Employee Panel</a>
-      <% } else if (role === 'Registered User') { %>
-        <a href="/registered-user-dashboard">Registered User Panel</a>
-      <% } else if (role === 'Logistics Coordinator') { %>
-        <a href="/logistics-coordinator-dashboard">Logistics Coordinator Panel</a>
-      <% } %>
-
-      <!-- Search container -->
       <div class="search-container">
         <button class="search-button" onclick="window.location.href='/search'">
-          &#128269;
-          Search
+        &#128269;
+        Search
         </button>
       </div>
-      <br> <br>
+      <br><br>
 
-      <!-- Logout form -->
       <form id="logoutForm" class="logout-form" method="POST" action="/logout">
         <button type="submit" class="logout-link">Logout</button>
       </form>
 
-      <!-- Additional link -->
+
+      <% if (session.position === 'MBARI Employee') { %>
+        <a href="/mbari-employee-dashboard/<%= session.userId %>">MBARI Employee Panel - <%= session.userName %></a>
+      <% } else if (session.position === 'Registered User') { %>
+        <a href="/registered-user-dashboard/<%= session.userId %>">Registered User Panel - <%= session.userName %></a>
+      <% } else if (session.position === 'Logistics Coordinator') { %>
+        <a href="/logistics-coordinator-dashboard/<%= session.userId %>">Logistics Coordinator Panel - <%= session.userName %></a>
+      <% } %>
+
+
       <a href="/about">About Us</a>
+
+      <!-- Add more conditions for other roles as needed -->
     </div>
   </div>
 
-  <!-- Script for the logout function -->
   <script>
     function logout() {
       document.getElementById('logoutForm').submit();
