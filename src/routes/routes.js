@@ -15,6 +15,9 @@ const { executeSQL,
   getDive, 
   updateDive,
   getUsersByRole,
+  getMBARIEmployee,
+  getLogisticsCoordinator,
+  getRegisteredUser,
   getExpeditionsNeedingApproval } = require('../controllers/sql.js');
   const { isAuthenticated } = require('../controllers/middleware.js');
 const app = express();
@@ -43,7 +46,12 @@ router.get("/search", isAuthenticated, async function(req, res) {
   let scientists = await getChiefScientists();
   let investigators = await getPrincipalInvestigators();
   let ships = await getAllShips();
-  res.render('search', {"scientists": scientists, "investigators": investigators, "ships": ships}); 
+  res.render('search', {
+    "scientists": scientists,
+    "investigators": investigators, 
+    "ships": ships, 
+    session: req.session // Add this line to pass session data
+  }); 
 });
 
 router.get("/preexp", isAuthenticated, async function(req, res) {
@@ -69,44 +77,68 @@ router.get("/signup", async function(req, res) {
 });
 
 //what is this for?
-router.get("/mbari-employee-dashboard", async function(req, res) {
+router.get('/mbari-employee-dashboard/:userId', async (req, res) => {
   //in route we get sql statement and data
   //then send it to the view using render
   try {
     // Get the users with the 'MBARI Employee' role
-    const mbariEmployees = await getUsersByRole('MBARI Employee');
+    const userId = req.params.userId;
+    const mbariEmployees = await getMBARIEmployee();
+    const registeredUsers = await getRegisteredUser();
+    const logisticsCoordinators = await getLogisticsCoordinator();
 
-    // Render the mbari-employee-dashboard template with the data
-    res.render('mbari-employee-dashboard', { "role": mbariEmployees });
+    res.render('mbari-employee-dashboard', { userId, 
+      mbariEmployees, 
+      registeredUsers,
+      logisticsCoordinators,
+      session: req.session // Add this line to pass session data
+    });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
   }
 });
-router.get("/logistics-coordinator-dashboard", async function(req, res) {
+router.get("/logistics-coordinator-dashboard/:userId", async function(req, res) {
   try {
     // Get the expeditions needing approval data
     const expeditionsNeedingApproval = await getExpeditionsNeedingApproval(req.body);
     let expedition = await getExpedition(req.params.exp_id);
-    const logisticsCoordinators = await getUsersByRole('Logistics Coordinator');
+    const logisticsCoordinators = await getLogisticsCoordinator();
+    const mbariEmployees = await getMBARIEmployee();
+    const registeredUsers = await getRegisteredUser();
 
 
     // Render the logistics-coordinator-dashboard template with the data
-    res.render('logistics-coordinator-dashboard', { "approval" :expeditionsNeedingApproval, "expedition": expedition, "role": logisticsCoordinators});
+    res.render('logistics-coordinator-dashboard', { 
+      "approval" :expeditionsNeedingApproval, 
+      "expedition": expedition, 
+      logisticsCoordinators,
+      mbariEmployees,
+      registeredUsers,
+      session: req.session // Add this line to pass session data
+    });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
   }
 });
-router.get("/registered-user-dashboard", async function(req, res) {
+router.get("/registered-user-dashboard/:userId", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   try {
     // Get the users with the 'Registered User' role
-    const registeredUsers = await getUsersByRole('Registered User');
+    const registeredUsers = await getRegisteredUser();
+    const logisticsCoordinators = await getLogisticsCoordinator();
+    const mbariEmployees = await getMBARIEmployee();
 
     // Render the registered-user-dashboard template with the data
-    res.render('registered-user-dashboard', { "role": registeredUsers });
+    res.render('registered-user-dashboard', { 
+      registeredUsers ,
+      logisticsCoordinators,
+      mbariEmployees,
+      session: req.session // Add this line to pass session data
+
+    });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
@@ -310,16 +342,15 @@ router.post('/login', async (req, res) => {
         // Redirect logic based on user role
         switch (dbRole) {
           case 'MBARI Employee':
-          // case 'Registered User':
-            res.redirect('/mbari-employee-dashboard');
+            res.redirect(`/mbari-employee-dashboard/${userId}`);
             break;
 
           case 'Logistics Coordinator':
-            res.redirect('/logistics-coordinator-dashboard');
+            res.redirect(`/logistics-coordinator-dashboard/${userId}`);
             break;
 
           case 'Registered User':
-            res.redirect('/registered-user-dashboard');
+            res.redirect(`/registered-user-dashboard/${userId}`);
             break;
 
           // Add more cases for other roles as needed
@@ -335,6 +366,7 @@ router.post('/login', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
 router.post('/logout', (req, res) => {
   // Destroy the session
   req.session.destroy((err) => {
