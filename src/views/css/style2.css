@@ -148,3 +148,124 @@ footer {
     height: 60px;
     margin-top: 200px; 
 }
+
+.search-container {
+    position: absolute;
+    margin: 10px;
+}
+/* 
+input[type=text] {
+padding: 10px;
+width: 200px;
+border: 1px solid #ccc;
+border-radius: 5px;
+} */
+
+.search-button {
+padding: 10px;
+background: #28282B; /* Your desired button color */
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.search-button, i {
+font-size: 16px; /* Adjust the size of the search icon */
+}
+.dropdown {
+    display: inline-block;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .dropdown {
+    display: inline-block;
+  }
+
+  .dropbtn {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown-content .search-container {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .dropdown-content .search-button {
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .logout-form {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  .logout-link {
+    color: black;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 12px 16px;
+    display: block;
+  }
+
+  .logout-link:hover {
+    text-decoration: underline;
+  }
