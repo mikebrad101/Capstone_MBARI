@@ -17,19 +17,19 @@
 
   <main class="container">
     <h1>Dive Information</h1>
-
     <form class="columnTopSpace">
-      <label for="rovName" class="labels">Rov Name:</label><br>
-      <input type="text" id="rovName" name="rovName" class="inputStyle" required><br><br>
+      <div class="form-row">
+        <div class="form-column">
 
-      <label for="diveNumber">Dive Number:</label><br>
-      <input class="inputStyle" type="number" id="diveNumber" name="diveNumber" required><br><br>
+          <label for="rovName" class="labels">Rov Name:</label><br>
+          <input type="text" id="rovName" name="rovName" class="inputStyle" required><br>
 
-      <label for="diveStartDatetime">Dive Start Datetime:</label><br>
-      <input class="inputStyle" type="datetime-local" id="diveStartDatetime" name="diveStartDatetime" required><br><br>
+          <label for="diveNumber">Dive Number:</label><br>
+          <input class="inputStyle" type="number" id="diveNumber" name="diveNumber" required><br>
 
-      <label for="diveEndDatetime">Dive End Datetime:</label><br>
-      <input class="inputStyle" type="datetime-local" id="diveEndDatetime" name="diveEndDatetime" required><br><br>
+          <label for="diveStartDatetime">Dive Start Datetime:</label><br>
+          <input class="inputStyle" type="datetime-local" id="diveStartDatetime" name="diveStartDatetime" required>
+        </div>
 
       <select class="modern-select" id="diveChiefScientist" name="diveChiefScientist" required>
         <option value="" disabled selected>Select Chief Scientist</option>

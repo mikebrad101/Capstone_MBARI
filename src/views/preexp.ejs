@@ -13,21 +13,20 @@
 </head>
 
 <body>
-   
-
     <main class="container">
-         <h1>Pre-Cruise Process</h1>
-         
-        <form class="columnTopSpace" action="/addPrecruise" method="POST">
-            <label for="shipName" class="labels">Ship Name:</label><br>
-            <select id="shipName" name="shipName" class="modern-select">
-                <option value="ship1">Ship 1</option>
-                <option value="ship2">Ship 2</option>
-            </select><br><br>
 
-            <label for="purpose">Purpose:</label><br>
-            <textarea class="inputStyle" id="purpose" name="purpose" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
+        <form class="columnTopSpace" action="/addPrecruise" method="POST">
+            <h1>Pre-Cruise Process</h1>
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="shipName" class="labels">Ship Name:</label>
+                    <select id="shipName" name="shipName" class="modern-select">
+                        <option value="ship1">Ship 1</option>
+                        <option value="ship2">Ship 2</option>
+                    </select>
+
+                    <label for="purpose">Purpose:</label>
+                    <input type="text" id="purpose" name="purpose">
 
             <label for="chiefScientist" class="modern-label">Chief Scientist:</label><br>
             <select id="chiefScientist" name="chiefScientist" class="modern-select">
@@ -40,9 +39,8 @@
                     <% } %>
             </select><br><br>
 
-            <label for="equipmentDescription">Equipment Description:</label><br>
-            <textarea class="inputStyle" id="equipmentDescription" name="equipmentDescription" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
+                    <label for="equipmentDescription">Equipment Description:</label>
+                    <input type="text" id="equipmentDescription" name="equipmentDescription">
 
             <label for="principalInvestigator" class="modern-label">Principal Investigator:</label><br>
             <select id="principalInvestigator" name="principalInvestigator" class="modern-select">
@@ -55,28 +53,24 @@
                     <% } %>
             </select><br><br>
 
-            <label for="participants">Participants:</label><br>
-            <textarea class="inputStyle" id="participants" name="participants" rows="3" cols="40"
-                maxlength="8000"></textarea><br><br>
+                    <label for="scheduledStartDatetime">Scheduled Start Datetime:</label>
+                    <input type="datetime-local" id="scheduledStartDatetime" name="scheduledStartDatetime" class="inputStyle">
 
-            <label for="scheduledStartDatetime">Scheduled Start Datetime:</label><br>
-            <input type="datetime-local" id="scheduledStartDatetime" name="scheduledStartDatetime"
-                class="inputStyle"><br><br>
+                    <label for="scheduledEndDatetime">Scheduled End Datetime:</label>
+                    <input type="datetime-local" id="scheduledEndDatetime" name="scheduledEndDatetime"
+                        class="inputStyle">
 
-            <label for="scheduledEndDatetime">Scheduled End Datetime:</label><br>
-            <input type="datetime-local" id="scheduledEndDatetime" name="scheduledEndDatetime"
-                class="inputStyle"><br><br>
 
-            <label for="regionDescription">Region Description:</label><br>
-            <textarea class="inputStyle" id="regionDescription" name="regionDescription" rows="3" cols="40"
-                maxlength="2048"></textarea><br><br>
-
-            <label for="plannedTrackDescription">Planned Track Description:</label><br>
-            <textarea class="inputStyle" id="plannedTrackDescription" name="plannedTrackDescription" rows="3" cols="40"
-                maxlength="6144"></textarea><br><br>
+                    <label for="regionDescription">Region Description:</label>
+                    <input type="text" id="regionDescription" name="regionDescription">
+                    
+                    <label for="plannedTrackDescription">Planned Track Description:</label>
+                    <input type="text" id="plannedTrackDescription" name="plannedTrackDescription">
+                </div>
+            </div>
 
             <div class="button-container">
-                <input type="submit" class="button" value="Submit">
+                <button type="submit" class="button">Submit</button>
             </div>
         </form>
     </main>
