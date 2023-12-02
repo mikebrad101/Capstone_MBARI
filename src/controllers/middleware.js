@@ -5,7 +5,7 @@ const router = express.Router();
 router.use(express.urlencoded({ extended: true }));
 
 function isAuthenticated(req, res, next) {
-  console.log(req.session);
+  //console.log(req.session);
   //tired of logging in....
   next(); //comment this 
 

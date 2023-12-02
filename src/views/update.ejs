@@ -7,14 +7,11 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
   crossorigin="anonymous">
-    <link href="/public/css/style.css" rel="stylesheet">
-  <style>
-  body {
-      background:#E3CEAF;
-  }
-  </style>
+  <link href="/css/style2.css" rel="stylesheet">
 </head>
 <body>
+  <form class="row g-3 columnTopSpace">
+
   <div class="center-container">
     <form action="/updateExpedition" method="POST">
       <input type="hidden" name="expedition_ID" value="<%= expedition[0].expedition_ID %>">
@@ -26,24 +23,42 @@
       <textarea id="purpose" name="purpose"><%= expedition[0].purpose %></textarea><br><br>
 
       <label for="chief_scientist">Chief Scientist:</label>
-      <input type="text" id="chief_scientist" name="chief_scientist" value="<%= expedition[0].chief_scientist %>"><br><br>
+      <select class="modern-select" id="chief_scientist" name="chief_scientist" required>
+        <% for(let i=0; i < scientists.length; i++) { %>
+          <%if (scientists[i].user_ID == expedition[0].chief_scientist) { %>   
+            <option value="<%=scientists[i].user_ID %>" selected>
+              <%=scientists[i].first_name%>
+              <%=scientists[i].last_name%>
+          <% } else { %>
+          <option value="<%=scientists[i].user_ID %>">
+              <%=scientists[i].first_name%>
+                  <%=scientists[i].last_name%>
+                  <% } %>
+          </option>
+          <% } %>
+      </select><br><br>
 
       <label for="principal_investigator">Principal Investigator:</label>
-      <input type="text" id="principal_investigator" name="principal_investigator" value="<%= expedition[0].principal_investigator %>"><br><br>
+      <select class="modern-select" id="principal_investigator" name="principal_investigator" required>
+        <% for(let i=0; i < investigators.length; i++) { %>
+          <%if (investigators[i].user_ID == expedition[0].principal_investigator) { %>   
+            <option value="<%=investigators[i].user_ID %>" selected>
+              <%=investigators[i].first_name%>
+              <%=investigators[i].last_name%>
+          <% } else { %>
+          <option value="<%=investigators[i].user_ID %>">
+              <%=investigators[i].first_name%>
+                  <%=investigators[i].last_name%>
+                  <% } %>
+          </option>
+          <% } %>
+      </select><br><br>
 
-<<<<<<< Updated upstream
     <label for="sch_start">Scheduled Start:</label>
     <input type="date" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>
 
     <label for="sch_end">Scheduled End:</label>
     <input type="date" id="sch_end" name="sch_end" value="<%= expedition[0].sch_end %>"><br><br>
-=======
-      <label for="sch_start">Scheduled Start:</label>
-      <input type="datetime-local" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>
-
-      <label for="sch_end">Scheduled End:</label>
-      <input type="datetime-local" id="sch_end" name="sch_end" value="<%= expedition[0].sch_end %>"><br><br>
->>>>>>> Stashed changes
 
       <label for="equip_description">Equipment Description:</label>
       <textarea id="equip_description" name="equip_description"><%= expedition[0].equip_description %></textarea><br><br>
@@ -65,19 +80,11 @@
         </select>
       <br><br>
 
-<<<<<<< Updated upstream
     <label for="actual_start">Actual Start:</label>
     <input type="date" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
 
     <label for="actual_end">Actual End:</label>
     <input type="date" id="actual_end" name="actual_end" value="<%= expedition[0].actual_end %>"><br><br>
-=======
-      <label for="actual_start">Actual Start:</label>
-      <input type="datetime-local" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
-
-      <label for="actual_end">Actual End:</label>
-      <input type="datetime-local" id="actual_end" name="actual_end" value="<%= expedition[0].actual_end %>"><br><br>
->>>>>>> Stashed changes
 
       <label for="accomplishments">Accomplishments:</label>
       <textarea id="accomplishments" name="accomplishments"><%= expedition[0].accomplishments %></textarea><br><br>
@@ -118,7 +125,7 @@
               <td> <%= dives[i].dive_end %> </td>
               <td> <%= dives[i].dive_cheif_scientist %> </td>
               <td> <%= dives[i].accomplishments %> </td>
-              <td> <a href="/updateDive/<%= dives[i].dive_number %>/<%= expedition[0].expedition_ID %>" class="button">Update Dive</a></td>
+              <td> <a href="/editDive/<%= dives[i].dive_ID%>" class="button">Update Dive</a></td>
             </tr>
           <% } %>
         <% } else { %>
@@ -136,6 +143,7 @@
       <input type="submit" value="Update Expedition">
     </form>
   </div>
+  </form>
 
   <footer>
       <div class="foottext">

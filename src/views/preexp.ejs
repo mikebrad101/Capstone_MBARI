@@ -28,32 +28,30 @@
                     <label for="purpose">Purpose:</label>
                     <input type="text" id="purpose" name="purpose">
 
-                    <label for="chiefScientist" class="modern-label">Chief Scientist:</label>
-                    <select id="chiefScientist" name="chiefScientist" class="modern-select">
-                        <% for(let i=0; i < scientists.length; i++) { %>
-                            <option value="<%=scientists[i].user_ID %>">
-                                <%=scientists[i].first_name%>
-                                    <%=scientists[i].last_name%>
-                            </option>
-                            <% } %>
-                    </select>
+            <label for="chiefScientist" class="modern-label">Chief Scientist:</label><br>
+            <select id="chiefScientist" name="chiefScientist" class="modern-select">
+                <option value="" disabled selected>Select Chief Scientist</option>
+                <% for(let i=0; i < scientists.length; i++) { %>
+                    <option value="<%=scientists[i].user_ID %>">
+                        <%=scientists[i].first_name%>
+                            <%=scientists[i].last_name%>
+                    </option>
+                    <% } %>
+            </select><br><br>
 
                     <label for="equipmentDescription">Equipment Description:</label>
                     <input type="text" id="equipmentDescription" name="equipmentDescription">
 
-                    <label for="principalInvestigator" class="modern-label">Principal Investigator:</label>
-                    <select id="principalInvestigator" name="principalInvestigator" class="modern-select">
-                        <% for(let i=0; i < investigators.length; i++) { %>
-                            <option value="<%=investigators[i].user_ID %>">
-                                <%=investigators[i].first_name%>
-                                    <%=investigators[i].last_name%>
-                            </option>
-                            <% } %>
-                    </select>
-                </div>
-                <div class="form-column">
-                    <label for="participants">Participants:</label>
-                    <input type="text" id="participants" name="participants">
+            <label for="principalInvestigator" class="modern-label">Principal Investigator:</label><br>
+            <select id="principalInvestigator" name="principalInvestigator" class="modern-select">
+                <option value="" disabled selected>Select Principal Investigator</option>
+                <% for(let i=0; i < investigators.length; i++) { %>
+                    <option value="<%=investigators[i].user_ID %>">
+                        <%=investigators[i].first_name%>
+                            <%=investigators[i].last_name%>
+                    </option>
+                    <% } %>
+            </select><br><br>
 
                     <label for="scheduledStartDatetime">Scheduled Start Datetime:</label>
                     <input type="datetime-local" id="scheduledStartDatetime" name="scheduledStartDatetime" class="inputStyle">

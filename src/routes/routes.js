@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getSearchResults } = require('../controllers/search.js');
 const { executeSQL,
+  getUserFullName,
   getChiefScientists,
   getPrincipalInvestigators,
   getExpedition,
@@ -11,7 +12,6 @@ const { executeSQL,
   updatePost,
   updateExpedition,
   getAllDives,
-  //will need this to update dive
   getDive, 
   updateDive,
   getUsersByRole,
@@ -50,9 +50,7 @@ router.get("/preexp", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   let scientists = await getChiefScientists();
-  console.log(scientists);
   let investigators = await getPrincipalInvestigators();
-  console.log(investigators);
   const mbariEmployees = await getUsersByRole('MBARI Employee');
 
   res.render('preexp', {"scientists": scientists, "investigators": investigators, "role": mbariEmployees });
@@ -143,20 +141,19 @@ router.get("/update/:exp_id", isAuthenticated, async function(req, res) {
   res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators, "dives": dives});
 });
 
-
+//mike is finishing this
 router.get("/editDive/:dive_ID", isAuthenticated, async function(req, res) {
-  let expedition = await getExpedition(req.params.exp_id);
   let scientists = await getChiefScientists();
-  let investigators = await getPrincipalInvestigators();
-  let dives = await getAllDives(req.params.exp_id);
-  res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators, "dives": dives});
+  let dive = await getDive(req.params.dive_ID);
+  res.render('editDive', { "scientists": scientists, "dive": dive});
 });
 
 //needs to pass a expedition_id to associate dive to expedition
 router.get("/dive", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('dive');
+  let scientists = await getChiefScientists();
+  res.render('dive', {"scientists": scientists});
 });
 
 router.get("/test", isAuthenticated, async function(req, res) {
@@ -174,16 +171,21 @@ router.get("/dbTest", async function(req, res) {
 
 router.get("/allcruises", isAuthenticated, async function(req, res) {
   let rows = await getAllCruises();
-  console.log(rows);
+  //console.log(rows);
   res.render('allcruises', { "rows": rows});
 });
 
 router.post("/searchRequest", isAuthenticated, async function(req, res) {
   console.log("here");
-  console.log(req.body);
+  //console.log(req.body);
   
   try {
     const results = await getSearchResults(req.body);
+    //console.log(results);
+    for (let i = 0; i < results.length; i++) {
+      results[i].chief_scientist = await getUserFullName(results[i].chief_scientist);
+      results[i].principal_investigator = await getUserFullName(results[i].principal_investigator);
+    }
     res.render('searchResults', { expeditionResults: results });
   } catch (error) {
     console.error(error);
@@ -204,7 +206,7 @@ router.post("/addPrecruise", isAuthenticated, async function(req, res) {
 
     const result = addExpedition(req.body);
 
-    console.log("Insert result:", result);
+    //console.log("Insert result:", result);
 
     //redirect differently, give notification that it was entered correctly. 
     res.redirect('/getLastEntry');
@@ -221,7 +223,7 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
 
     const result = await updatePost(req.body, req.params.exp_id);
 
-    console.log("Insert result:", result);
+    //console.log("Insert result:", result);
 
     //temporary redirect
     res.redirect('/getLastEntry');
@@ -232,14 +234,14 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
 });
 
 //Dive update
-router.post("/updateDive/:exp_id/:dive_number", isAuthenticated, async function(req, res) {
+router.post("/updateDive/:dive_id", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
 
     //create similar function to updateDive
-    const result = await updateDive(req.body, req.params.exp_id, req.params.dive_number);
+    const result = await updateDive(req.body, req.params.dive_id);
 
-    console.log("Insert result:", result);
+    //console.log("Insert result:", result);
 
     //temporary redirect
     res.redirect('/getLastEntry');
@@ -332,6 +334,18 @@ router.post('/login', async (req, res) => {
     console.error('Error executing SQL query: ' + error.message);
     res.status(500).send('Internal Server Error');
   }
+});
+router.post('/logout', (req, res) => {
+  // Destroy the session
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session: ' + err.message);
+      return res.status(500).send('Internal Server Error');
+    }
+
+    // Redirect to the login page after logout
+    res.redirect('/login');
+  });
 });
 
 
