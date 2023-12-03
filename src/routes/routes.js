@@ -38,6 +38,12 @@ router.get("/home", isAuthenticated, async function(req, res) {
   let role = await getUsersByRole();
   res.render('home', { "role": role});
 });
+router.get("/aboutUs", isAuthenticated, async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('aboutUs');
+});
+
 
 router.get("/search", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
@@ -144,13 +150,6 @@ router.get("/registered-user-dashboard/:userId", async function(req, res) {
     res.status(500).send("Internal Server Error");
   }
 });
-router.get("/approveExpedition", isAuthenticated, async function(req, res) {
-  //in route we get sql statement and data
-  //then send it to the view using render
-  const results = await getSearchResults(req.body);
-
-  res.render('appcruise', { expeditionResults: results});
-});
 
 router.get("/postexp", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
@@ -185,7 +184,11 @@ router.get("/dive", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   let scientists = await getChiefScientists();
-  res.render('dive', {"scientists": scientists});
+  
+  res.render('dive', {
+    "scientists": scientists,
+    session: req.session // Add this line to pass session data
+  });
 });
 
 router.get("/test", isAuthenticated, async function(req, res) {
