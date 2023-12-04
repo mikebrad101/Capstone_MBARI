@@ -34,10 +34,14 @@
 
     <form id="searchForm" action="/searchRequest" method="POST">
       <h1>Search</h1>
+
+      <div class="button-container">
+        <button type="button" onclick="clearFields()" class="button">Clear All Fields</button>
+        <button type="button" onclick="allCruises()" class="button">All Cruises</button>
+      </div>
+
       <div class="form-row">
         <div class="form-column">
-
-          <button type="button" onclick="allCruises()" class="button">All Cruises</button><br><br>
 
           <label for="shipName">Ship Name:</label>
           <select id="shipName" name="shipName">
@@ -75,20 +79,11 @@
               <% } %>
           </select>
 
-          <label for="chiefScientist">Chief Scientist:</label>
-          <select id="chiefScientist" name="chiefScientist">
-            <option value="">Select</option>
-            <% for(let i=0; i < scientists.length; i++) { %>
-              <option value="<%=scientists[i].user_ID %>">
-                <%=scientists[i].first_name%>
-                  <%=scientists[i].last_name%>
-              </option>
-              <% } %>
-          </select>
+           <label for="dataComments">Data Comments:</label>
+          <input type="text" id="dataComments" name="dataComments">
         </div>
 
         <div class="form-column">
-          <button type="button" onclick="clearFields()" class="button">Clear All Fields</button><br><br>
           <label for="status">Status:</label>
           <select id="status" name="status">
             <option value="">Select</option>
@@ -99,9 +94,6 @@
 
           <label for="endDate">End Date:</label>
           <input type="date" id="endDate" name="endDate">
-
-          <label for="diveNumber">Dive Number:</label>
-          <input type="text" id="diveNumber" name="diveNumber">
 
           <label for="siteTrack">Site/Track:</label>
           <input type="text" id="siteTrack" name="siteTrack">
@@ -115,14 +107,24 @@
           <label for="yyyyddd">YYYYDDD:</label>
           <input type="text" id="yyyyddd" name="yyyyddd">
 
-          <label for="dataComments">Data Comments:</label>
-          <input type="text" id="dataComments" name="dataComments">
+        
+
+           <label for="chiefScientist">Chief Scientist:</label>
+          <select id="chiefScientist" name="chiefScientist">
+            <option value="">Select</option>
+            <% for(let i=0; i < scientists.length; i++) { %>
+              <option value="<%=scientists[i].user_ID %>">
+                <%=scientists[i].first_name%>
+                  <%=scientists[i].last_name%>
+              </option>
+              <% } %>
+          </select>
         </div>
       </div>
-
       <div class="button-container">
-        <button type="submit" class="button">Search for Expeditions</button>
-      </div>
+        <div class="center-button">
+          <button type="submit" class="button">Search for Expeditions</button>
+        </div>
     </form>
   </main>
 
@@ -133,7 +135,6 @@
 
   <script>
     function clearFields() {
-      // Clear all form fields
       document.getElementById("searchForm").reset();
     }
     function allCruises() {
