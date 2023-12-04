@@ -85,10 +85,11 @@
                 <td><%= expedition.expedition_status %></td>
                 <td><%= expedition.chief_scientist %></td>
                 <td><%= expedition.principal_investigator %></td>
-                <td><%= expedition.sch_start %></td>
-                <td><%= expedition.sch_end %></td>
-                <td><%= expedition.actual_start %></td>
-                <td><%= expedition.actual_end %></td>
+                <td><%= new Date(expedition.sch_start).toLocaleDateString() %></td>
+                <td><%= new Date(expedition.sch_end).toLocaleDateString() %></td>
+                <td><%= new Date(expedition.actual_start).toLocaleDateString() %></td>
+                <td><%= new Date(expedition.actual_end).toLocaleDateString() %></td>
+
                 <td>
                   <button class="btn btn-show-more" type="button" data-toggle="collapse" data-target="#expeditionDetails<%= expedition.expedition_ID %>" aria-expanded="false" aria-controls="expeditionDetails<%= expedition.expedition_ID %>" style="border: 1px solid #fff;">
                     Show More
