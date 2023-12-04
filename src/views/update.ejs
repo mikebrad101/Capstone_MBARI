@@ -10,99 +10,106 @@
   <link href="/css/style2.css" rel="stylesheet">
 </head>
 <body>
-  <form class="row g-3 columnTopSpace">
 
-  <div class="center-container">
-    <form action="/updateExpedition" method="POST">
+<!--<form class="row g-3 columnTopSpace"> -->
+
+  <div class="container">
+    <form class="columnTopSpace" action="/updateExpedition" method="POST">
       <input type="hidden" name="expedition_ID" value="<%= expedition[0].expedition_ID %>">
+      <h1> Update Expedition </h1>
+    <div class="form-row">
+      <div class="form-column">
+        <label for="ship_name">Ship Name:</label>
+        <input type="text" id="ship_name" name="ship_name" value="<%= expedition[0].ship_name %>"><br><br>
 
-      <label for="ship_name">Ship Name:</label>
-      <input type="text" id="ship_name" name="ship_name" value="<%= expedition[0].ship_name %>"><br><br>
+        <label for="purpose">Purpose:</label>
+        <textarea id="purpose" name="purpose"><%= expedition[0].purpose %></textarea><br><br>
 
-      <label for="purpose">Purpose:</label>
-      <textarea id="purpose" name="purpose"><%= expedition[0].purpose %></textarea><br><br>
+        <label for="chief_scientist">Chief Scientist:</label>
+        <select class="modern-select" id="chief_scientist" name="chief_scientist" required>
+          <% for(let i=0; i < scientists.length; i++) { %>
+            <%if (scientists[i].user_ID == expedition[0].chief_scientist) { %>   
+              <option value="<%=scientists[i].user_ID %>" selected>
+                <%=scientists[i].first_name%>
+                <%=scientists[i].last_name%>
+            <% } else { %>
+            <option value="<%=scientists[i].user_ID %>">
+                <%=scientists[i].first_name%>
+                    <%=scientists[i].last_name%>
+                    <% } %>
+            </option>
+            <% } %>
+        </select><br><br>
 
-      <label for="chief_scientist">Chief Scientist:</label>
-      <select class="modern-select" id="chief_scientist" name="chief_scientist" required>
-        <% for(let i=0; i < scientists.length; i++) { %>
-          <%if (scientists[i].user_ID == expedition[0].chief_scientist) { %>   
-            <option value="<%=scientists[i].user_ID %>" selected>
-              <%=scientists[i].first_name%>
-              <%=scientists[i].last_name%>
-          <% } else { %>
-          <option value="<%=scientists[i].user_ID %>">
-              <%=scientists[i].first_name%>
-                  <%=scientists[i].last_name%>
-                  <% } %>
-          </option>
-          <% } %>
-      </select><br><br>
+        <label for="principal_investigator">Principal Investigator:</label>
+        <select class="modern-select" id="principal_investigator" name="principal_investigator" required>
+          <% for(let i=0; i < investigators.length; i++) { %>
+            <%if (investigators[i].user_ID == expedition[0].principal_investigator) { %>   
+              <option value="<%=investigators[i].user_ID %>" selected>
+                <%=investigators[i].first_name%>
+                <%=investigators[i].last_name%>
+            <% } else { %>
+            <option value="<%=investigators[i].user_ID %>">
+                <%=investigators[i].first_name%>
+                    <%=investigators[i].last_name%>
+                    <% } %>
+            </option>
+            <% } %>
+        </select><br><br>
 
-      <label for="principal_investigator">Principal Investigator:</label>
-      <select class="modern-select" id="principal_investigator" name="principal_investigator" required>
-        <% for(let i=0; i < investigators.length; i++) { %>
-          <%if (investigators[i].user_ID == expedition[0].principal_investigator) { %>   
-            <option value="<%=investigators[i].user_ID %>" selected>
-              <%=investigators[i].first_name%>
-              <%=investigators[i].last_name%>
-          <% } else { %>
-          <option value="<%=investigators[i].user_ID %>">
-              <%=investigators[i].first_name%>
-                  <%=investigators[i].last_name%>
-                  <% } %>
-          </option>
-          <% } %>
-      </select><br><br>
+      <label for="sch_start">Scheduled Start:</label>
+      <input type="date" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>
 
-    <label for="sch_start">Scheduled Start:</label>
-    <input type="date" id="sch_start" name="sch_start" value="<%= expedition[0].sch_start %>"><br><br>
+      <label for="sch_end">Scheduled End:</label>
+      <input type="date" id="sch_end" name="sch_end" value="<%= expedition[0].sch_end %>"><br><br>
 
-    <label for="sch_end">Scheduled End:</label>
-    <input type="date" id="sch_end" name="sch_end" value="<%= expedition[0].sch_end %>"><br><br>
+        <label for="equip_description">Equipment Description:</label>
+        <textarea id="equip_description" name="equip_description"><%= expedition[0].equip_description %></textarea><br><br>
 
-      <label for="equip_description">Equipment Description:</label>
-      <textarea id="equip_description" name="equip_description"><%= expedition[0].equip_description %></textarea><br><br>
+        <label for="participants">Participants:</label>
+        <textarea id="participants" name="participants"><%= expedition[0].participants %></textarea><br><br>
 
-      <label for="participants">Participants:</label>
-      <textarea id="participants" name="participants"><%= expedition[0].participants %></textarea><br><br>
+        <label for="region_description">Region Description:</label>
+        <textarea id="region_description" name="region_description"><%= expedition[0].region_description %></textarea><br><br>
 
-      <label for="region_description">Region Description:</label>
-      <textarea id="region_description" name="region_description"><%= expedition[0].region_description %></textarea><br><br>
+        <label for="planned_track_description">Planned Track Description:</label>
+        <textarea id="planned_track_description" name="planned_track_description"><%= expedition[0].planned_track_description %></textarea><br><br>
+      </div>
 
-      <label for="planned_track_description">Planned Track Description:</label>
-      <textarea id="planned_track_description" name="planned_track_description"><%= expedition[0].planned_track_description %></textarea><br><br>
+      <div class="form-column">
+        <label for="expedition_status">Status:</label>
+          <select id="expedition_status" name="expedition_status">
+            <option value="Complete" <% if (expedition[0].expedition_status === "Complete") { %>selected<% } %>>Complete</option>
+            <option value="Incomplete" <% if (expedition[0].expedition_status === "Planned") { %>selected<% } %>>Planned</option>
+            <option value="Cancelled" <% if (expedition[0].expedition_status === "Cancelled") { %>selected<% } %>>Cancelled</option>
+          </select>
+        <br><br>
 
-      <label for="expedition_status">Status:</label>
-        <select id="expedition_status" name="expedition_status">
-          <option value="Complete" <% if (expedition[0].expedition_status === "Complete") { %>selected<% } %>>Complete</option>
-          <option value="Incomplete" <% if (expedition[0].expedition_status === "Planned") { %>selected<% } %>>Planned</option>
-          <option value="Cancelled" <% if (expedition[0].expedition_status === "Cancelled") { %>selected<% } %>>Cancelled</option>
-        </select>
-      <br><br>
+        <label for="actual_start">Actual Start:</label>
+        <input type="date" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
 
-    <label for="actual_start">Actual Start:</label>
-    <input type="date" id="actual_start" name="actual_start" value="<%= expedition[0].actual_start %>"><br><br>
+        <label for="actual_end">Actual End:</label>
+        <input type="date" id="actual_end" name="actual_end" value="<%= expedition[0].actual_end %>"><br><br>
 
-    <label for="actual_end">Actual End:</label>
-    <input type="date" id="actual_end" name="actual_end" value="<%= expedition[0].actual_end %>"><br><br>
+        <label for="accomplishments">Accomplishments:</label>
+        <textarea id="accomplishments" name="accomplishments"><%= expedition[0].accomplishments %></textarea><br><br>
 
-      <label for="accomplishments">Accomplishments:</label>
-      <textarea id="accomplishments" name="accomplishments"><%= expedition[0].accomplishments %></textarea><br><br>
+        <label for="scientist_comments">Scientist Comments:</label>
+        <textarea id="scientist_comments" name="scientist_comments"><%= expedition[0].scientist_comments %></textarea><br><br>
 
-      <label for="scientist_comments">Scientist Comments:</label>
-      <textarea id="scientist_comments" name="scientist_comments"><%= expedition[0].scientist_comments %></textarea><br><br>
+        <label for="operator_comments">Operator Comments:</label>
+        <textarea id="operator_comments" name="operator_comments"><%= expedition[0].operator_comments %></textarea><br><br>
 
-      <label for="operator_comments">Operator Comments:</label>
-      <textarea id="operator_comments" name="operator_comments"><%= expedition[0].operator_comments %></textarea><br><br>
+        <label for="sci_objective_met">Scientific Objectives Met:</label>
+        <input type="checkbox" id="sci_objective_met" name="sci_objective_met" <% if (expedition[0].sci_objective_met) { %>checked<% } %>><br><br>
 
-      <label for="sci_objective_met">Scientific Objectives Met:</label>
-      <input type="checkbox" id="sci_objective_met" name="sci_objective_met" <% if (expedition[0].sci_objective_met) { %>checked<% } %>><br><br>
+        <label for="equipment_function">Equipment Functioned:</label>
+        <input type="checkbox" id="equipment_function" name="equipment_function" <% if (expedition[0].equipment_function) { %>checked<% } %>><br><br>
 
-      <label for="equipment_function">Equipment Functioned:</label>
-      <input type="checkbox" id="equipment_function" name="equipment_function" <% if (expedition[0].equipment_function) { %>checked<% } %>><br><br>
-
-      <label for="other_comments">Other Comments:</label>
-      <textarea id="other_comments" name="other_comments"><%= expedition[0].other_comments %></textarea><br><br>
+        <label for="other_comments">Other Comments:</label>
+        <textarea id="other_comments" name="other_comments"><%= expedition[0].other_comments %></textarea><br><br>
+      </div>
+    </div>
 
       <!-- Show dives here if they exist-->
       <!-- Add option for new dive. -->
@@ -136,14 +143,14 @@
       </table>
       <br><br>
       <!-- make button route to /dive  -->
-      <a href="/dive" class="button">Add Dive</a>
+      <button type="button" class="button-container" onclick="window.location.href='/dive'">Add Dive</button>
       <br><br>
       <br><br>
       
-      <input type="submit" value="Update Expedition">
+      <button type="submit">Update Expedition</button>
     </form>
   </div>
-  </form>
+<!-- </form> -->
 
   <footer>
       <div class="foottext">
