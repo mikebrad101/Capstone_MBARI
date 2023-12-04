@@ -67,7 +67,12 @@ router.get("/preexp", isAuthenticated, async function(req, res) {
   let investigators = await getPrincipalInvestigators();
   const mbariEmployees = await getUsersByRole('MBARI Employee');
 
-  res.render('preexp', {"scientists": scientists, "investigators": investigators, "role": mbariEmployees });
+  res.render('preexp', {
+    "scientists": scientists, 
+    "investigators": investigators, 
+    "role": mbariEmployees,
+    session: req.session // Add this line to pass session data
+  });
 });
 
 router.get("/login", async function(req, res) {
@@ -83,7 +88,7 @@ router.get("/signup", async function(req, res) {
 });
 
 //what is this for?
-router.get('/mbari-employee-dashboard/:userId', async (req, res) => {
+router.get('/mbari-employee-dashboard/:userId', isAuthenticated, async (req, res) => {
   //in route we get sql statement and data
   //then send it to the view using render
   try {
@@ -104,7 +109,7 @@ router.get('/mbari-employee-dashboard/:userId', async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-router.get("/logistics-coordinator-dashboard/:userId", async function(req, res) {
+router.get("/logistics-coordinator-dashboard/:userId", isAuthenticated, async function(req, res) {
   try {
     // Get the expeditions needing approval data
     const expeditionsNeedingApproval = await getExpeditionsNeedingApproval(req.body);
@@ -128,7 +133,7 @@ router.get("/logistics-coordinator-dashboard/:userId", async function(req, res) 
     res.status(500).send("Internal Server Error");
   }
 });
-router.get("/registered-user-dashboard/:userId", async function(req, res) {
+router.get("/registered-user-dashboard/:userId", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   try {
@@ -160,7 +165,11 @@ router.get("/postexp", isAuthenticated, async function(req, res) {
 //middlware to pass expedition_id to update Post
 router.get("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
   let info = await getExpedition(req.params.exp_id);
-  res.render('postexp', { "info": info, "userID":req.session.userId});
+  res.render('postexp', { 
+    "info": info, 
+    "userID":req.session.userId,
+    session: req.session // Add this line to pass session data
+  });
 });
 
 //middlware to pass expedition_id to update
@@ -169,14 +178,26 @@ router.get("/update/:exp_id", isAuthenticated, async function(req, res) {
   let scientists = await getChiefScientists();
   let investigators = await getPrincipalInvestigators();
   let dives = await getAllDives(req.params.exp_id);
-  res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators, "dives": dives});
+  
+  res.render('update', { 
+    "expedition": expedition,
+    "scientists": scientists, 
+    "investigators": investigators, 
+    "dives": dives,
+    session: req.session // Add this line to pass session data
+
+  });
 });
 
 //mike is finishing this
 router.get("/editDive/:dive_ID", isAuthenticated, async function(req, res) {
   let scientists = await getChiefScientists();
   let dive = await getDive(req.params.dive_ID);
-  res.render('editDive', { "scientists": scientists, "dive": dive});
+  res.render('editDive', { 
+    "scientists": scientists,
+    "dive": dive,
+    session: req.session // Add this line to pass session data
+  });
 });
 
 //needs to pass a expedition_id to associate dive to expedition
@@ -221,7 +242,10 @@ router.post("/searchRequest", isAuthenticated, async function(req, res) {
       results[i].chief_scientist = await getUserFullName(results[i].chief_scientist);
       results[i].principal_investigator = await getUserFullName(results[i].principal_investigator);
     }
-    res.render('searchResults', { expeditionResults: results });
+    res.render('searchResults', {
+       expeditionResults: results,
+       session: req.session // Add this line to pass session data
+      });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
