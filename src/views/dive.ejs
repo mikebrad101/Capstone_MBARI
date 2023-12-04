@@ -18,35 +18,49 @@
   <main class="container">
     <h1>Dive Information</h1>
 
-    <form class="columnTopSpace">
-      <div class="form-row">
-        <div class="form-column">
+    <form class="row g-3 columnTopSpace">
+      <div class="col-md-6">
+        <label for="rovName" class="labels">Rov Name:</label>
+        <input type="text" id="rovName" name="rovName" class="inputStyle" required>
 
-          <label for="rovName" class="labels">Rov Name:</label><br>
-          <input type="text" id="rovName" name="rovName" class="inputStyle" required><br>
+        <label for="diveNumber">Dive Number:</label>
+        <input class="inputStyle" type="number" id="diveNumber" name="diveNumber" required>
 
-          <label for="diveNumber">Dive Number:</label><br>
-          <input class="inputStyle" type="number" id="diveNumber" name="diveNumber" required><br>
+        <label for="diveStartDatetime">Dive Start Datetime:</label>
+        <input class="inputStyle" type="datetime-local" id="diveStartDatetime" name="diveStartDatetime" required>
 
-          <label for="diveStartDatetime">Dive Start Datetime:</label><br>
-          <input class="inputStyle" type="datetime-local" id="diveStartDatetime" name="diveStartDatetime" required>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="scienceObjectivesMet" name="scienceObjectivesMet">
+          <label class="form-check-label ms-2" for="scienceObjectivesMet">Science Objectives Met</label>
         </div>
+      </div>
+      </div>
 
-      <select class="modern-select" id="diveChiefScientist" name="diveChiefScientist" required>
-        <option value="" disabled selected>Select Chief Scientist</option>
-        <% for(let i=0; i < scientists.length; i++) { %>
-          <option value="<%=scientists[i].user_ID %>">
-              <%=scientists[i].first_name%>
-                  <%=scientists[i].last_name%>
-          </option>
+      <div class="col-md-6">
+        <label for="chiefScientist" class="modern-label">Chief Scientist:</label>
+        <label for="chiefScientist" class="modern-label">Chief Scientist:</label>
+        <select id="chiefScientist" name="chiefScientist">
+          <option value="">Select</option>
+          <% for (let i = 0; i < scientists.length; i++) { %>
+            <option value="<%= scientists[i].user_ID %>">
+              <%= scientists[i].first_name %> <%= scientists[i].last_name %>
+            </option>
           <% } %>
-      </select><br><br>
+        </select>
+        <label for="accomplishments">Accomplishments:</label>
+        <input type="text" id="accomplishments" name="accomplishments">
 
-      <label for="briefAccomplishments">Brief Accomplishments:</label><br>
-      <textarea class="inputStyle" id="briefAccomplishments" name="briefAccomplishments" rows="3" cols="40"
-        maxlength="2048" required></textarea><br><br>
+        <label for="diveEndDatetime">Dive End Datetime:</label>
+        <input class="inputStyle" type="datetime-local" id="diveEndDatetime" name="diveEndDatetime" required>
 
-      <div class="button-container">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="allEquipmentFunctioned" name="allEquipmentFunctioned">
+          <label class="form-check-label ms-2" for="allEquipmentFunctioned" >All Equipment Functioned</label>
+        </div>
+      </div>
+      </div>
+
+      <div class="button-container col-12">
         <button class="button">Submit</button>
       </div>
     </form>
