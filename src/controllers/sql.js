@@ -200,6 +200,12 @@ async function updateExpedition(data) {
   return result;
 }
 
+async function allDives(){
+  let sql = "SELECT * FROM dive";
+  let rows = await executeSQL(sql);
+  return rows;
+}
+
 async function getAllDives(exp_id) {
   let sql = "SELECT * FROM dive WHERE expedition_ID = ?;";
   let rows = await executeSQL(sql, [exp_id]);
@@ -264,6 +270,7 @@ module.exports = {
   updatePost,
   updateExpedition,
   getAllDives,
+  allDives,
   getDive,
   updateDive,
   getUsersByRole,

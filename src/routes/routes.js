@@ -11,6 +11,7 @@ const { executeSQL,
   addExpedition,
   updatePost,
   updateExpedition,
+  allDives, 
   getAllDives,
   getDive, 
   updateDive,
@@ -59,6 +60,7 @@ router.get("/search", isAuthenticated, async function(req, res) {
     session: req.session // Add this line to pass session data
   }); 
 });
+
 
 router.get("/preexp", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
@@ -237,12 +239,14 @@ router.post("/searchRequest", isAuthenticated, async function(req, res) {
   
   try {
     const results = await getSearchResults(req.body);
+    const dives = await allDives(); 
     //console.log(results);
     for (let i = 0; i < results.length; i++) {
       results[i].chief_scientist = await getUserFullName(results[i].chief_scientist);
       results[i].principal_investigator = await getUserFullName(results[i].principal_investigator);
     }
     res.render('searchResults', {
+       dives: dives,
        expeditionResults: results,
        session: req.session // Add this line to pass session data
       });
