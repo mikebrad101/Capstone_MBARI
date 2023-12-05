@@ -53,8 +53,6 @@
 </head>
 </head>
 <body>
-<%- include("partials/nav.ejs") %>
-
   <div class="header-container">
     <div class="header-text">Expedition Search Results</div>
   </div>
@@ -100,7 +98,9 @@
                   <button class="btn btn-show-more" onclick="goToUpdatePage(<%= expedition.expedition_ID %>)" style="border: 1px solid #fff;">
                     Update Expedition
                   </button>
-                  <% if (expedition.expedition_status.toLowerCase() === 'planned') { %>
+                  
+                  <% 
+                  if (expedition.expedition_status.toLowerCase() === 'planned' && role === 'Logistics Coordinator') { %>
                     <button class="btn btn-show-more" onclick="goToUpdatePage(<%= expedition.expedition_ID %>)" style="border: 1px solid #fff;">
                       Approve
                     </button>

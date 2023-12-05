@@ -239,7 +239,8 @@ router.post("/searchRequest", isAuthenticated, async function(req, res) {
   
   try {
     const results = await getSearchResults(req.body);
-    const dives = await allDives(); 
+    const dives = await allDives();
+    let role = session.position;
     //console.log(results);
     for (let i = 0; i < results.length; i++) {
       results[i].chief_scientist = await getUserFullName(results[i].chief_scientist);
@@ -248,6 +249,7 @@ router.post("/searchRequest", isAuthenticated, async function(req, res) {
     res.render('searchResults', {
        dives: dives,
        expeditionResults: results,
+       role: role,
        session: req.session // Add this line to pass session data
       });
   } catch (error) {
