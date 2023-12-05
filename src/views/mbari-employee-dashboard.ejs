@@ -17,39 +17,40 @@
 </head>
 <body>
 
-    <h1>Welcome to MBARI Employee Dashboard</h1>
     <%- include("partials/nav.ejs") %>
 
         <!-- Add more content and functionalities specific to the MBARI Employee -->
       <form>  
-        <div class="ic-DashboardCard" aria-label="PreCruise" draggable="true" style="opacity: 1;">
-            <div class="ic-DashboardCard__header">
-                <div class="ic-DashboardCard__header_image" style="background-image: url('https://www.mbari.org/wp-content/uploads/rv-rachel-carson-featured.jpg');">
-                    <div class="ic-DashboardCard__header_hero" aria-hidden="true" style="background-color: rgb(79, 128, 69); opacity: 0;"></div>
-                        </div>
-                        <a href="/preexp" class="ic-DashboardCard__link">
-                            <div class="ic-DashboardCard__header_content">
-                            <h3 class="ic-DashboardCard__header-title ellipsis" title="Pre Expadition">
-                            <span style="color: rgb(40,40,43);">Pre Expadition</span>
-                            </h3>
+        <h1>Welcome to MBARI Employee Dashboard</h1>
+
+            <div class="ic-DashboardCard" aria-label="PreCruise" draggable="true" style="opacity: 1;">
+                <div class="ic-DashboardCard__header">
+                    <div class="ic-DashboardCard__header_image" style="background-image: url('https://www.mbari.org/wp-content/uploads/rv-rachel-carson-featured.jpg');">
+                        <div class="ic-DashboardCard__header_hero" aria-hidden="true" style="background-color: rgb(79, 128, 69); opacity: 0;"></div>
                             </div>
-                        </a>
-                        <div>
-                            <div class="ic-DashboardCard__header-button-bg" style="background-color: rgb(79, 128, 69); opacity: 1;"></div>
-                                <span data-position="Popover_0" class="css-1ihz85b-position">
-                                    <button type="button" onclick="window.location.href='/preexp'" 
-                                    class="Button Button--icon-action-rev ic-DashboardCard__header-button" 
-                                    aria-expanded="false" 
-                                    data-popover-trigger="true" 
-                                    data-position-target="Popover_0">
-                                        <i class="icon-more" aria-hidden="true"></i>
-                                            Create Expadition
-                                    </button>
-                                </span>
-                        </div>
+                            <a href="/preexp" class="ic-DashboardCard__link">
+                                <div class="ic-DashboardCard__header_content">
+                                <h3 class="ic-DashboardCard__header-title ellipsis" title="Pre Expadition">
+                                <span style="color: rgb(40,40,43);">Pre Expadition</span>
+                                </h3>
+                                </div>
+                            </a>
+                            <div>
+                                <div class="ic-DashboardCard__header-button-bg" style="background-color: rgb(79, 128, 69); opacity: 1;"></div>
+                                    <span data-position="Popover_0" class="css-1ihz85b-position">
+                                        <button type="button" onclick="window.location.href='/preexp'" 
+                                        class="Button Button--icon-action-rev ic-DashboardCard__header-button" 
+                                        aria-expanded="false" 
+                                        data-popover-trigger="true" 
+                                        data-position-target="Popover_0">
+                                            <i class="icon-more" aria-hidden="true"></i>
+                                                Create Expadition
+                                        </button>
+                                    </span>
+                            </div>
+                    </div>
                 </div>
             </div>
-        </div>
     </form>
 
     <footer>
