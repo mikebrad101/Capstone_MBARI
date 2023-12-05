@@ -9,13 +9,11 @@ async function getSearchResults(data){
     startDate,
     endDate,
     singleDate,
-    diveNumber, //TODO
     purpose,
     siteTrack, 
     accomplishments,
     operatorComments,
     scientistComments,
-    sequenceNumber, //TODO
     yyyyddd, 
     participants,
     chiefScientist,
@@ -26,7 +24,6 @@ async function getSearchResults(data){
 
   
   let sql = 'SELECT * FROM expedition WHERE 1=1'; //Sets up the SQL query 
-  //let diveSQL = 'SELECT * FROM dive WHERE dive_number = ' //query for dive number specifically 
 
   const values =[]; 
 
@@ -54,11 +51,6 @@ async function getSearchResults(data){
     sql += ' AND DATE(?) BETWEEN DATE(actual_start) AND DATE(actual_end)';
     values.push(singleDate);
   }
-  
-  // if (diveNumber) {
-  //   sql += ' AND expedition_ID IN (SELECT expedition_ID FROM dive WHERE dive_number = ?)';
-  //   values.push(diveNumber);
-  // } 
   
   if(purpose){
     sql += ' AND purpose LIKE ?';
@@ -121,10 +113,3 @@ async function getSearchResults(data){
 module.exports = {
   getSearchResults
 }
-
-
-/*
-TO DO
--Dive implementation
--Sequence number implementation
-*/
