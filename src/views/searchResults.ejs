@@ -101,9 +101,12 @@
                   
                   <% 
                   if (expedition.expedition_status.toLowerCase() === 'planned' && role === 'Logistics Coordinator') { %>
-                    <button class="btn btn-show-more" onclick="goToUpdatePage(<%= expedition.expedition_ID %>)" style="border: 1px solid #fff;">
+                    <form>
+                      <button class="btn btn-show-more" style="border: 1px solid #fff;">
                       Approve
                     </button>
+                    </form>
+                    
                   <% } %>
                 </td>
               </tr>
@@ -186,7 +189,6 @@
     // Use window.location to navigate to the update page with the expedition ID
     window.location.href = '/update/' + expeditionID;
     }
-
   </script>
 
 </body>
