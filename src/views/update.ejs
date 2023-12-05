@@ -127,7 +127,7 @@ notes for Geoffrey
               <th>Dive Number</th>
               <th>Start Datetime</th>
               <th>End Datetime</th>
-              <th>Chief Scientist</th>
+              <th>Chief Scientist ID</th>
               <th>Brief Accomplishments</th>
               <th>Action</th>
             </tr>
@@ -140,7 +140,7 @@ notes for Geoffrey
                   <td><%= dive.dive_number %></td>
                   <td><%= new Date(dive.dive_start).toLocaleDateString() %></td>
                   <td><%= new Date(dive.dive_end).toLocaleDateString() %></td>
-                  <td><%= dive.dive_cheif_scientist %></td>
+                  <td><%= dive.chief_scientist_id %></td>
                   <td><%= dive.accomplishments %></td>
                   <td><a href="/editDive/<%= dive.dive_ID %>" class="btn btn-dark btn-outline-light">Update Dive</a></td>
                 </tr>
