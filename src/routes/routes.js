@@ -14,6 +14,7 @@ const { executeSQL,
   allDives, 
   getAllDives,
   getDive, 
+  approveCruise,
   updateDive,
   getUsersByRole,
   getMBARIEmployee,
@@ -256,6 +257,11 @@ router.post("/searchRequest", isAuthenticated, async function(req, res) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
+});
+
+app.post('/approveCruise', (req, res) => {
+  const expedition_ID = req.body.expedition_ID;
+  const result = await updateExpedition(expedition_ID);
 });
 
 //temporary route to get last entry

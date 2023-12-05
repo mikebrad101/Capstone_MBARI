@@ -69,6 +69,15 @@ async function getAllShips() {
   return ships;
 }
 
+async function approveCruise(exp_id){
+  const ID = exp_id;
+  let sql = `UPDATE expedition
+             SET expedition_status = "Complete", 
+             WHERE expedition_ID = ?;`;
+  const result = await executeSQL(sql,ID);
+  return result; 
+}
+
 async function addExpedition(data) {
   const {
     shipName,
@@ -277,5 +286,6 @@ module.exports = {
   getMBARIEmployee,
   getRegisteredUser,
   getLogisticsCoordinator,
-  getExpeditionsNeedingApproval
+  getExpeditionsNeedingApproval,
+  approveCruise
 };
