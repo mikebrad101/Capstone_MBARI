@@ -101,7 +101,7 @@
                   
                   <% 
                   if (expedition.expedition_status.toLowerCase() === 'planned' && role === 'Logistics Coordinator') { %>
-                    <form id = "approveCruise" action="/approveCruise" method="POST">
+                    <form id = "approveCruise" action="/approveCruise/<%= expedition.expedition_ID %>" method="POST">
                       <button class="btn btn-show-more" type="submit" style="border: 1px solid #fff;">
                       Approve
                     </button>

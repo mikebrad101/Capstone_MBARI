@@ -70,11 +70,10 @@ async function getAllShips() {
 }
 
 async function approveCruise(exp_id){
-  const ID = exp_id;
   let sql = `UPDATE expedition
-             SET expedition_status = "Complete", 
+             SET expedition_status = "In Progress" 
              WHERE expedition_ID = ?;`;
-  const result = await executeSQL(sql,ID);
+  const result = await executeSQL(sql, [exp_id]);
   return result; 
 }
 

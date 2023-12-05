@@ -259,9 +259,21 @@ router.post("/searchRequest", isAuthenticated, async function(req, res) {
   }
 });
 
-app.post('/approveCruise', (req, res) => {
-  const expedition_ID = req.body.expedition_ID;
-  const result = await updateExpedition(expedition_ID);
+router.post('/approveCruise/:exp_id', isAuthenticated, async function(req, res) {
+  const expedition_ID = req.params.exp_id;
+  console.log(expedition_ID);
+  try {
+    const result = await approveCruise(expedition_ID);
+
+    console.log(result);
+
+    //temporary redirect
+    res.redirect('/getLastEntry');
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+  
 });
 
 //temporary route to get last entry
