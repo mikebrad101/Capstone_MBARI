@@ -121,33 +121,39 @@
                       <p class="details-label"><strong>Other Comments:<br></strong> <%= expedition.other_comments %></p>
 
                       <!-- Display Dives Table -->
-                      <h5 class="mt-3" style="font-weight: bold;">Dives</h5>
-                      <table class="table table-bordered" style="background-color: rgba(0, 0, 0, 0.7); color: #fff; border: 1px solid #fff;">
-                        <thead class="thead-dark">
-                          <tr>
-                            <th>Dive ID</th>
-                            <th>ROV Name</th>
-                            <th>Dive Number</th>
-                            <th>Dive Start</th>
-                            <th>Dive End</th>
-                            <th>Chief Scientist ID</th>
-                            <th>Accomplishments</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <% dives.filter(dive => dive.expedition_ID === expedition.expedition_ID).forEach(filteredDive => { %>
+                      <% const expeditionDives = dives.filter(dive => dive.expedition_ID === expedition.expedition_ID); %>
+                      <% if (expeditionDives.length > 0) { %>
+                        <h5 class="mt-3" style="font-weight: bold;">Dives</h5>
+                        <table class="table table-bordered" style="background-color: rgba(0, 0, 0, 0.7); color: #fff; border: 1px solid #fff;">
+                          <thead class="thead-dark">
                             <tr>
-                              <td><%= filteredDive.dive_ID %></td>
-                              <td><%= filteredDive.ROV_name %></td>
-                              <td><%= filteredDive.dive_number %></td>
-                              <td><%= new Date(filteredDive.dive_start).toLocaleDateString() %></td>
-                              <td><%= new Date(filteredDive.dive_end).toLocaleDateString() %></td>
-                              <td><%= filteredDive.chief_scientist_id %></td>
-                              <td><%= filteredDive.accomplishments %></td>
+                              <th>Dive ID</th>
+                              <th>ROV Name</th>
+                              <th>Dive Number</th>
+                              <th>Dive Start</th>
+                              <th>Dive End</th>
+                              <th>Chief Scientist ID</th>
+                              <th>Accomplishments</th>
                             </tr>
-                          <% }); %>
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody>
+                            <% expeditionDives.forEach(filteredDive => { %>
+                              <tr>
+                                <td><%= filteredDive.dive_ID %></td>
+                                <td><%= filteredDive.ROV_name %></td>
+                                <td><%= filteredDive.dive_number %></td>
+                                <td><%= new Date(filteredDive.dive_start).toLocaleDateString() %></td>
+                                <td><%= new Date(filteredDive.dive_end).toLocaleDateString() %></td>
+                                <td><%= filteredDive.chief_scientist_id %></td>
+                                <td><%= filteredDive.accomplishments %></td>
+                              </tr>
+                            <% }); %>
+                          </tbody>
+                        </table>
+                      <% } else { %>
+                        <p style="font-weight: bold; color: #fff;">No dives for this expedition.</p>
+                      <% } %>
+            
                     </div>
                   </div>
                 </td>
