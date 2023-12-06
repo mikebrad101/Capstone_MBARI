@@ -1,24 +1,16 @@
-<!-- nav.ejs -->
+<!-- Updated nav.ejs -->
 
 <nav class="nav">
   <div class="dropdown">
-    <button class="dropbtn">| | |</button>
+    <button id="dropdownButton" class="dropbtn"> | | |</button>
     <div class="dropdown-content">
       <div class="search-container">
-        <button class="search-button" onclick="window.location.href='/search'">
-        &#128269;
-        Search
-        </button>
+        <a href="/search" class="search-button">
+          &#128269; Search
+        </a>
       </div>
-      <br>
-
-      <form id="logoutForm" class="logout-form" method="POST" action="/logout">
-        <button type="submit" class="logout-link">Logout</button>
-      </form>
-
-
+      <br><br><br>
       <% if (session.position === 'MBARI Employee') { %>
-      
         <a href="/mbari-employee-dashboard/<%= session.userId %>">MBARI Employee Panel <%= session.userName %></a>
       <% } else if (session.position === 'Registered User') { %>
         <a href="/registered-user-dashboard/<%= session.userId %>">Registered User Panel <%= session.userName %></a>
@@ -26,15 +18,21 @@
         <a href="/logistics-coordinator-dashboard/<%= session.userId %>">Logistics Coordinator Panel <%= session.userName %></a>
       <% } %>
       %>
-
-
+      <br>
       <a href="/aboutUs">About Us</a>
-
-      <!-- Add more conditions for other roles as needed -->
+      <form id="logoutForm" class="logout-form" method="POST" action="/logout">
+        <a href="#" class="logout-link" onclick="document.getElementById('logoutForm').submit(); return false;">
+            Logout
+        </a>
+      </form>
     </div>
   </div>
-
   <script>
+    document.getElementById('dropdownButton').addEventListener('click', function() {
+      var dropdownContent = document.querySelector('.dropdown-content');
+      dropdownContent.classList.toggle('show');
+    });
+
     function logout() {
       document.getElementById('logoutForm').submit();
     }
