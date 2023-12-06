@@ -10,6 +10,8 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: auto;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
 }
 
 .logo {
@@ -32,10 +34,6 @@ body {
     margin-top: 20px;
     padding: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-.columnTopSpace {
-    padding-top: 20px;
 }
 
 select.round {
@@ -84,21 +82,22 @@ select.round:focus {
     color: gray;
     border-radius: 2em;
     transition: 1s;
-    &:hover, &:focus, &:active {
-        background: gray;
-        color: #fff;
-    }
 }
 
-.nav {
-    max-width: 800px; /* Set a maximum width for the form */
+.button:hover, .button:focus, .button:active {
+    background: gray;
+    color: #fff;
+}
+
+/* .nav {
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgba(0, 0, 0, 0.7); /*Transparent black background for the header */
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 10px;
     border-radius: 10px;
     text-align: center;
-}
+} */
 
 .nav a {
     color: #fff;
@@ -110,52 +109,42 @@ select.round:focus {
     text-decoration: underline;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    /* background-image: url('https://www.montereybayaquarium.org/globalassets/mba/images/animals/marine-mammals/sea-otter-wild-tr19-0747.jpg?format=webp&quality=60'); */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    color:#fff;
-}
-
 .center-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
 }
+
 form {
-    max-width: 800px; /* Set a maximum width for the form */
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
-  }
+}
 
 h1 {
-    max-width: 800px; /* Set a maximum width for the form */
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    /* background-color: rgba(0, 0, 0, 0.7); Transparent black background for the header */
     padding: 10px;
     border-radius: 10px;
     text-align: center;
 }
 
-
-input, select{
+input, select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.8);
+
 }
+
 button {
     background-color: #000;
     color: #fff;
@@ -164,8 +153,8 @@ button {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-    margin-right: 10px; /* Add right margin to space out the buttons */
-  }
+    margin-right: 10px;
+}
 
 .error-message {
     color: red;
@@ -182,10 +171,10 @@ footer {
     justify-content: center;
     text-align: center;
     height: 60px;
-    margin-top: auto;  
-    position: fixed;   
-    width: 100%;       
-    bottom: 0;        
+    margin-top: auto;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 .foottext {
@@ -193,14 +182,16 @@ footer {
     margin-top: 1%;
 }
 
-.modern-label {
+.modern-label, .modern-select {
     font-family: 'Arial', sans-serif;
+}
+
+.modern-label {
     color: #333;
     font-size: 16px;
 }
 
 .modern-select {
-    font-family: 'Arial', sans-serif;
     color: #555;
     font-size: 14px;
     background-color: #f5f5f5;
@@ -210,7 +201,7 @@ footer {
     width: 200px;
 }
 
-.modern-select:hover {
+.modern-select:hover, .modern-select:focus {
     border-color: #231F20;
 }
 
@@ -219,26 +210,23 @@ footer {
     color: #333;
 }
 
-.modern-select:focus {
-    outline: none;
-    border-color: #231F20;
-}
 .button-table {
     border-collapse: collapse;
-    width: 100%; /* Adjust the width as needed */
-  
+    width: 100%;
 }
 
 .button-table td {
     padding: 10px;
 }
+
 .button-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10vh; /* Adjust the height as needed */
+    height: 10vh;
     background-color: white;
 }
+
 .button {
     display: block;
     width: 90%;
@@ -247,10 +235,11 @@ footer {
     text-align: center;
     text-decoration: none;
     color: white;
-    background-color: #28282B; /* Blue background color */
+    background-color: #28282B;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
+
 .ic-DashboardCard {
     box-sizing: border-box;
     box-shadow: 0 2px 5px rgba(0,0,0,.3);
@@ -262,115 +251,77 @@ footer {
     vertical-align: top;
     margin: 36px 0 0 36px;
 }
+
 .ic-DashboardCard__header {
     position: relative;
     cursor: pointer;
     box-sizing: border-box;
 }
+
 .ic-DashboardCard__header_image {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
 }
+
 .ic-DashboardCard__header_hero {
     box-sizing: border-box;
     height: 146px;
     border: 1px solid rgba(0,0,0,.1);
 }
+
 .search-container {
     position: absolute;
     margin: 10px;
 }
 
 .search-button {
-padding: 10px;
-background: #28282B; /* Your desired button color */
-color: #fff;
-border: none;
-border-radius: 5px;
-cursor: pointer;
+    padding: 10px;
+    /* background: #28282B;
+    color: #fff; */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-.search-button, i {
-font-size: 16px; /* Adjust the size of the search icon */
-}
 .dropdown {
     display: inline-block;
-  }
-  .dropdown-content {
+}
+
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-  }
+}
 
-  .dropdown-content a {
+.dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
+}
 
-  .dropdown-content a:hover {
+.dropdown-content a:hover {
     background-color: #f1f1f1;
-  }
+}
 
-  .dropdown:hover .dropdown-content {
+.dropdown-content {
     display: block;
-  }
-  .dropdown {
-    display: inline-block;
-  }
+}
 
-  .dropbtn {
+.dropbtn {
     background-color: black;
     color: white;
     padding: 10px;
     font-size: 16px;
     border: none;
-  }
+}
 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
-  }
-
-  .dropdown-content .search-container {
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .dropdown-content .search-button {
-    font-size: 16px;
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  .logout-form {
+.logout-form {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -378,15 +329,31 @@ font-size: 16px; /* Adjust the size of the search icon */
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
-  }
-  .logout-link {
+}
+
+.logout-link {
     color: black;
     text-decoration: none;
     background-color: rgba(255, 255, 255, 1);
     padding: 12px 16px;
     display: block;
-  }
+}
 
-  .logout-link:hover {
+.logout-link:hover {
     text-decoration: underline;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
   }
+  
+.show {
+    display: block;
+}
+  
+  
