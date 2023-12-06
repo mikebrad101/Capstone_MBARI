@@ -1,19 +1,17 @@
 # Capstone_MBARI
-Database Modernization project
+# MBARI Expedition Database Modernization Project
+This project aims to modernize the existing 25-year-old web application used by MBARI for scheduling ship time and managing data collected from our expeditions. The current application, built with Microsoft SQL Server and Perl Active Server pages, has reached its end of life. The goal is to create a new mission-critical tool using a modern software stack.
 
-Here's a breakdown of possible directory structure:
+# Project Overview
+The new application will have separate backend and frontend components communicating through a well-defined API. The system will support two main data entry pathways: the pre-cruise and post-cruise processes. Both processes require a user to be logged in with one of three roles: MBARI Employee, Registered User, or Logistics Coordinator.
 
-client/: This directory contains all the frontend code built with React. The public/ directory holds your static assets and the HTML template. The src/ directory is where your React components and application logic reside.
+The aim is to produce a minimal viable product that is easy to understand and navigate by a diverse group of users.
 
-server/: This directory contains all the backend code built with Node.js and Express.js, which serves as the API for your React app.
-- config/: Configuration files, such as database configurations, environment variables, and other global settings.
-- controllers/: Controllers handle the application's business logic. You can have separate controllers for different parts of your app.
-- routes/: Define the API routes and how they map to your controllers.
-- app.js: The entry point for your Node.js server.
-package.json: Contains project metadata, dependencies, and scripts. You'll have separate package.json files for the client and server if you're using a monorepo setup.
+# Pre-cruise Process
+The pre-cruise process involves an MBARI Employee submitting information for approval by the Logistics Coordinator before an expedition is scheduled. The information includes ship name, purpose, chief scientist, principal investigator, scheduled start and end datetime, equipment description, participants, region description, and planned track description.
 
-.gitignore: List of files and directories to be ignored by version control (e.g., node_modules, build files, environment files).
+# Post-cruise Process
+The post-cruise process requires the science team to complete a form after an expedition. The form includes actual start and end datetime, accomplishments, scientist comments, whether scientific objectives were met, operator comments, whether all equipment functioned, other comments, and the ID of the person filling out the form. Registered Users can also enter Dive Start and End times for each dive conducted as part of the expedition.
 
-README.md: Documentation for your project, including installation and usage instructions.
-
-Other files and directories: Include other files and directories as needed for your specific project, such as tests, scripts, or tools.
+# Reports
+To verify the successful operation of the pre-cruise and post-cruise data entry, a reporting function must be provided that lists the Expeditions and the Dives related to them.
