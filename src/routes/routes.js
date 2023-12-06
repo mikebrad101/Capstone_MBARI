@@ -126,7 +126,7 @@ router.get("/logistics-coordinator-dashboard/:userId", isAuthenticated, async fu
     const logisticsCoordinators = await getLogisticsCoordinator();
     const mbariEmployees = await getMBARIEmployee();
     const registeredUsers = await getRegisteredUser();
-
+    var message = req.query.message;
 
     // Render the logistics-coordinator-dashboard template with the data
     res.render('logistics-coordinator-dashboard', { 
@@ -135,7 +135,8 @@ router.get("/logistics-coordinator-dashboard/:userId", isAuthenticated, async fu
       logisticsCoordinators,
       mbariEmployees,
       registeredUsers,
-      session: req.session // Add this line to pass session data
+      session: req.session, // Add this line to pass session data
+      message: message
     });
   } catch (error) {
     console.error("Error:", error);
@@ -150,14 +151,15 @@ router.get("/registered-user-dashboard/:userId", isAuthenticated, async function
     const registeredUsers = await getRegisteredUser();
     const logisticsCoordinators = await getLogisticsCoordinator();
     const mbariEmployees = await getMBARIEmployee();
+    var message = req.query.message;
 
     // Render the registered-user-dashboard template with the data
     res.render('registered-user-dashboard', { 
       registeredUsers ,
       logisticsCoordinators,
       mbariEmployees,
-      session: req.session // Add this line to pass session data
-
+      session: req.session, // Add this line to pass session data
+      message: message
     });
   } catch (error) {
     console.error("Error:", error);
