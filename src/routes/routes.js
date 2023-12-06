@@ -119,6 +119,8 @@ router.get('/mbari-employee-dashboard/:userId', isAuthenticated, async (req, res
   }
 });
 router.get("/logistics-coordinator-dashboard/:userId", isAuthenticated, async function(req, res) {
+  var message = req.query.message;
+
   try {
     // Get the expeditions needing approval data
     const expeditionsNeedingApproval = await getExpeditionsNeedingApproval(req.body);
@@ -137,6 +139,8 @@ router.get("/logistics-coordinator-dashboard/:userId", isAuthenticated, async fu
       registeredUsers,
       session: req.session, // Add this line to pass session data
       message: message
+      session: req.session,
+      message: message // Add this line to pass session data
     });
   } catch (error) {
     console.error("Error:", error);
@@ -146,6 +150,8 @@ router.get("/logistics-coordinator-dashboard/:userId", isAuthenticated, async fu
 router.get("/registered-user-dashboard/:userId", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
+  var message = req.query.message;
+
   try {
     // Get the users with the 'Registered User' role
     const registeredUsers = await getRegisteredUser();

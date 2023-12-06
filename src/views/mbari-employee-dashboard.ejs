@@ -17,7 +17,6 @@
 </head>
 <body>
 
-    <h1>Welcome to MBARI Employee Dashboard</h1>
     <%- include("partials/nav.ejs") %>
     <!-- Maybe make this notification nicer? -->
     <% if (message) { %>
@@ -27,6 +26,7 @@
       <% } %>
         <!-- Add more content and functionalities specific to the MBARI Employee -->
       <form>  
+        <h1>Welcome to MBARI Employee Dashboard</h1>
         <div class="ic-DashboardCard" aria-label="PreCruise" draggable="true" style="opacity: 1;">
             <div class="ic-DashboardCard__header">
                 <div class="ic-DashboardCard__header_image" style="background-image: url('https://www.mbari.org/wp-content/uploads/rv-rachel-carson-featured.jpg');">
