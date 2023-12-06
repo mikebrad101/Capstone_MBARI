@@ -20,6 +20,7 @@ const { executeSQL,
   getMBARIEmployee,
   getLogisticsCoordinator,
   getRegisteredUser,
+  getPlanned,
   getExpeditionsNeedingApproval } = require('../controllers/sql.js');
   const { isAuthenticated } = require('../controllers/middleware.js');
 const app = express();
@@ -258,6 +259,22 @@ router.post("/searchRequest", isAuthenticated, async function(req, res) {
     res.status(500).send('Internal Server Error');
   }
 });
+
+router.post('/plannedExpeditions', isAuthenticated, async function (req, res) {
+  console.log("here"); 
+  try {
+      const results = await getPlanned();
+
+      res.render('searchResults', {
+          expeditionResults: results,
+          session: req.session // Add this line to pass session data
+      });
+  } catch (error) {
+      console.error('Error during search:', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
 
 router.post('/approveCruise/:exp_id', isAuthenticated, async function(req, res) {
   const expedition_ID = req.params.exp_id;

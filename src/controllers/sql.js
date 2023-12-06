@@ -69,6 +69,13 @@ async function getAllShips() {
   return ships;
 }
 
+async function getPlanned(){
+  let sql = `SELECT * FROM expedition
+             WHERE status = "Planned"`;
+  let planned = await executeSQL(planned);
+  return planned;
+}
+
 async function approveCruise(exp_id){
   let sql = `UPDATE expedition
              SET expedition_status = "In Progress" 
@@ -286,5 +293,6 @@ module.exports = {
   getRegisteredUser,
   getLogisticsCoordinator,
   getExpeditionsNeedingApproval,
-  approveCruise
+  approveCruise,
+  getPlanned
 };

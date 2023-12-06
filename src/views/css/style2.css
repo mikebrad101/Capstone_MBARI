@@ -146,7 +146,10 @@ footer {
   justify-content: center;
   text-align: center;
   height: 60px;
-  margin-top: 200px; 
+  margin-top: auto;  /* Change margin-top to auto */
+  position: fixed;   /* Add this line to make the footer fixed at the bottom */
+  width: 100%;       /* Set the width to 100% */
+  bottom: 0;         /* Stick to the bottom of the viewport */
 }
 
 /* added styling for the drop down menu

@@ -18,7 +18,7 @@
 <body>
     <%- include("partials/nav.ejs") %>
 
-<form>
+<form id="getPlanned" action= "/plannedExpeditions" method="POST">
     <h1>Welcome to Logistics Coordinator Dashboard</h1>
     <!-- Add more content and functionalities specific to the MBARI Employee -->
 
@@ -27,19 +27,21 @@
             <div class="ic-DashboardCard__header_image" style="background-image: url('https://www.mbari.org/wp-content/uploads/rv-david-packard-featured.jpg');">
                 <div class="ic-DashboardCard__header_hero" aria-hidden="true" style="background-color: rgb(79, 128, 69); opacity: 0;"></div>
                     </div>
-                    <a href="/postexp" class="ic-DashboardCard__link">
+                    <!-- <a href="/postexp" class="ic-DashboardCard__link">
                         <h3 class="ic-DashboardCard__header-title ellipsis" title="Post Expedition">
                         <span style="color: rgb(23,1F,20);">Post Expedition</span>
                         </h3>
                         </div>
-                    </a>
+                    </a> -->
                     <div>
                         <div class="ic-DashboardCard__header-button-bg" style="background-color: rgb(79, 128, 69); opacity: 1;"></div>
                             <span data-position="Popover_0" class="css-1ihz85b-position">
-                                <button type="button" onclick="window.location.href='/postexp'" class="Button Button--icon-action-rev ic-DashboardCard__header-button" aria-expanded="false" data-popover-trigger="true" data-position-target="Popover_0">
-                                    <i class="icon-more" aria-hidden="true"></i>
-                                        Approve Cruise
-                                </button>
+                               
+                                    <button class="btn btn-show-more" type="submit" style="background-color: #000; color: #fff; border: 1px solid #fff;">
+                                        Cruise(s) needing approval
+                                    </button>
+                                
+                                
                             </span>
                     </div>
             </div>
