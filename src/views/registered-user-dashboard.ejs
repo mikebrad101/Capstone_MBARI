@@ -22,7 +22,12 @@
 
 <form>
     <h1>Welcome to Registered User Dashboard</h1>
-
+    <!-- Maybe make this notification nicer? -->
+    <% if (message) { %>
+        <div class="notification">
+          <%= message %>
+        </div>
+      <% } %>
     <div class="ic-DashboardCard" aria-label="PreCruise" draggable="true" style="opacity: 1;">
             <div class="ic-DashboardCard__header">
                 <div class="ic-DashboardCard__header_image" style="background-image: url('https://www.montereybayaquarium.org/globalassets/mba/images/people/staff/scott-chapman--tr15-1098.jpg?format=webp&quality=60');">

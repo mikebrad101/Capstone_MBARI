@@ -70,11 +70,13 @@ router.get("/preexp", isAuthenticated, async function(req, res) {
   let scientists = await getChiefScientists();
   let investigators = await getPrincipalInvestigators();
   const mbariEmployees = await getUsersByRole('MBARI Employee');
+  let ships = await getAllShips();
 
   res.render('preexp', {
     "scientists": scientists, 
     "investigators": investigators, 
     "role": mbariEmployees,
+    ships: ships,
     session: req.session // Add this line to pass session data
   });
 });
@@ -95,8 +97,10 @@ router.get("/signup", async function(req, res) {
 router.get('/mbari-employee-dashboard/:userId', isAuthenticated, async (req, res) => {
   //in route we get sql statement and data
   //then send it to the view using render
+  var message = req.query.message;
   try {
     // Get the users with the 'MBARI Employee' role
+    // why are we doing this????
     const userId = req.params.userId;
     const mbariEmployees = await getMBARIEmployee();
     const registeredUsers = await getRegisteredUser();
@@ -106,7 +110,8 @@ router.get('/mbari-employee-dashboard/:userId', isAuthenticated, async (req, res
       mbariEmployees, 
       registeredUsers,
       logisticsCoordinators,
-      session: req.session // Add this line to pass session data
+      session: req.session,
+      message: message // Add this line to pass session data
     });
   } catch (error) {
     console.error("Error:", error);
@@ -264,10 +269,13 @@ router.post('/plannedExpeditions', isAuthenticated, async function (req, res) {
   console.log("here"); 
   try {
       const results = await getPlanned();
+      const dives = await allDives();
+      let role = req.session.position;
 
       res.render('searchResults', {
+          dives: dives,
           expeditionResults: results,
-          session: req.session // Add this line to pass session data
+          role: role // Add this line to pass session data
       });
   } catch (error) {
       console.error('Error during search:', error);
@@ -284,13 +292,13 @@ router.post('/approveCruise/:exp_id', isAuthenticated, async function(req, res) 
 
     console.log(result);
 
-    //temporary redirect
-    res.redirect('/getLastEntry');
+    // redirect back to last page with a notifications saying 
+    // the expedition was approved was updated successfully
+    //res.redirect('/getLastEntry');
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
   }
-  
 });
 
 //temporary route to get last entry
@@ -303,13 +311,29 @@ router.get("/getLastEntry", isAuthenticated, async function(req, res) {
 router.post("/addPrecruise", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
-
-    const result = addExpedition(req.body);
-
+    const results = addExpedition(req.body);
     //console.log("Insert result:", result);
+    var message = encodeURIComponent('Added New Cruise successfully');
+    switch (req.session.position) {
+      case 'MBARI Employee':
+        res.redirect(`/mbari-employee-dashboard/${req.session.userId}?message=`+message);
+        break;
 
-    //redirect differently, give notification that it was entered correctly. 
-    res.redirect('/getLastEntry');
+      case 'Logistics Coordinator':
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message`);
+        break;
+
+      case 'Registered User':
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message`);
+        break;
+
+      // Add more cases for other roles as needed
+
+      default:
+        res.redirect('/login');
+        break;
+    }
+
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
@@ -325,8 +349,26 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
 
     //console.log("Insert result:", result);
 
-    //temporary redirect
-    res.redirect('/getLastEntry');
+    var message = encodeURIComponent('Updated Post Cruise successfully');
+    switch (req.session.position) {
+      case 'MBARI Employee':
+        res.redirect(`/mbari-employee-dashboard/${req.session.userId}?message=`+message);
+        break;
+
+      case 'Logistics Coordinator':
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message`);
+        break;
+
+      case 'Registered User':
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message`);
+        break;
+
+      // Add more cases for other roles as needed
+
+      default:
+        res.redirect('/login');
+        break;
+    }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
@@ -341,10 +383,26 @@ router.post("/updateDive/:dive_id", isAuthenticated, async function(req, res) {
     //create similar function to updateDive
     const result = await updateDive(req.body, req.params.dive_id);
 
-    //console.log("Insert result:", result);
+    var message = encodeURIComponent('Updated Dive successfully');
+    switch (req.session.position) {
+      case 'MBARI Employee':
+        res.redirect(`/mbari-employee-dashboard/${req.session.userId}?message=`+message);
+        break;
 
-    //temporary redirect
-    res.redirect('/getLastEntry');
+      case 'Logistics Coordinator':
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message`);
+        break;
+
+      case 'Registered User':
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message`);
+        break;
+
+      // Add more cases for other roles as needed
+
+      default:
+        res.redirect('/login');
+        break;
+    }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
@@ -360,8 +418,26 @@ router.post("/updateExpedition", isAuthenticated, async function(req, res) {
 
     console.log("Update result:", result);
 
-    //temporary redirect
-    res.redirect('/getLastEntry');
+    var message = encodeURIComponent('Updated Expedition successfully');
+    switch (req.session.position) {
+      case 'MBARI Employee':
+        res.redirect(`/mbari-employee-dashboard/${req.session.userId}?message=`+message);
+        break;
+
+      case 'Logistics Coordinator':
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message`);
+        break;
+
+      case 'Registered User':
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message`);
+        break;
+
+      // Add more cases for other roles as needed
+
+      default:
+        res.redirect('/login');
+        break;
+    }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");

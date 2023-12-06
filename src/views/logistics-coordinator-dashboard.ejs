@@ -20,6 +20,12 @@
 
 <form id="getPlanned" action= "/plannedExpeditions" method="POST">
     <h1>Welcome to Logistics Coordinator Dashboard</h1>
+        <!-- Maybe make this notification nicer? -->
+        <% if (message) { %>
+            <div class="notification">
+              <%= message %>
+            </div>
+          <% } %>
     <!-- Add more content and functionalities specific to the MBARI Employee -->
 
     <div class="ic-DashboardCard" aria-label="PostCruise" draggable="true" style="opacity: 1;">

@@ -71,8 +71,8 @@ async function getAllShips() {
 
 async function getPlanned(){
   let sql = `SELECT * FROM expedition
-             WHERE status = "Planned"`;
-  let planned = await executeSQL(planned);
+             WHERE expedition_status = "Planned"`;
+  let planned = await executeSQL(sql);
   return planned;
 }
 

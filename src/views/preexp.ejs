@@ -24,8 +24,11 @@
                 <div class="form-column">
                     <label for="shipName" class="labels">Ship Name:</label>
                     <select id="shipName" name="shipName" class="modern-select">
-                        <option value="ship1">Ship 1</option>
-                        <option value="ship2">Ship 2</option>
+                        <% for(let i=0; i < ships.length; i++) { %>
+                            <option value="<%=ships[i].ship_name %>">
+                              <%=ships[i].ship_name%>
+                            </option>
+                            <% } %>
                     </select>
 
                     <label for="purpose">Purpose:</label>
