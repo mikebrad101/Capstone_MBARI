@@ -320,11 +320,11 @@ router.post("/addPrecruise", isAuthenticated, async function(req, res) {
         break;
 
       case 'Logistics Coordinator':
-        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message`);
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message);
         break;
 
       case 'Registered User':
-        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message`);
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message);
         break;
 
       // Add more cases for other roles as needed
@@ -356,11 +356,11 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
         break;
 
       case 'Logistics Coordinator':
-        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message`);
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message);
         break;
 
       case 'Registered User':
-        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message`);
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message);
         break;
 
       // Add more cases for other roles as needed
@@ -390,11 +390,11 @@ router.post("/updateDive/:dive_id", isAuthenticated, async function(req, res) {
         break;
 
       case 'Logistics Coordinator':
-        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message`);
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message);
         break;
 
       case 'Registered User':
-        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message`);
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message);
         break;
 
       // Add more cases for other roles as needed
@@ -425,11 +425,11 @@ router.post("/updateExpedition", isAuthenticated, async function(req, res) {
         break;
 
       case 'Logistics Coordinator':
-        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message`);
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message);
         break;
 
       case 'Registered User':
-        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message`);
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message);
         break;
 
       // Add more cases for other roles as needed
