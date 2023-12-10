@@ -138,8 +138,6 @@ router.get("/logistics-coordinator-dashboard/:userId", isAuthenticated, async fu
       mbariEmployees,
       registeredUsers,
       session: req.session, // Add this line to pass session data
-      message: message,
-      session: req.session,
       message: message // Add this line to pass session data
     });
   } catch (error) {
