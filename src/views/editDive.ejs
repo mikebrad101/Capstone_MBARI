@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Dive Information Form</title>
+  <link rel="icon" href="/images/tabLogo.png" type="image/png">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link href="/css/style2.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <%- include("partials/nav.ejs") %>
+  <main class="container">
+
+    <h1>Edit Dive Information</h1>
+
+    <form class="columnTopSpace" action="/updateDive" method="POST">
+      <label for="rovName" class="labels">Rov Name:</label><br>
+      <input type="text" id="rovName" name="rovName" class="inputStyle" required value="<%= dive[0].ROV_name %>"><br><br>
+
+      <label for="diveNumber">Dive Number:</label><br>
+      <input class="inputStyle" type="number" id="diveNumber" name="diveNumber" required value="<%= dive[0].dive_number %>"><br><br>
+
+      <label for="diveStartDatetime">Dive Start Datetime:</label><br>
+      <input class="inputStyle" type="datetime-local" id="diveStartDatetime" name="diveStartDatetime" required value="<%= dive[0].dive_start %>"><br><br>
+
+      <label for="diveEndDatetime">Dive End Datetime:</label><br>
+      <input class="inputStyle" type="datetime-local" id="diveEndDatetime" name="diveEndDatetime" required value="<%= dive[0].dive_end %>"><br><br>
+
+      <select class="modern-select" id="diveChiefScientist" name="diveChiefScientist" required>
+        <% for(let i=0; i < scientists.length; i++) { %>
+          <%if (scientists[i].user_ID == dive[0].chief_scientist_id) { %>   
+            <option value="<%=scientists[i].user_ID %>" selected>
+              <%=scientists[i].first_name%>
+              <%=scientists[i].last_name%>
+          <% } else { %>
+          <option value="<%=scientists[i].user_ID %>">
+              <%=scientists[i].first_name%>
+                  <%=scientists[i].last_name%>
+                  <% } %>
+          </option>
+          <% } %>
+      </select><br><br>
+
+      <label for="briefAccomplishments">Brief Accomplishments:</label><br>
+      <textarea class="inputStyle" id="briefAccomplishments" name="briefAccomplishments" rows="3" cols="40"
+        maxlength="2048" required><%= dive[0].accomplishments %></textarea><br><br>
+
+      <div class="button-container">
+        <button class="button">Submit</button>
+      </div>
+    </form>
+  </main>
+
+
+  <footer>
+      <div class="foottext">
+          <!-- <img src='/images/horizontal-logo-withglow.png' class="footer-logo"> -->
+          <p>Website is only for academic purposes. Capstone 2023© MBARI</p>
+      </div>
+  </footer>
+</body>
+</html>

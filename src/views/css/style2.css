@@ -1,0 +1,272 @@
+/* <---------- Betzy's Styles -------------> */
+
+body {
+  background-image: url('/images/seaimage2.jpeg');
+  text-align: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  /* min-height: 100vh; */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
+}
+
+main {
+  flex: 1;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.7);
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 50px; 
+}
+
+@media (max-width: 600px) {
+  .container {
+      margin-left: 0%;
+  }
+}
+
+h1 {
+  text-align: center;
+  color: white;
+}
+
+h3 {
+  color: white;
+  margin-left: 10%;
+  margin-top: 20px;
+  text-align: left;
+  /* align-self: flex-start; */
+}
+
+#logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#logo {
+  width: 350px;
+  height: auto;
+}
+
+.columnTopSpace {
+  padding-top: 20px;
+}
+
+form {
+  text-align: left;
+}
+
+form>* {
+  margin-bottom: 10px;
+}
+
+label {
+  color: white;
+}
+
+/* .checkbox-container {
+  margin-left: 20px;
+} */
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #000;
+  border-radius: 5px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  margin-bottom: 20px; /* Add margin here */
+}
+
+.button {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 10px;
+  border: 1px solid #fff;
+}
+
+@media (max-width: 600px) {
+  .button-container {
+      flex-direction: column;
+      align-items: center;
+  }
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-column {
+  width: 48%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+footer {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #DEC4AD;
+  background-color: #231F20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 60px;
+  margin-top: auto;  /* Change margin-top to auto */
+  position: fixed;   /* Add this line to make the footer fixed at the bottom */
+  width: 100%;       /* Set the width to 100% */
+  bottom: 0;         /* Stick to the bottom of the viewport */
+}
+
+ /* added styling for the drop down menu */
+
+.search-container {
+  position: absolute;
+  margin: 10px;
+}
+
+/* input[type=text] {
+padding: 10px;
+width: 200px;
+border: 1px solid #ccc;
+border-radius: 5px;
+} */
+
+.search-button {
+  padding: 10px;
+  /* background: #28282B; Your desired button color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dropdown {
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+.dropdown {
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-content {
+  display: block;
+}
+.logout-form {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  text-align: center;
+}
+.logout-link {
+  color: black;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 12px 16px;
+  display: block;
+}
+
+.logout-link:hover {
+  text-decoration: underline;
+}
+
+h2{
+  text-align: center;
+  color: white;
+}
+textarea {
+  padding: 10px;
+  resize: both;
+  width: 100%;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.show {
+  display: block;
+}

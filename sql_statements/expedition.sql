@@ -19,15 +19,15 @@ CREATE TABLE expedition(
     purpose TEXT,
     chief_scientist VARCHAR(100),
     principal_investigator VARCHAR(100),
-    sch_start DATETIME,
-    sch_end DATETIME,
+    sch_start DATE,
+    sch_end DATE,
     equip_description TEXT,
     participants TEXT,
     region_description TEXT,
     planned_track_description TEXT,
     expedition_status VARCHAR(20),
-    actual_start DATETIME,
-    actual_end DATETIME,
+    actual_start DATE,
+    actual_end DATE,
     accomplishments TEXT,
     scientist_comments TEXT,
     operator_comments TEXT,
@@ -40,12 +40,14 @@ CREATE TABLE expedition(
 );
 
 CREATE TABLE dive(
+    dive_ID int NOT NULL AUTO_INCREMENT,
 	expedition_ID INT,
     ROV_name TEXT,
     dive_number INT,
-    dive_start DATETIME,
-    dive_end DATETIME,
-    dive_cheif_scientist VARCHAR(100),
+    dive_start DATE,
+    dive_end DATE,
+    chief_scientist_id INT,
     accomplishments TEXT,
+    PRIMARY KEY (dive_ID),
     FOREIGN KEY (expedition_ID) REFERENCES expedition(expedition_ID)
 );

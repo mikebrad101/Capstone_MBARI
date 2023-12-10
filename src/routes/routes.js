@@ -1,8 +1,28 @@
 const express = require('express');
 const router = express.Router();
+const { getSearchResults } = require('../controllers/search.js');
 const { executeSQL,
+  getUserFullName,
   getChiefScientists,
-  getPrincipalInvestigators } = require('../controllers/sql.js');
+  getPrincipalInvestigators,
+  getExpedition,
+  getAllCruises,
+  getAllShips,
+  addExpedition,
+  updatePost,
+  updateExpedition,
+  allDives, 
+  getAllDives,
+  getDive, 
+  approveCruise,
+  updateDive,
+  getUsersByRole,
+  getMBARIEmployee,
+  getLogisticsCoordinator,
+  getRegisteredUser,
+  getPlanned,
+  getExpeditionsNeedingApproval } = require('../controllers/sql.js');
+  const { isAuthenticated } = require('../controllers/middleware.js');
 const app = express();
 //need this to get data from webpage
 router.use(express.urlencoded({ extended: true }));
@@ -11,21 +31,6 @@ const bcrypt = require('bcrypt');
 const path = require('path'); 
 app.use('/css', express.static(path.join(__dirname, 'src/views/css')));
 
-
-//middleware
-function isAuthenticated(req, res, next) {
-  console.log(req.session);
-  //tired of logging in....
-  //next();
-  if (req.session.authenticated) {
-    console.log("is authenticated");
-    next();
-  } else {
-    console.log("not authenticated, redirecting....");
-    res.redirect('/login');
-  }
-}
-
 router.get("/", async function(req, res) {
   res.render('login');
 });
@@ -33,42 +38,137 @@ router.get("/", async function(req, res) {
 router.get("/home", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('home');
+  let role = await getUsersByRole();
+  res.render('home', { "role": role});
 });
+router.get("/aboutUs", isAuthenticated, async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  res.render('aboutUs');
+});
+
 
 router.get("/search", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('search');
+  //let ships = await getAllShips();
+  let scientists = await getChiefScientists();
+  let investigators = await getPrincipalInvestigators();
+  let ships = await getAllShips();
+  res.render('search', {
+    "scientists": scientists,
+    "investigators": investigators, 
+    "ships": ships, 
+    session: req.session // Add this line to pass session data
+  }); 
 });
+
 
 router.get("/preexp", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
   let scientists = await getChiefScientists();
-  console.log(scientists);
   let investigators = await getPrincipalInvestigators();
-  console.log(investigators);
-  res.render('preexp', {"scientists": scientists, "investigators": investigators});
+  const mbariEmployees = await getUsersByRole('MBARI Employee');
+  let ships = await getAllShips();
+
+  res.render('preexp', {
+    "scientists": scientists, 
+    "investigators": investigators, 
+    "role": mbariEmployees,
+    ships: ships,
+    session: req.session // Add this line to pass session data
+  });
 });
 
 router.get("/login", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('login', { errorMessage: null });
+  res.render('login');
 });
 
 router.get("/signup", async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('signup', { errorMessage: null });
+  res.render('signup');
 });
 
 //what is this for?
-router.get("/mbari-employee-dashboard", async function(req, res) {
+router.get('/mbari-employee-dashboard/:userId', isAuthenticated, async (req, res) => {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('mbari-employee-dashboard');
+  var message = req.query.message;
+  try {
+    // Get the users with the 'MBARI Employee' role
+    // why are we doing this????
+    const userId = req.params.userId;
+    const mbariEmployees = await getMBARIEmployee();
+    const registeredUsers = await getRegisteredUser();
+    const logisticsCoordinators = await getLogisticsCoordinator();
+
+    res.render('mbari-employee-dashboard', { userId, 
+      mbariEmployees, 
+      registeredUsers,
+      logisticsCoordinators,
+      session: req.session,
+      message: message // Add this line to pass session data
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+router.get("/logistics-coordinator-dashboard/:userId", isAuthenticated, async function(req, res) {
+  var message = req.query.message;
+
+  try {
+    // Get the expeditions needing approval data
+    const expeditionsNeedingApproval = await getExpeditionsNeedingApproval(req.body);
+    let expedition = await getExpedition(req.params.exp_id);
+    const logisticsCoordinators = await getLogisticsCoordinator();
+    const mbariEmployees = await getMBARIEmployee();
+    const registeredUsers = await getRegisteredUser();
+    var message = req.query.message;
+
+    // Render the logistics-coordinator-dashboard template with the data
+    res.render('logistics-coordinator-dashboard', { 
+      "approval" :expeditionsNeedingApproval, 
+      "expedition": expedition, 
+      logisticsCoordinators,
+      mbariEmployees,
+      registeredUsers,
+      session: req.session, // Add this line to pass session data
+      message: message // Add this line to pass session data
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+router.get("/registered-user-dashboard/:userId", isAuthenticated, async function(req, res) {
+  //in route we get sql statement and data
+  //then send it to the view using render
+  var message = req.query.message;
+
+  try {
+    // Get the users with the 'Registered User' role
+    const registeredUsers = await getRegisteredUser();
+    const logisticsCoordinators = await getLogisticsCoordinator();
+    const mbariEmployees = await getMBARIEmployee();
+    var message = req.query.message;
+
+    // Render the registered-user-dashboard template with the data
+    res.render('registered-user-dashboard', { 
+      registeredUsers ,
+      logisticsCoordinators,
+      mbariEmployees,
+      session: req.session, // Add this line to pass session data
+      message: message
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 router.get("/postexp", isAuthenticated, async function(req, res) {
@@ -79,25 +179,52 @@ router.get("/postexp", isAuthenticated, async function(req, res) {
 
 //middlware to pass expedition_id to update Post
 router.get("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
-  let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
-  let info = await executeSQL(sql, [req.params.exp_id]);
-
-  res.render('postexp', { "info": info, "userID":req.session.userId});
+  let info = await getExpedition(req.params.exp_id);
+  res.render('postexp', { 
+    "info": info, 
+    "userID":req.session.userId,
+    session: req.session // Add this line to pass session data
+  });
 });
 
 //middlware to pass expedition_id to update
 router.get("/update/:exp_id", isAuthenticated, async function(req, res) {
-  let sql = `SELECT * FROM expedition WHERE expedition_ID = ?`;
-  let expedition = await executeSQL(sql, [req.params.exp_id]);
-  let scientists = getChiefScientists();
-  let investigators = getPrincipalInvestigators();
-  res.render('update', { "expedition": expedition, "scientists": scientists, "investigators": investigators});
+  let expedition = await getExpedition(req.params.exp_id);
+  let scientists = await getChiefScientists();
+  let investigators = await getPrincipalInvestigators();
+  let dives = await getAllDives(req.params.exp_id);
+  
+  res.render('update', { 
+    "expedition": expedition,
+    "scientists": scientists, 
+    "investigators": investigators, 
+    "dives": dives,
+    session: req.session // Add this line to pass session data
+
+  });
 });
 
+//mike is finishing this
+router.get("/editDive/:dive_ID", isAuthenticated, async function(req, res) {
+  let scientists = await getChiefScientists();
+  let dive = await getDive(req.params.dive_ID);
+  res.render('editDive', { 
+    "scientists": scientists,
+    "dive": dive,
+    session: req.session // Add this line to pass session data
+  });
+});
+
+//needs to pass a expedition_id to associate dive to expedition
 router.get("/dive", isAuthenticated, async function(req, res) {
   //in route we get sql statement and data
   //then send it to the view using render
-  res.render('dive');
+  let scientists = await getChiefScientists();
+  
+  res.render('dive', {
+    "scientists": scientists,
+    session: req.session // Add this line to pass session data
+  });
 });
 
 router.get("/test", isAuthenticated, async function(req, res) {
@@ -114,12 +241,73 @@ router.get("/dbTest", async function(req, res) {
 });
 
 router.get("/allcruises", isAuthenticated, async function(req, res) {
-  let sql = "SELECT * FROM expedition;";
-  let rows = await executeSQL(sql); // Assuming executeSQL is a function to execute SQL queries
-  console.log("Results:", rows);
+  let rows = await getAllCruises();
+  //console.log(rows);
   res.render('allcruises', { "rows": rows});
 });
 
+router.post("/searchRequest", isAuthenticated, async function(req, res) {
+  console.log("here");
+  //console.log(req.body);
+  
+  try {
+    const results = await getSearchResults(req.body);
+    const dives = await allDives();
+    let role = req.session.position;
+    //console.log(results);
+    for (let i = 0; i < results.length; i++) {
+      results[i].chief_scientist = await getUserFullName(results[i].chief_scientist);
+      results[i].principal_investigator = await getUserFullName(results[i].principal_investigator);
+    }
+    res.render('searchResults', {
+       dives: dives,
+       expeditionResults: results,
+       role: role,
+       //session: req.session // Add this line to pass session data
+      });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+router.post('/plannedExpeditions', isAuthenticated, async function (req, res) {
+  console.log("here"); 
+  try {
+      const results = await getPlanned();
+      const dives = await allDives();
+      let role = req.session.position;
+
+      res.render('searchResults', {
+          dives: dives,
+          expeditionResults: results,
+          role: role // Add this line to pass session data
+      });
+  } catch (error) {
+      console.error('Error during search:', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+
+router.post('/approveCruise/:exp_id', isAuthenticated, async function(req, res) {
+  const expedition_ID = req.params.exp_id;
+  console.log(expedition_ID);
+  try {
+    const result = await approveCruise(expedition_ID);
+
+    console.log(result);
+
+    // redirect back to last page with a notifications saying 
+    // the expedition was approved was updated successfully
+    //res.redirect('/getLastEntry');
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//temporary route to get last entry
 router.get("/getLastEntry", isAuthenticated, async function(req, res) {
   let sql = 'SELECT * FROM expedition ORDER BY expedition_ID DESC LIMIT 1;';
   let rows = await executeSQL(sql);
@@ -129,42 +317,29 @@ router.get("/getLastEntry", isAuthenticated, async function(req, res) {
 router.post("/addPrecruise", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
+    const results = addExpedition(req.body);
+    //console.log("Insert result:", result);
+    var message = encodeURIComponent('Added New Cruise successfully');
+    switch (req.session.position) {
+      case 'MBARI Employee':
+        res.redirect(`/mbari-employee-dashboard/${req.session.userId}?message=`+message);
+        break;
 
-    const {
-      shipName,
-      purpose,
-      chiefScientist: chief_scientist,
-      principalInvestigator: principal_investigator,
-      scheduledStartDatetime: sch_start,
-      scheduledEndDatetime: sch_end,
-      equipmentDescription: equip_description,
-      participants,
-      regionDescription: region_description,
-      plannedTrackDescription: planned_track_description
-    } = req.body;
+      case 'Logistics Coordinator':
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message);
+        break;
 
-    //to keep track of what records are incomplete
-    expedition_status = "Planned";
+      case 'Registered User':
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message);
+        break;
 
-    const sql = 'INSERT INTO expedition (ship_name, purpose, chief_scientist, principal_investigator, sch_start, sch_end, equip_description, participants, region_description, planned_track_description, expedition_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      // Add more cases for other roles as needed
 
-    const result = await executeSQL(sql, [
-      shipName,
-      purpose,
-      chief_scientist,
-      principal_investigator,
-      sch_start,
-      sch_end,
-      equip_description,
-      participants,
-      region_description,
-      planned_track_description, 
-      expedition_status
-    ]);
+      default:
+        res.redirect('/login');
+        break;
+    }
 
-    console.log("Insert result:", result);
-
-    res.redirect('/getLastEntry');
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
@@ -176,49 +351,64 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
 
-    const {
-      actualStartDatetime: actual_start,
-      actualEndDatetime: actual_end,
-      accomplishments,
-      scientistComments: scientist_comments,
-      operatorComments: operator_comments,
-      sciObjectivesMet: sci_objective_met,
-      allEquipmentFunctioned: equipment_function,
-      otherComments: other_comments,
-      //can remove updated by once we have the user who is logged in
-      updatedBy: updated_by
-    } = req.body;
+    const result = await updatePost(req.body, req.params.exp_id);
 
-    //update post_cruise_complete to show that it is updated
-    let sql = `UPDATE expedition
-             SET expedition_status = "Complete",
-             actual_start = ?,
-             actual_end = ?,
-             accomplishments = ?,
-             scientist_comments = ?,
-             operator_comments = ?,
-             sci_objective_met = ?,
-             equipment_function = ?,
-             other_comments = ?,
-             updated_by = ?
-             WHERE expedition_ID = ?;`;
+    //console.log("Insert result:", result);
 
-    const result = await executeSQL(sql, [
-      actual_start, 
-      actual_end, 
-      accomplishments,
-      scientist_comments,
-      operator_comments,
-      sci_objective_met,
-      equipment_function,
-      other_comments,
-      updated_by,
-      req.params.exp_id
-    ]);
+    var message = encodeURIComponent('Updated Post Cruise successfully');
+    switch (req.session.position) {
+      case 'MBARI Employee':
+        res.redirect(`/mbari-employee-dashboard/${req.session.userId}?message=`+message);
+        break;
 
-    console.log("Insert result:", result);
+      case 'Logistics Coordinator':
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message);
+        break;
 
-    res.redirect('/getLastEntry');
+      case 'Registered User':
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message);
+        break;
+
+      // Add more cases for other roles as needed
+
+      default:
+        res.redirect('/login');
+        break;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//Dive update
+router.post("/updateDive/:dive_id", isAuthenticated, async function(req, res) {
+  try {
+    console.log(req.body);
+
+    //create similar function to updateDive
+    const result = await updateDive(req.body, req.params.dive_id);
+
+    var message = encodeURIComponent('Updated Dive successfully');
+    switch (req.session.position) {
+      case 'MBARI Employee':
+        res.redirect(`/mbari-employee-dashboard/${req.session.userId}?message=`+message);
+        break;
+
+      case 'Logistics Coordinator':
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message);
+        break;
+
+      case 'Registered User':
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message);
+        break;
+
+      // Add more cases for other roles as needed
+
+      default:
+        res.redirect('/login');
+        break;
+    }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
@@ -229,58 +419,31 @@ router.post("/updatePost/:exp_id", isAuthenticated, async function(req, res) {
 router.post("/updateExpedition", isAuthenticated, async function(req, res) {
   try {
     console.log(req.body);
-    const {
-      expedition_ID,
-      ship_name,
-      purpose,
-      chief_scientist,
-      principal_investigator,
-      sch_start,
-      sch_end,
-      equip_description,
-      participants,
-      region_description,
-      planned_track_description,
-      expedition_status,
-      actual_start,
-      actual_end,
-      accomplishments,
-      scientist_comments,
-      operator_comments,
-      sci_objective_met,
-      equipment_function,
-      other_comments
-    } = req.body;
 
-    const sql = 'UPDATE expedition SET ship_name = ?, purpose = ?, chief_scientist = ?, principal_investigator = ?, sch_start = ?, sch_end = ?, equip_description = ?, participants = ?, region_description = ?, planned_track_description = ?, expedition_status = ?, actual_start = ?, actual_end = ?, accomplishments = ?, scientist_comments = ?, operator_comments = ?, sci_objective_met = ?, equipment_function = ?, other_comments = ? WHERE expedition_ID = ?';
-
-    const result = await executeSQL(sql, [
-      ship_name,
-      purpose,
-      chief_scientist,
-      principal_investigator,
-      sch_start,
-      sch_end,
-      equip_description,
-      participants,
-      region_description,
-      planned_track_description,
-      expedition_status,
-      actual_start,
-      actual_end,
-      accomplishments,
-      scientist_comments,
-      operator_comments,
-      //error with checkboxes
-      sci_objective_met,
-      equipment_function,
-      other_comments,
-      expedition_ID
-    ]);
+    const result = await updateExpedition(req.body)
 
     console.log("Update result:", result);
 
-    res.redirect('/getLastEntry');
+    var message = encodeURIComponent('Updated Expedition successfully');
+    switch (req.session.position) {
+      case 'MBARI Employee':
+        res.redirect(`/mbari-employee-dashboard/${req.session.userId}?message=`+message);
+        break;
+
+      case 'Logistics Coordinator':
+        res.redirect(`/logistics-coordinator-dashboard/${req.session.userId}?message=`+message);
+        break;
+
+      case 'Registered User':
+        res.redirect(`/registered-user-dashboard/${req.session.userId}?message=`+message);
+        break;
+
+      // Add more cases for other roles as needed
+
+      default:
+        res.redirect('/login');
+        break;
+    }
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
@@ -290,36 +453,83 @@ router.post("/updateExpedition", isAuthenticated, async function(req, res) {
 router.post('/login', async (req, res) => {
   const { email, pwd } = req.body;
 
-  let sql = 'SELECT user_ID, password, role FROM person WHERE email = ?';
-  let results = await executeSQL(sql, [email]);
-  console.log(results);
-  if (results.length === 0) {
+  try {
+    let sql = 'SELECT user_ID, password, role FROM person WHERE email = ?';
+    let results = await executeSQL(sql, [email]);
+
+    if (results.length === 0) {
       // No user found with that email
       return res.render('login', { errorMessage: 'Invalid email or password.' });
-  }
-    const userId = results[0].user_ID
+    }
+
+    const userId = results[0].user_ID;
     const dbPassword = results[0].password;
     const dbRole = results[0].role;
+
     bcrypt.compare(pwd, dbPassword, (err, match) => {
       if (err) {
-          console.error('Error verifying password: ' + err.message);
-          return res.status(500).send('Internal Server Error');
+        console.error('Error verifying password: ' + err.message);
+        return res.status(500).send('Internal Server Error');
       }
+
       if (!match) {
-          return res.render('login', { errorMessage: 'Invalid email or password.' });
+        return res.render('login', { errorMessage: 'Invalid email or password.' });
       }
-      if (match) {
-        console.log("successful login")
-        
-        req.session.authenticated = true;
-        req.session.userId = userId;
-        req.session.position = dbRole;
-        console.log(req.session)
-        req.session.save()
-        res.redirect('/home');
-      }
+
+      // Passwords match
+      console.log("Successful login");
+
+      req.session.authenticated = true;
+      req.session.userId = userId;
+      req.session.position = dbRole;
+
+      req.session.save((err) => {
+        if (err) {
+          console.error('Error saving session: ' + err.message);
+          return res.status(500).send('Internal Server Error');
+        }
+
+        // Redirect logic based on user role
+        switch (dbRole) {
+          case 'MBARI Employee':
+            res.redirect(`/mbari-employee-dashboard/${userId}`);
+            break;
+
+          case 'Logistics Coordinator':
+            res.redirect(`/logistics-coordinator-dashboard/${userId}`);
+            break;
+
+          case 'Registered User':
+            res.redirect(`/registered-user-dashboard/${userId}`);
+            break;
+
+          // Add more cases for other roles as needed
+
+          default:
+            res.redirect('/login');
+            break;
+        }
+      });
     });
+  } catch (error) {
+    console.error('Error executing SQL query: ' + error.message);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
+router.post('/logout', (req, res) => {
+  // Destroy the session
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session: ' + err.message);
+      return res.status(500).send('Internal Server Error');
+    }
+
+    // Redirect to the login page after logout
+    res.redirect('/login');
+  });
+});
+
 
 router.post('/signup', async (req, res) => {
   const { firstname, lastname, email, password, role, occupation } = req.body;
@@ -339,7 +549,4 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-
 module.exports = router;
-
-

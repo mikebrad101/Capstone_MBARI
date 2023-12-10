@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results</title>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+      background-image: url('images/moon-jellies.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #fff; 
+    }
+
+    .btn-show-more {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .table-container {
+      background-color: rgba(0, 0, 0, 0.7); /* 4th value is transparency */
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .details-container {
+      background-color: rgba(0, 0, 0, 0.7); /* 4th value is transparency */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-top: 0;
+    }
+
+    .details-label {
+      font-weight: bold;
+    }
+
+    .header-container {
+      background-color: rgba(0, 0, 0, 0.7); /* 4th value is transparency */
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .header-text {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+</head>
+<body>
+  <%- include("partials/nav.ejs") %>
+  <div class="header-container">
+    <div class="header-text">Expedition Search Results</div>
+  </div>
+
+  <% if (expeditionResults.length > 0) { %>
+    <div class="table-container">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>Expedition ID</th>
+              <th>Ship Name</th>
+              <th>Purpose</th>
+              <th>Expedition Status</th>
+              <th>Chief Scientist</th>
+              <th>Principal Investigator</th>
+              <th>Scheduled Start</th>
+              <th>Scheduled End</th>
+              <th>Actual Start</th>
+              <th>Actual End</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% expeditionResults.forEach(expedition => { %>
+              <tr>
+                <td><%= expedition.expedition_ID %></td>
+                <td><%= expedition.ship_name %></td>
+                <td><%= expedition.purpose %></td>
+                <td><%= expedition.expedition_status %></td>
+                <td><%= expedition.chief_scientist %></td>
+                <td><%= expedition.principal_investigator %></td>
+                <td><%= new Date(expedition.sch_start).toLocaleDateString() %></td>
+                <td><%= new Date(expedition.sch_end).toLocaleDateString() %></td>
+                <td><%= new Date(expedition.actual_start).toLocaleDateString() %></td>
+                <td><%= new Date(expedition.actual_end).toLocaleDateString() %></td>
+
+                <td>
+                  <button class="btn btn-show-more" type="button" data-toggle="collapse" data-target="#expeditionDetails<%= expedition.expedition_ID %>" aria-expanded="false" aria-controls="expeditionDetails<%= expedition.expedition_ID %>" style="border: 1px solid #fff;">
+                    Show More
+                  </button>
+
+                  <button class="btn btn-show-more" onclick="goToUpdatePage(<%= expedition.expedition_ID %>)" style="border: 1px solid #fff;">
+                    Update Expedition
+                  </button>
+                  
+                  <% 
+                  if (expedition.expedition_status.toLowerCase() === 'planned' && role === 'Logistics Coordinator') { %>
+                    <form id = "approveCruise" action="/approveCruise/<%= expedition.expedition_ID %>" method="POST">
+                      <button class="btn btn-show-more" type="submit" style="border: 1px solid #fff;">
+                      Approve
+                    </button>
+                    </form>
+                    
+                  <% } %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="10" class="p-0">
+                  <div id="expeditionDetails<%= expedition.expedition_ID %>" class="collapse">
+                    <div class="details-container">
+                      <p class="details-label"><strong>Equipment Description:<br></strong> <%= expedition.equip_description %></p>
+                      <p class="details-label"><strong>Participants:<br></strong> <%= expedition.participants %></p>
+                      <p class="details-label"><strong>Region Description:<br></strong> <%= expedition.region_description %></p>
+                      <p class="details-label"><strong>Planned Track Description:<br></strong> <%= expedition.planned_track_description %></p>
+                      <p class="details-label"><strong>Accomplishments:<br></strong> <%= expedition.accomplishments %></p>
+                      <p class="details-label"><strong>Scientist Comments:<br></strong> <%= expedition.scientist_comments %></p>
+                      <p class="details-label"><strong>Operator Comments:<br></strong> <%= expedition.operator_comments %></p>
+                      <p class="details-label"><strong>Sci Objective Met:<br></strong> <%= expedition.sci_objective_met %></p>
+                      <p class="details-label"><strong>Equipment Function:<br></strong> <%= expedition.equipment_function %></p>
+                      <p class="details-label"><strong>Other Comments:<br></strong> <%= expedition.other_comments %></p>
+
+                      <!-- Display Dives Table -->
+                      <% const expeditionDives = dives.filter(dive => dive.expedition_ID === expedition.expedition_ID); %>
+                      <% if (expeditionDives.length > 0) { %>
+                        <h5 class="mt-3" style="font-weight: bold;">Dives</h5>
+                        <table class="table table-bordered" style="background-color: rgba(0, 0, 0, 0.7); color: #fff; border: 1px solid #fff;">
+                          <thead class="thead-dark">
+                            <tr>
+                              <th>Dive ID</th>
+                              <th>ROV Name</th>
+                              <th>Dive Number</th>
+                              <th>Dive Start</th>
+                              <th>Dive End</th>
+                              <th>Chief Scientist ID</th>
+                              <th>Accomplishments</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% expeditionDives.forEach(filteredDive => { %>
+                              <tr>
+                                <td><%= filteredDive.dive_ID %></td>
+                                <td><%= filteredDive.ROV_name %></td>
+                                <td><%= filteredDive.dive_number %></td>
+                                <td><%= new Date(filteredDive.dive_start).toLocaleDateString() %></td>
+                                <td><%= new Date(filteredDive.dive_end).toLocaleDateString() %></td>
+                                <td><%= filteredDive.chief_scientist_id %></td>
+                                <td><%= filteredDive.accomplishments %></td>
+                              </tr>
+                            <% }); %>
+                          </tbody>
+                        </table>
+                      <% } else { %>
+                        <p style="font-weight: bold; color: #fff;">No dives for this expedition.</p>
+                      <% } %>
+            
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% } else { %>
+    <p class="mt-4" style="background-color: rgba(0, 0, 0, 0.7); padding: 10px; border-radius: 10px; font-size: 18px;">
+      No expedition results found.
+    </p>
+  <% } %>
+
+  <button class="btn btn-show-more mt-2" onclick="backToSearch()" style="border: 1px solid #fff;">Back to Search</button>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <script>
+    function backToSearch() {
+      // Use window.location to navigate back to the search page
+      window.location.href = '/search';
+    }
+    function goToUpdatePage(expeditionID) {
+    // Use window.location to navigate to the update page with the expedition ID
+    window.location.href = '/update/' + expeditionID;
+    }
+  </script>
+
+</body>
+</html>
